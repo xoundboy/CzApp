@@ -13,3 +13,9 @@ $ npm run build
 
 To compile sass (in another terminal)
 $ npm run watch-css
+
+
+
+VSCode
+------
+Auto import keyboard shortcut = 'CMD' + '.'

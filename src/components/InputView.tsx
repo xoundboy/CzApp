@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { MouseEvent, ChangeEvent } from 'react';
 
 export interface Props {
     input?: string;
@@ -18,11 +19,11 @@ class InputView extends React.Component<Props, State> {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit(event: React.MouseEvent<HTMLInputElement>) {
+    handleSubmit(event: MouseEvent<HTMLButtonElement>) {
         console.log(this.state.inputValue);
     }
 
-    handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         this.setState({inputValue: event.target.value});
     }
 
