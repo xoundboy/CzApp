@@ -10,3 +10,6 @@ $ npm run test
 
 To run production build:
 $ npm run build
+
+To compile sass (in another terminal)
+$ npm run watch-css
