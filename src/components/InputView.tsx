@@ -3,7 +3,7 @@ import { MouseEvent, ChangeEvent } from 'react';
 
 export interface Props {
     input?: string;
-    onSubmit: ((input: string) => void);
+    onInputSubmit: ((input: string) => void);
 }
 
 export interface State {
@@ -20,7 +20,7 @@ class InputView extends React.Component<Props, State> {
     }
 
     handleSubmit(event: MouseEvent<HTMLButtonElement>) {
-        console.log(this.state.inputValue);
+        this.props.onInputSubmit(this.state.inputValue);
     }
 
     handleInputChange(event: ChangeEvent<HTMLInputElement>) {
