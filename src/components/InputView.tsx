@@ -5,12 +5,33 @@ export interface Props {
     onSubmit: ((input: string) => void);
 }
 
-class InputView extends React.Component<Props, object> {
+export interface State {
+    inputValue: string;
+}
+
+class InputView extends React.Component<Props, State> {
+
+    constructor(props: Props) {
+        super(props);
+        this.state = {inputValue: ''};
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit(event: React.MouseEvent<HTMLInputElement>) {
+        console.log(this.state.inputValue);
+    }
+
+    handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.setState({inputValue: event.target.value});
+    }
+
     render() {
         return (
             <div className="inputView">
-                <input type="text" />
                 <div>Input view</div>
+                <input type="text" value={this.state.inputValue} onChange={this.handleInputChange} />
+                <button onClick={this.handleSubmit}>Submit</button>
             </div>
         );
     }
