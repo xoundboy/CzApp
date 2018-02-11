@@ -1,22 +1,39 @@
 import * as React from 'react';
-import './App.css';
+import './App.scss';
+import InputView from './components/InputView';
+import PageView from './enum/PageView';
+import Language from './enum/Language';
 
-const logo = require('./logo.svg');
+export interface State {
+  input?: string;
+  inputLang?: Language;
+  currentView: PageView;
+}
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
+export interface Props {}
+
+class App extends React.Component<Props, State> {
+  
+  constructor(props: Props) {
+    super(props);
+    this.state = {currentView: PageView.Input};
   }
+
+  render() {
+    if (this.state.currentView === PageView.Input) {
+      return (
+        <div className="page">
+          <InputView onSubmit={onSubmit} />
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+}
+
+function onSubmit(input: string) {
+  throw new Error('submit clicked');
 }
 
 export default App;
