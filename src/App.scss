@@ -1,9 +1,82 @@
+%flag-en {
+  background-image: url(/image/button/flag_uk.jpg);
+}
+%flag-cz {
+  background-image: url(/image/button/flag_cz.jpg);
+}
+body, 
+#root, 
+.page,
+.inputView,
+.noteView
+{
+  height: 100vh;
+}
+
+
+
 .page {
   text-align: center;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(201, 227, 228);
   color: rgb(87, 15, 15);
+
+  input, button {
+    font-size: 20px;
+  }
 
   .inputView {
     margin: 20px;
+  }
+
+  .langView {
+    .inputText {
+      font-size: 30px;
+      height: 40px;
+    }
+
+    button {
+      padding: 10px;
+      margin: 20px;
+      width: 81px;
+      height: 40px;
+      background-color: rgb(253, 213, 173);
+
+      &.cz {
+        @extend %flag-cz;
+      }
+
+      &.en {
+        @extend %flag-en;
+      }
+    }
+  }
+
+  .confirmationView {
+    .editLink {
+      margin-left: 20px;
+    }
+  }
+
+  .noteView {
+    textarea {
+      width: 80%;
+      height: 30%;
+    }
+  }
+
+  .flag {
+    width: 40px;
+    height: 20px;
+    background-size: contain;
+    display: inline-block;
+    margin-right: 20px;
+
+    &.cz {
+      @extend %flag-cz;
+    }
+
+    &.en {
+      @extend %flag-en;
+    }
   }
 }

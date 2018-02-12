@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { MouseEvent } from 'react';
 import Language from '../enum/Language';
+import LanguageButton from './LanguageButton';
 
 export interface Props {
     input: string;
@@ -15,20 +15,29 @@ class LangView extends React.Component<Props, object> {
 
     constructor(props: Props) {
         super(props);
-        this.handleLanguageClick = this.handleLanguageClick.bind(this);
+        this.onLanguageButtonCick = this.onLanguageButtonCick.bind(this);
     }
 
-    handleLanguageClick(event: MouseEvent<HTMLButtonElement>) {
-        console.log(event);
-        // this.props.onLangClick(this.state.inputValue);
+    onLanguageButtonCick(language: Language) {
+        this.props.onLangClick(language);
     }
 
     render() {
         return (
             <div className="langView">
-                <div>{this.props.input}</div>
-                <button onClick={this.handleLanguageClick} value={Language.Czech}>Czech</button>
-                <button onClick={this.handleLanguageClick} value={Language.English}>English</button>
+                <div>Word / phrase entered:</div>
+                <div className="inputText">{this.props.input}</div>
+                <div className="whichLang">Which language is this?</div>
+                <LanguageButton 
+                    language={Language.Czech}
+                    onClick={this.onLanguageButtonCick}
+                    label="" 
+                />
+                <LanguageButton 
+                    language={Language.English}
+                    onClick={this.onLanguageButtonCick} 
+                    label=""
+                />
             </div>
         );
     }
