@@ -7,10 +7,6 @@ export interface Props {
     onLangClick: ((lang: Language) => void);
 }
 
-// export interface State {
-//     selectedLang: Language;
-// }
-
 class LangView extends React.Component<Props, object> {
 
     constructor(props: Props) {
@@ -25,7 +21,6 @@ class LangView extends React.Component<Props, object> {
     render() {
         return (
             <div className="langView">
-                <div>Word / phrase entered:</div>
                 <div className="inputText">{this.props.input}</div>
                 <div className="whichLang">Which language is this?</div>
                 <LanguageButton 

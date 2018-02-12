@@ -13,12 +13,19 @@ body,
 
 .page {
   text-align: center;
-  background-color: #c9e3e4;
-  color: #570f0f; }
+  background-color: white;
+  color: #570f0f;
+  padding: 20px; }
   .page input, .page button {
-    font-size: 20px; }
-  .page .inputView {
-    margin: 20px; }
+    font-size: 20px;
+    width: 80%;
+    padding: 10px; }
+  .page .inputView input {
+    background-color: #f5f5d9; }
+  .page .inputView button {
+    margin-top: 20px;
+    background-color: maroon;
+    color: white; }
   .page .langView .inputText {
     font-size: 30px;
     height: 40px; }
@@ -39,3 +46,5 @@ body,
     background-size: contain;
     display: inline-block;
     margin-right: 20px; }
+    .page .flag.no-language {
+      display: none; }

@@ -172,7 +172,6 @@ class App extends React.Component<Props, State> {
       default:
         return null;
     }
-
   }
 }
 

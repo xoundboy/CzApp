@@ -43,6 +43,7 @@ class InputView extends React.Component<Props, State> {
                         value={this.state.inputValue} 
                         onChange={this.handleInputChange}
                         autoFocus={true}
+                        placeholder="English or Czech word or phrase"
                     />
                     <button type="submit">Enter</button>
                 </form>

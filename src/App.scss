@@ -13,19 +13,27 @@ body,
   height: 100vh;
 }
 
-
-
 .page {
   text-align: center;
-  background-color: rgb(201, 227, 228);
+  background-color: rgb(255, 255, 255);
   color: rgb(87, 15, 15);
+  padding: 20px;
 
   input, button {
     font-size: 20px;
+    width: 80%;
+    padding:10px;
   }
 
   .inputView {
-    margin: 20px;
+    input {
+      background-color: rgb(245, 245, 217);
+    }
+    button {
+      margin-top:20px;
+      background-color:maroon;
+      color: white;
+    }
   }
 
   .langView {
@@ -77,6 +85,10 @@ body,
 
     &.en {
       @extend %flag-en;
+    }
+
+    &.no-language {
+      display: none;
     }
   }
 }
