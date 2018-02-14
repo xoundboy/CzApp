@@ -20,14 +20,16 @@ export interface State {
 export interface Props {}
 
 class App extends React.Component<Props, State> {
-  
+
+  oReq: XMLHttpRequest;
+
   constructor(props: Props) {
     super(props);
     this.state = {
-      input: '', 
-      translation: '', 
+      input: '',
+      translation: '',
       note: '',
-      inputLang: Language.None, 
+      inputLang: Language.None,
       translationLang: Language.None,
       currentView: PageView.Input
     };
@@ -88,9 +90,9 @@ class App extends React.Component<Props, State> {
 
   onCancel() {
     this.setState({
-      input: '', 
-      translation: '', 
-      inputLang: Language.None, 
+      input: '',
+      translation: '',
+      inputLang: Language.None,
       translationLang: Language.None,
       currentView: PageView.Input,
       note: ''
@@ -100,6 +102,17 @@ class App extends React.Component<Props, State> {
   onSave() {
     console.log('Saving... ');
     console.log(this.state);
+    this.oReq = new XMLHttpRequest();
+    this.oReq.open('POST', 'http://localhost:3002/words');
+    this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    this.oReq.addEventListener('load', this.onSaveCompleted);
+    var params = 'english=' + this.state.input + '&czech=' + this.state.translation + '&note=' + this.state.note;
+    this.oReq.send(params);
+
+  }
+
+  onSaveCompleted () {
+    console.log('hello');
   }
 
   render() {
@@ -108,10 +121,10 @@ class App extends React.Component<Props, State> {
       case PageView.Input:
         return (
           <div className="page">
-            <InputView 
+            <InputView
               input={this.state.input}
               inputLang={this.state.inputLang}
-              onInputSubmit={this.onInputSubmit} 
+              onInputSubmit={this.onInputSubmit}
             />
           </div>
         );
@@ -126,12 +139,12 @@ class App extends React.Component<Props, State> {
       case PageView.Translation:
         return (
           <div className="page">
-            <TranslationView 
-              input={this.state.input} 
+            <TranslationView
+              input={this.state.input}
               inputLang={this.state.inputLang}
               translation={this.state.translation}
               translationLang={this.state.translationLang}
-              onTranslationSubmit={this.onTranslationSubmit} 
+              onTranslationSubmit={this.onTranslationSubmit}
             />
           </div>
         );
@@ -156,7 +169,7 @@ class App extends React.Component<Props, State> {
         );
 
       case PageView.Note:
-        return (          
+        return (
           <div className="page">
             <NoteView
               input={this.state.input}

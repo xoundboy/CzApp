@@ -11,5 +11,8 @@ http.listen(config.SERVER_PORT, function(){
     console.log("Connected & Listening to port " + config.SERVER_PORT);
 });
 
+// SERVE THE SINGLE PAGE APP
+app.use('/', express.static('../public'));
+
 // CONTROLLERS
 app.use('/words', require('./words'));
