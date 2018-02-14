@@ -45,9 +45,11 @@ var util = {
 	runQueryAndResponse: function(query, res){
 		this.dbConn().query(query, function(err, rows) {
 			if (err) {
-				res.status(500).send({ error: err })
+				res.header("Access-Control-Allow-Origin", "*");
+				res.status(500).send({ error: err });
 				return;
 			}
+			res.header("Access-Control-Allow-Origin", "*");
 			res.json(rows);
 		})
 	},
@@ -56,6 +58,7 @@ var util = {
 
 		this.dbConn().query('SELECT last_insert_id() AS id;', function (err, rows) {
 			if (err) {
+				res.header("Access-Control-Allow-Origin", "*");
 				res.status(400).send("can't get the latest insert ID from the database");
 			} else {
 				callback(rows[0].id);
@@ -71,6 +74,7 @@ var util = {
 
 		if (err) {
 			console.log(err);
+			res.header("Access-Control-Allow-Origin", "*");
 			res.status(400).send(err.msg);
 			return true;
 		}
