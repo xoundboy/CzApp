@@ -21,9 +21,10 @@ class LanguageButton extends Component<Props, object> {
     }
 
     render() {
+        var className = 'flag ' + this.props.language.toString();
         return (                
             <button 
-                className={this.props.language.toString()}
+                className={className}
                 onClick={this.onButtonClicked} 
             />
         );

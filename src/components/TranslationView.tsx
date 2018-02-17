@@ -1,6 +1,6 @@
 import Language from '../enum/Language';
 import * as React from 'react';
-import { ChangeEvent } from 'react';
+import { Component, ChangeEvent } from 'react';
 import LanguageUtil from '../util/LanguageUtil';
 
 export interface Props {
@@ -15,7 +15,7 @@ export interface State {
     translationValue: string;
 }
 
-class TranslationView extends React.Component<Props, State> {
+class TranslationView extends Component<Props, State> {
 
     constructor(props: Props) {
         super(props);
@@ -33,24 +33,26 @@ class TranslationView extends React.Component<Props, State> {
     }
 
     render() {
-        var translationFlagClass = 'flag ' + this.props.translationLang;
+        var inputFlagClass = 'flag ' + this.props.inputLang;
         var placeholderText = 'Enter the ' + LanguageUtil.getLanguageName(this.props.translationLang) 
             + ' translation for "' + this.props.input + '"';
         return (
-            <div className="TranslationView">
-                <p>{this.props.input}</p>
-                <form onSubmit={this.handleSubmit}>
-                    <span className={translationFlagClass} />
-                    <input 
-                        type="text" 
-                        value={this.state.translationValue} 
+            <form className="TranslationView" onSubmit={this.handleSubmit}>
+                <div className="inputText half">
+                    <span className={inputFlagClass} />
+                    <span>{this.props.input}</span>
+                </div>
+                <div className="inputText half">
+                    <input
+                        type="text"
+                        value={this.state.translationValue}
                         onChange={this.handleInputChange}
                         autoFocus={true}
                         placeholder={placeholderText}
                     />
                     <button type="submit">Submit</button>
-                </form>
-            </div>
+                </div>
+            </form>
         );
     }
 }

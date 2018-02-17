@@ -35,19 +35,17 @@ class InputView extends React.Component<Props, State> {
 
     render() {
         return (
-            <div className="inputView">
-                <form onSubmit={this.handleSubmit}>
-                    <span className={this.getFlagClassName()} />
-                    <input 
-                        type="text" 
-                        value={this.state.inputValue} 
-                        onChange={this.handleInputChange}
-                        autoFocus={true}
-                        placeholder="English or Czech word or phrase"
-                    />
-                    <button type="submit">Enter</button>
-                </form>
-            </div>
+            <form className="inputView" onSubmit={this.handleSubmit}>
+                {/*<span className={this.getFlagClassName()} />*/}
+                <input
+                    type="text"
+                    value={this.state.inputValue}
+                    onChange={this.handleInputChange}
+                    autoFocus={true}
+                    placeholder="English or Czech word or phrase"
+                />
+                <button type="submit">Enter</button>
+            </form>
         );
     }
 }

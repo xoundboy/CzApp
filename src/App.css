@@ -1,50 +1,76 @@
-.page .langView button.en, .page .flag.en {
+.page .en.flag {
   background-image: url(/image/button/flag_uk.jpg); }
 
-.page .langView button.cz, .page .flag.cz {
+.page .cz.flag {
   background-image: url(/image/button/flag_cz.jpg); }
 
-body,
-#root,
-.page,
-.inputView,
-.noteView {
-  height: 100vh; }
+.page .flag {
+  background-size: contain;
+  display: inline-block;
+  border-radius: 3px;
+  border: 2px solid silver; }
+  .page .no-language.flag {
+    display: none; }
+
+body {
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; }
 
 .page {
   text-align: center;
   background-color: white;
   color: #570f0f;
-  padding: 20px; }
-  .page input, .page button {
-    font-size: 20px;
-    width: 80%;
-    padding: 10px; }
-  .page .inputView input {
-    background-color: #f5f5d9; }
-  .page .inputView button {
-    margin-top: 20px;
-    background-color: maroon;
-    color: white; }
+  padding: 40px;
+  font-size: 30px;
+  align-items: stretch; }
+  .page form {
+    width: 100%; }
+    .page form input {
+      font-size: 20px;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 40px;
+      box-sizing: border-box;
+      background-color: #f5f5d9;
+      display: block; }
+    .page form button {
+      font-size: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: maroon;
+      color: white;
+      border-radius: 4px;
+      padding: 18px 0;
+      box-shadow: 5px 5px 5px grey; }
+      .page form button.flag {
+        padding: 0;
+        height: 60px;
+        width: 116px;
+        margin: 10px; }
+  .page .flag {
+    height: 20px;
+    width: 41px;
+    margin: 10px; }
   .page .langView .inputText {
     font-size: 30px;
-    height: 40px; }
-  .page .langView button {
+    color: #5d0609;
+    border: 2px solid #5d0609;
+    border-radius: 3px;
+    position: relative;
+    height: 200px;
+    overflow: auto;
     padding: 10px;
-    margin: 20px;
-    width: 81px;
-    height: 40px;
-    background-color: #fdd5ad; }
+    text-align: left;
+    font-size: 20px; }
+  .page .langView .flagButtons {
+    margin: 30px 0; }
   .page .confirmationView .editLink {
     margin-left: 20px; }
   .page .noteView textarea {
     width: 80%;
-    height: 30%; }
-  .page .flag {
-    width: 40px;
-    height: 20px;
-    background-size: contain;
-    display: inline-block;
-    margin-right: 20px; }
-    .page .flag.no-language {
-      display: none; }
+    height: 30%;
+    outline: 3px solid #5d0609;
+    font-size: 32px; }

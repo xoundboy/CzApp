@@ -1,9 +1,9 @@
 enum PageView {
-  Input,
-  Language,
-  Translation,
-  Confirmation,
-  Note,
+  Input = 'input',
+  Language = 'language',
+  Translation = 'translation',
+  Confirmation = 'confirmation',
+  Note = 'note',
 }
 
 export default PageView;

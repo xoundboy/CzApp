@@ -20,20 +20,22 @@ class LangView extends React.Component<Props, object> {
 
     render() {
         return (
-            <div className="langView">
-                <div className="inputText">{this.props.input}</div>
+            <form className="langView">
                 <div className="whichLang">Which language is this?</div>
-                <LanguageButton 
-                    language={Language.Czech}
-                    onClick={this.onLanguageButtonCick}
-                    label="" 
-                />
-                <LanguageButton 
-                    language={Language.English}
-                    onClick={this.onLanguageButtonCick} 
-                    label=""
-                />
-            </div>
+                <div className="flagButtons">
+                    <LanguageButton
+                        language={Language.Czech}
+                        onClick={this.onLanguageButtonCick}
+                        label=""
+                    />
+                    <LanguageButton
+                        language={Language.English}
+                        onClick={this.onLanguageButtonCick}
+                        label=""
+                    />
+                </div>
+                <div className="inputText">{this.props.input}</div>
+            </form>
         );
     }
 }
