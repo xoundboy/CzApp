@@ -20,7 +20,7 @@ class LangView extends React.Component<Props, object> {
 
     render() {
         return (
-            <form className="langView">
+            <div className="view langView">
                 <div className="whichLang">Which language is this?</div>
                 <div className="flagButtons">
                     <LanguageButton
@@ -35,7 +35,7 @@ class LangView extends React.Component<Props, object> {
                     />
                 </div>
                 <div className="inputText">{this.props.input}</div>
-            </form>
+            </div>
         );
     }
 }

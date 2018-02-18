@@ -22,7 +22,7 @@ class ConfirmationView extends Component<Props, object> {
         var inputFlagClass = 'flag ' + this.props.inputLang;
         var translationFlagClass = 'flag ' + this.props.translationLang;
         return (
-            <form className="confirmationView">
+            <div className="view confirmationView">
                 <p className="input">
                     <span className={inputFlagClass} />
                     <span>{this.props.input}</span>
@@ -38,7 +38,7 @@ class ConfirmationView extends Component<Props, object> {
                 <p><button onClick={this.props.onCancel}>Cancel</button></p>
                 <p><button onClick={this.props.onNotesClicked}>Add notes</button></p>
                 <p><button onClick={this.props.onSwitchLanguages}>Switch languages</button></p>
-            </form>
+            </div>
         );
     }
 }

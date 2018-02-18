@@ -26,9 +26,30 @@ body {
   padding: 40px;
   font-size: 30px;
   align-items: stretch; }
-  .page form {
+  .page div.view {
     width: 100%; }
-    .page form input {
+    .page div.view.translationView {
+      height: 100vh; }
+      .page div.view.translationView .half {
+        height: 50vh;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; }
+        .page div.view.translationView .half.top {
+          border-bottom: 2px solid grey; }
+        .page div.view.translationView .half .content {
+          align-items: stretch; }
+          .page div.view.translationView .half .content button {
+            margin-top: 30px; }
+    .page div.view.noteView {
+      height: 100vh; }
+      .page div.view.noteView textarea {
+        width: 80%;
+        height: 60%;
+        outline: 3px solid #5d0609;
+        font-size: 32px; }
+    .page div.view input {
       font-size: 20px;
       width: 100%;
       padding: 10px;
@@ -36,7 +57,9 @@ body {
       box-sizing: border-box;
       background-color: #f5f5d9;
       display: block; }
-    .page form button {
+      .page div.view input.invalid {
+        outline: 5px red solid; }
+    .page div.view button {
       font-size: 20px;
       width: 100%;
       padding: 10px;
@@ -45,7 +68,7 @@ body {
       border-radius: 4px;
       padding: 18px 0;
       box-shadow: 5px 5px 5px grey; }
-      .page form button.flag {
+      .page div.view button.flag {
         padding: 0;
         height: 60px;
         width: 116px;
@@ -54,7 +77,7 @@ body {
     height: 20px;
     width: 41px;
     margin: 10px; }
-  .page .langView .inputText {
+  .page.langView .inputText {
     font-size: 30px;
     color: #5d0609;
     border: 2px solid #5d0609;
@@ -65,12 +88,7 @@ body {
     padding: 10px;
     text-align: left;
     font-size: 20px; }
-  .page .langView .flagButtons {
+  .page.langView .flagButtons {
     margin: 30px 0; }
-  .page .confirmationView .editLink {
+  .page.confirmationView .editLink {
     margin-left: 20px; }
-  .page .noteView textarea {
-    width: 80%;
-    height: 30%;
-    outline: 3px solid #5d0609;
-    font-size: 32px; }

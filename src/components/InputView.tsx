@@ -1,51 +1,40 @@
 import * as React from 'react';
-import { ChangeEvent } from 'react';
-import Language from '../enum/Language';
+import InputViewBase, { InputViewBaseProps, InputViewBaseState } from './InputViewBase';
 
-export interface Props {
-    input: string;
-    inputLang?: Language;
-    onInputSubmit: ((input: string) => void);
-}
+class InputView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
 
-export interface State {
-    inputValue: string;
-}
-
-class InputView extends React.Component<Props, State> {
-
-    constructor(props: Props) {
+    constructor(props: InputViewBaseProps) {
         super(props);
-        this.state = {inputValue: props.input};
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit() {
-        this.props.onInputSubmit(this.state.inputValue);
-    }
-
-    handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-        this.setState({inputValue: event.target.value});
+    componentWillMount() {
+        this.setState({inputValue: this.props.input});
     }
 
     getFlagClassName() {
         return 'flag ' + this.props.inputLang;
     }
 
+    validateInput() {
+        this.valid = this.state.inputValue.length > 0;
+    }
+
     render() {
+        var className = !this._valid ? 'invalid' : '';
+        
         return (
-            <form className="inputView" onSubmit={this.handleSubmit}>
-                {/*<span className={this.getFlagClassName()} />*/}
+            <div className="view inputView">
                 <input
                     type="text"
                     value={this.state.inputValue}
                     onChange={this.handleInputChange}
+                    onKeyPress={this.handleKeyup}
+                    className={className}
                     autoFocus={true}
                     placeholder="English or Czech word or phrase"
                 />
-                <button type="submit">Enter</button>
-            </form>
+                <button onClick={this.handleSubmit}>Submit</button>
+            </div>
         );
     }
 }

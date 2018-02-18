@@ -36,8 +36,7 @@ class NoteView extends Component<Props, State> {
         var inputFlagClass = 'flag ' + this.props.inputLang;
         var translationFlagClass = 'flag ' + this.props.translationLang;
         return (
-            <div className="noteView">
-                <p>Add Note</p>
+            <div className="view noteView">
                 <p className="input">
                     <span className={inputFlagClass} />
                     <span>{this.props.input}</span>
@@ -48,7 +47,7 @@ class NoteView extends Component<Props, State> {
                 </p>
 
                 <textarea onChange={this.onChange} value={this.state.note} />
-                <p><button onClick={this.onNoteSubmitted}>Submit note</button></p>
+                <p><button onClick={this.onNoteSubmitted}>Add note</button></p>
             </div>
         );
     }

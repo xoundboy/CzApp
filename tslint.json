@@ -14,7 +14,7 @@
             true,
             "check-space"
         ],
-        "curly": true,
+        "curly": [true, "next-line-multi-line"],
         "eofline": false,
         "forin": true,
         "indent": [ true, "spaces" ],
@@ -35,7 +35,6 @@
         "no-bitwise": true,
         "no-console": [
             true,
-            //"log",
             "error",
             "debug",
             "info",

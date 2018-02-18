@@ -100,15 +100,13 @@ class App extends React.Component<Props, State> {
   }
 
   onSave() {
-    console.log('Saving... ');
-    console.log(this.state);
     this.oReq = new XMLHttpRequest();
     this.oReq.open('POST', 'http://localhost:3002/words');
     this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     this.oReq.addEventListener('load', this.onSaveCompleted);
     var params = 'english=' + this.state.input + '&czech=' + this.state.translation + '&note=' + this.state.note;
     this.oReq.send(params);
-
+    return false;
   }
 
   onSaveCompleted () {
@@ -124,7 +122,7 @@ class App extends React.Component<Props, State> {
             <InputView
               input={this.state.input}
               inputLang={this.state.inputLang}
-              onInputSubmit={this.onInputSubmit}
+              onSubmit={this.onInputSubmit}
             />
           </div>
         );
@@ -144,7 +142,7 @@ class App extends React.Component<Props, State> {
               inputLang={this.state.inputLang}
               translation={this.state.translation}
               translationLang={this.state.translationLang}
-              onTranslationSubmit={this.onTranslationSubmit}
+              onSubmit={this.onTranslationSubmit}
             />
           </div>
         );

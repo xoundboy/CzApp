@@ -39,8 +39,42 @@ body {
   font-size: 30px;
   align-items: stretch;
 
-  form {
+  div.view {
     width: 100%;
+
+    &.translationView {
+      height: 100vh;
+
+      .half {
+        height: 50vh;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &.top {
+          border-bottom: 2px solid grey;
+        }
+
+        .content {
+          align-items: stretch;
+
+          button {
+            margin-top:30px;
+          }
+        }
+      }
+    }
+
+    &.noteView {
+      height: 100vh;
+      textarea {
+        width: 80%;
+        height: 60%;
+        outline: 3px solid #5d0609;
+        font-size: 32px;
+      }
+    }
 
     input {
       font-size: 20px;
@@ -50,6 +84,9 @@ body {
       box-sizing: border-box;
       background-color: rgb(245, 245, 217);
       display: block;
+      &.invalid {
+        outline: 5px red solid;
+      }
     }
 
     button {
@@ -78,7 +115,7 @@ body {
     margin: 10px;
   }
 
-  .langView {
+  &.langView {
     .inputText {
       font-size: 30px;
       color: #5d0609;
@@ -96,18 +133,9 @@ body {
     }
   }
 
-  .confirmationView {
+  &.confirmationView {
     .editLink {
       margin-left: 20px;
-    }
-  }
-
-  .noteView {
-    textarea {
-      width: 80%;
-      height: 30%;
-      outline: 3px solid #5d0609;
-      font-size: 32px;
     }
   }
 }
