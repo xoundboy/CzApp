@@ -1,8 +1,8 @@
 .page .en.flag {
-  background-image: url(/image/button/flag_uk.jpg); }
+  background-image: url(./image/button/flag_uk.jpg); }
 
 .page .cz.flag {
-  background-image: url(/image/button/flag_cz.jpg); }
+  background-image: url(./image/button/flag_cz.jpg); }
 
 .page .flag {
   background-size: contain;
