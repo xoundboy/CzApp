@@ -36,8 +36,6 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center; }
-        .page div.view.translationView .half.top {
-          border-bottom: 2px solid grey; }
         .page div.view.translationView .half .content {
           align-items: stretch; }
           .page div.view.translationView .half .content button {

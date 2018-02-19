@@ -1,18 +1,18 @@
 import * as React from 'react';
 import InputViewBase, { InputViewBaseProps, InputViewBaseState } from './InputViewBase';
 
-class InputView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
+class LexemeView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
 
     constructor(props: InputViewBaseProps) {
         super(props);
     }
 
     componentWillMount() {
-        this.setState({inputValue: this.props.input});
+        this.setState({inputValue: this.props.lexeme});
     }
 
     getFlagClassName() {
-        return 'flag ' + this.props.inputLang;
+        return 'flag ' + this.props.lexemeLang;
     }
 
     validateInput() {
@@ -23,7 +23,7 @@ class InputView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
         var className = !this._valid ? 'invalid' : '';
         
         return (
-            <div className="view inputView">
+            <div className="view lexemeView">
                 <input
                     type="text"
                     value={this.state.inputValue}
@@ -39,4 +39,4 @@ class InputView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
     }
 }
 
-export default InputView;
+export default LexemeView;

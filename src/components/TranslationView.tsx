@@ -41,12 +41,12 @@ class TranslationView extends InputViewBase<TranslationViewProps, TranslationVie
     render() {
         var translationFlagClass = 'flag ' + this.props.translationLang;
         var placeholderText = 'Enter the ' + LanguageUtil.getLanguageName(this.props.translationLang) 
-            + ' translation for "' + this.props.input + '"';
+            + ' translation for "' + this.props.lexeme + '"';
         return (
             <div className="view translationView" onSubmit={this.handleSubmit}>
                 <div className="top half">
                     <div className="content">
-                        <div>{this.props.input}</div>
+                        <div>{this.props.lexeme}</div>
                         <div className={this.getFlagClassName()} />
                     </div>                        
                 </div>

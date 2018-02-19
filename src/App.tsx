@@ -1,6 +1,6 @@
 import * as React from 'react';
 import './App.css';
-import InputView from './components/InputView';
+import LexemeView from './components/LexemeView';
 import PageView from './enum/PageView';
 import Language from './enum/Language';
 import LangView from './components/LangView';
@@ -9,8 +9,8 @@ import ConfirmationView from './components/ConfirmationView';
 import NoteView from './components/NoteView';
 
 export interface State {
-  input: string;
-  inputLang: Language;
+  lexeme: string;
+  lexemeLang: Language;
   translation: string;
   translationLang: Language;
   note: string;
@@ -26,17 +26,17 @@ class App extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      input: '',
+      lexeme: '',
       translation: '',
       note: '',
-      inputLang: Language.None,
+      lexemeLang: Language.None,
       translationLang: Language.None,
       currentView: PageView.Input
     };
-    this.onInputSubmit = this.onInputSubmit.bind(this);
+    this.onLexemeSubmit = this.onLexemeSubmit.bind(this);
     this.onLangClick = this.onLangClick.bind(this);
     this.onTranslationSubmit = this.onTranslationSubmit.bind(this);
-    this.onInputEdit = this.onInputEdit.bind(this);
+    this.onLexemeEdit = this.onLexemeEdit.bind(this);
     this.onTranslationEdit = this.onTranslationEdit.bind(this);
     this.onNotesClicked = this.onNotesClicked.bind(this);
     this.onSwitchLangauges = this.onSwitchLangauges.bind(this);
@@ -45,14 +45,14 @@ class App extends React.Component<Props, State> {
     this.onNoteSubmitted = this.onNoteSubmitted.bind(this);
   }
 
-  onInputSubmit(input: string) {
-    var newView = this.state.inputLang === Language.None ? PageView.Language : PageView.Confirmation;
-    this.setState({input: input, currentView: newView});
+  onLexemeSubmit(input: string) {
+    var newView = this.state.lexemeLang === Language.None ? PageView.Language : PageView.Confirmation;
+    this.setState({lexeme: input, currentView: newView});
   }
 
   onLangClick(lang: Language) {
     this.setState({
-      inputLang: lang,
+      lexemeLang: lang,
       translationLang: getTranslationLanguage(lang),
       currentView: PageView.Translation
     });
@@ -62,7 +62,7 @@ class App extends React.Component<Props, State> {
     this.setState({translation: translation, currentView: PageView.Confirmation});
   }
 
-  onInputEdit() {
+  onLexemeEdit() {
     this.setState({currentView: PageView.Input});
   }
 
@@ -72,8 +72,8 @@ class App extends React.Component<Props, State> {
 
   onSwitchLangauges() {
     this.setState({
-      inputLang: this.state.translationLang,
-      translationLang: this.state.inputLang
+      lexemeLang: this.state.translationLang,
+      translationLang: this.state.lexemeLang
     });
   }
 
@@ -90,9 +90,9 @@ class App extends React.Component<Props, State> {
 
   onCancel() {
     this.setState({
-      input: '',
+      lexeme: '',
       translation: '',
-      inputLang: Language.None,
+      lexemeLang: Language.None,
       translationLang: Language.None,
       currentView: PageView.Input,
       note: ''
@@ -104,7 +104,7 @@ class App extends React.Component<Props, State> {
     this.oReq.open('POST', 'http://localhost:3002/words');
     this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     this.oReq.addEventListener('load', this.onSaveCompleted);
-    var params = 'english=' + this.state.input + '&czech=' + this.state.translation + '&note=' + this.state.note;
+    var params = 'english=' + this.state.lexeme + '&czech=' + this.state.translation + '&note=' + this.state.note;
     this.oReq.send(params);
     return false;
   }
@@ -119,10 +119,10 @@ class App extends React.Component<Props, State> {
       case PageView.Input:
         return (
           <div className="page">
-            <InputView
-              input={this.state.input}
-              inputLang={this.state.inputLang}
-              onSubmit={this.onInputSubmit}
+            <LexemeView
+              lexeme={this.state.lexeme}
+              lexemeLang={this.state.lexemeLang}
+              onSubmit={this.onLexemeSubmit}
             />
           </div>
         );
@@ -130,7 +130,7 @@ class App extends React.Component<Props, State> {
       case PageView.Language:
         return (
           <div className="page">
-            <LangView input={this.state.input} onLangClick={this.onLangClick} />
+            <LangView input={this.state.lexeme} onLangClick={this.onLangClick} />
           </div>
         );
 
@@ -138,8 +138,8 @@ class App extends React.Component<Props, State> {
         return (
           <div className="page">
             <TranslationView
-              input={this.state.input}
-              inputLang={this.state.inputLang}
+              lexeme={this.state.lexeme}
+              lexemeLang={this.state.lexemeLang}
               translation={this.state.translation}
               translationLang={this.state.translationLang}
               onSubmit={this.onTranslationSubmit}
@@ -151,12 +151,12 @@ class App extends React.Component<Props, State> {
         return (
           <div className="page">
             <ConfirmationView
-              input={this.state.input}
-              inputLang={this.state.inputLang}
+              input={this.state.lexeme}
+              inputLang={this.state.lexemeLang}
               translation={this.state.translation}
               translationLang={this.state.translationLang}
               note={this.state.note}
-              onInputEdit={this.onInputEdit}
+              onInputEdit={this.onLexemeEdit}
               onTranslationEdit={this.onTranslationEdit}
               onNotesClicked={this.onNotesClicked}
               onCancel={this.onCancel}
@@ -170,8 +170,8 @@ class App extends React.Component<Props, State> {
         return (
           <div className="page">
             <NoteView
-              input={this.state.input}
-              inputLang={this.state.inputLang}
+              input={this.state.lexeme}
+              inputLang={this.state.lexemeLang}
               translation={this.state.translation}
               translationLang={this.state.translationLang}
               note={this.state.note}

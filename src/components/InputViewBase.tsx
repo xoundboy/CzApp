@@ -3,8 +3,8 @@ import { ChangeEvent, KeyboardEvent } from 'react';
 import Language from '../enum/Language';
 
 export interface InputViewBaseProps {
-    input: string;
-    inputLang?: Language;
+    lexeme: string;
+    lexemeLang?: Language;
     onSubmit: ((input: string) => void);
 }
 
@@ -55,7 +55,7 @@ class InputViewBase<TProps extends InputViewBaseProps, TState extends
     }
 
     getFlagClassName() {
-        return 'flag ' + this.props.inputLang;
+        return 'flag ' + this.props.lexemeLang;
     }
 }
 
