@@ -1,19 +1,19 @@
 import * as React from 'react';
-import Language from '../enum/Language';
+import Language from '../../enum/Language';
 import { Component } from 'react';
 
 export interface Props {
     input: string;
     inputLang: Language;
+    note: string;
     translation: string;
     translationLang: Language;
-    note: string;
-    onInputEdit: () => void;
-    onTranslationEdit: () => void;
-    onNotesClicked: () => void;
     onCancel: () => void;
+    onInputEdit: () => void;
+    onNotesClicked: () => void;
     onSave: () => void;
     onSwitchLanguages: () => void;
+    onTranslationEdit: () => void;
 }
 
 class ConfirmationView extends Component<Props, object> {

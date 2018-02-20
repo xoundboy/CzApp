@@ -1,6 +1,6 @@
 import * as React from 'react';
+import Language from '../../enum/Language';
 import { ChangeEvent, KeyboardEvent } from 'react';
-import Language from '../enum/Language';
 
 export interface InputViewBaseProps {
     lexeme: string;

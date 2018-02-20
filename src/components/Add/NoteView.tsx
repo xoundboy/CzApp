@@ -1,13 +1,13 @@
 import * as React from 'react';
+import Language from '../../enum/Language';
 import { Component, ChangeEvent } from 'react';
-import Language from '../enum/Language';
 
 export interface Props {
     input: string;
     inputLang: Language;
+    note: string;
     translation: string;
     translationLang: Language;
-    note: string;
     onNoteSubmitted: (note: string) => void;
 }
 

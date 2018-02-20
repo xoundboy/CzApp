@@ -1,8 +1,8 @@
 enum PageView {
+  Confirmation = 'confirmation',
   Input = 'input',
   Language = 'language',
   Translation = 'translation',
-  Confirmation = 'confirmation',
   Note = 'note',
 }
 

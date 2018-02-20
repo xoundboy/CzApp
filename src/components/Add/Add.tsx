@@ -1,48 +1,60 @@
 import * as React from 'react';
-import './App.css';
-import LexemeView from './components/LexemeView';
-import PageView from './enum/PageView';
-import Language from './enum/Language';
-import LangView from './components/LangView';
-import TranslationView from './components/TranslationView';
-import ConfirmationView from './components/ConfirmationView';
-import NoteView from './components/NoteView';
+import '../../style/App.css';
+import LexemeView from './LexemeView';
+import PageView from '../../enum/PageView';
+import ConfirmationView from './ConfirmationView';
+import Gender from '../../enum/Gender';
+import LangView from './LangView';
+import Language from '../../enum/Language';
+import LexemeType from '../../enum/LexemeType';
+import NoteView from './NoteView';
+import PhraseType from '../../enum/PhraseType';
+import TranslationView from './TranslationView';
+import WordType from '../../enum/WordType';
 
 export interface State {
+  currentView: PageView;
+  gender: Gender;
   lexeme: string;
   lexemeLang: Language;
+  lexemeType: LexemeType;
+  note: string;
+  phraseType: PhraseType;
   translation: string;
   translationLang: Language;
-  note: string;
-  currentView: PageView;
+  wordType: WordType;
 }
 
 export interface Props {}
 
-class App extends React.Component<Props, State> {
+class Add extends React.Component<Props, State> {
 
   oReq: XMLHttpRequest;
 
   constructor(props: Props) {
     super(props);
     this.state = {
+      currentView: PageView.Input,
+      gender: Gender.None,
       lexeme: '',
-      translation: '',
-      note: '',
       lexemeLang: Language.None,
+      lexemeType: LexemeType.None,
+      note: '',
+      phraseType: PhraseType.None,
+      translation: '',
       translationLang: Language.None,
-      currentView: PageView.Input
+      wordType: WordType.None,
     };
-    this.onLexemeSubmit = this.onLexemeSubmit.bind(this);
-    this.onLangClick = this.onLangClick.bind(this);
-    this.onTranslationSubmit = this.onTranslationSubmit.bind(this);
-    this.onLexemeEdit = this.onLexemeEdit.bind(this);
-    this.onTranslationEdit = this.onTranslationEdit.bind(this);
-    this.onNotesClicked = this.onNotesClicked.bind(this);
-    this.onSwitchLangauges = this.onSwitchLangauges.bind(this);
     this.onCancel = this.onCancel.bind(this);
-    this.onSave = this.onSave.bind(this);
+    this.onLangClick = this.onLangClick.bind(this);
+    this.onLexemeEdit = this.onLexemeEdit.bind(this);
+    this.onLexemeSubmit = this.onLexemeSubmit.bind(this);
     this.onNoteSubmitted = this.onNoteSubmitted.bind(this);
+    this.onNotesClicked = this.onNotesClicked.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onSwitchLangauges = this.onSwitchLangauges.bind(this);
+    this.onTranslationEdit = this.onTranslationEdit.bind(this);
+    this.onTranslationSubmit = this.onTranslationSubmit.bind(this);
   }
 
   onLexemeSubmit(input: string) {
@@ -196,4 +208,4 @@ function getTranslationLanguage(inputLang: Language): Language {
   return Language.None;
 }
 
-export default App;
+export default Add;

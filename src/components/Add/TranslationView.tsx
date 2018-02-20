@@ -1,7 +1,7 @@
-import Language from '../enum/Language';
 import * as React from 'react';
-import LanguageUtil from '../util/LanguageUtil';
 import InputViewBase, { InputViewBaseProps, InputViewBaseState } from './InputViewBase';
+import Language from '../../enum/Language';
+import LanguageUtil from '../../util/LanguageUtil';
 import { ChangeEvent } from 'react';
 
 export interface TranslationViewProps extends InputViewBaseProps {

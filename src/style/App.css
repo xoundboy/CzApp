@@ -1,8 +1,8 @@
 .page .en.flag {
-  background-image: url(./image/button/flag_uk.jpg); }
+  background-image: url(../image/button/flag_uk.jpg); }
 
 .page .cz.flag {
-  background-image: url(./image/button/flag_cz.jpg); }
+  background-image: url(../image/button/flag_cz.jpg); }
 
 .page .flag {
   background-size: contain;
@@ -17,7 +17,8 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: center; }
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif; }
 
 .page {
   text-align: center;
@@ -57,6 +58,12 @@ body {
       display: block; }
       .page div.view input.invalid {
         outline: 5px red solid; }
+    .page div.view.langView {
+      font-size: 20px; }
+      .page div.view.langView .inputText {
+        font-size: 36px;
+        color: #000000;
+        margin-bottom: 50px; }
     .page div.view button {
       font-size: 20px;
       width: 100%;
@@ -68,25 +75,12 @@ body {
       box-shadow: 5px 5px 5px grey; }
       .page div.view button.flag {
         padding: 0;
-        height: 60px;
-        width: 116px;
+        height: 40px;
+        width: 76px;
         margin: 10px; }
   .page .flag {
     height: 20px;
     width: 41px;
     margin: 10px; }
-  .page.langView .inputText {
-    font-size: 30px;
-    color: #5d0609;
-    border: 2px solid #5d0609;
-    border-radius: 3px;
-    position: relative;
-    height: 200px;
-    overflow: auto;
-    padding: 10px;
-    text-align: left;
-    font-size: 20px; }
-  .page.langView .flagButtons {
-    margin: 30px 0; }
   .page.confirmationView .editLink {
     margin-left: 20px; }

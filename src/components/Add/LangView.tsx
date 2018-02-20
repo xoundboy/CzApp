@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Language from '../enum/Language';
+import Language from '../../enum/Language';
 import LanguageButton from './LanguageButton';
 
 export interface Props {
@@ -15,12 +15,13 @@ class LangView extends React.Component<Props, object> {
     }
 
     onLanguageButtonCick(language: Language) {
-        this.props.onLangClick(language);
+        // this.props.onLangClick(language);
     }
 
     render() {
         return (
             <div className="view langView">
+                <div className="inputText">{this.props.input}</div>
                 <div className="whichLang">Which language is this?</div>
                 <div className="flagButtons">
                     <LanguageButton
@@ -34,7 +35,6 @@ class LangView extends React.Component<Props, object> {
                         label=""
                     />
                 </div>
-                <div className="inputText">{this.props.input}</div>
             </div>
         );
     }
