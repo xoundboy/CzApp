@@ -8,11 +8,11 @@ class LexemeView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
     }
 
     componentWillMount() {
-        this.setState({inputValue: this.props.lexeme});
+        this.setState({inputValue: this.props.lexeme.text});
     }
 
     getFlagClassName() {
-        return 'flag ' + this.props.lexemeLang;
+        return 'flag ' + this.props.lexeme.language;
     }
 
     validateInput() {

@@ -1,10 +1,9 @@
 import * as React from 'react';
-import Language from '../../enum/Language';
 import { ChangeEvent, KeyboardEvent } from 'react';
+import Lexeme from '../../valueobject/Lexeme';
 
 export interface InputViewBaseProps {
-    lexeme: string;
-    lexemeLang?: Language;
+    lexeme: Lexeme;
     onSubmit: ((input: string) => void);
 }
 
@@ -55,7 +54,7 @@ class InputViewBase<TProps extends InputViewBaseProps, TState extends
     }
 
     getFlagClassName() {
-        return 'flag ' + this.props.lexemeLang;
+        return 'flag ' + this.props.lexeme.language;
     }
 }
 
