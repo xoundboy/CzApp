@@ -1,6 +1,6 @@
 import Language from '../enum/Language'; 
 
-class LanguageUtil {
+export default class LanguageUtil {
 
     static getLanguageName(language: Language): string {
         switch (language) {
@@ -9,5 +9,15 @@ class LanguageUtil {
             default: return 'No language';
         }
     } 
+
+    static getOtherLanguage(language: Language): Language { 
+        switch (language) {
+            case Language.English:
+                return Language.Czech;
+            case Language.Czech:
+                return Language.English;
+            default:
+                return Language.None;
+        }
+    }
 }
-export default LanguageUtil;

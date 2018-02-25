@@ -65,6 +65,7 @@ body {
 
     &.noteView {
       height: 100vh;
+
       textarea {
         width: 80%;
         height: 60%;
@@ -73,7 +74,8 @@ body {
       }
     }
 
-    input {
+    input, 
+    select {
       font-size: 20px;
       width: 100%;
       padding: 10px;
@@ -86,7 +88,7 @@ body {
       }
     }
 
-    &.langView {
+    &.metadataEntryView {
       font-size: 20px;
 
       .inputText {
@@ -95,6 +97,7 @@ body {
         margin-bottom: 50px;
       }
     }
+    
     button {
       font-size: 20px;
       width: 100%;

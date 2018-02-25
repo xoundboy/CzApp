@@ -1,42 +1,62 @@
 import * as React from 'react';
-import InputViewBase, { InputViewBaseProps, InputViewBaseState } from './InputViewBase';
+import Lexeme from '../../valueobject/Lexeme';
+import ValidatedTextInput from '../generic/ValidatedTextInput';
+import { KeyboardEvent } from 'react';
 
-class LexemeView extends InputViewBase<InputViewBaseProps, InputViewBaseState> {
+export interface LexemeViewProps {
+    lexeme: Lexeme;
+    onSubmit: ((lexeme: Lexeme) => void);
+}
 
-    constructor(props: InputViewBaseProps) {
+export interface LexemeViewState {
+    text: string | null;
+    valid: boolean;
+}
+
+export default class LexemeView extends React.Component<LexemeViewProps, LexemeViewState> {
+
+    constructor(props: LexemeViewProps) {
         super(props);
+        this.onValueChange = this.onValueChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onKeyUp = this.onKeyUp.bind(this);
     }
 
     componentWillMount() {
-        this.setState({inputValue: this.props.lexeme.text});
+        this.setState({text: this.props.lexeme.text});
     }
 
-    getFlagClassName() {
-        return 'flag ' + this.props.lexeme.language;
+    onValueChange(value: string | null) {
+        this.setState({text: value});
     }
 
-    validateInput() {
-        this.valid = this.state.inputValue.length > 0;
+    onSubmit() {
+        if (!this.state.text) {
+            return;
+        }
+        let lexeme = Object.assign({}, this.props.lexeme);
+        lexeme.text = this.state.text;
+        this.props.onSubmit(lexeme);
+    }
+
+    onKeyUp(event: KeyboardEvent<HTMLInputElement>) {
+        if (event.which === 13) {
+            this.onSubmit();
+        }
     }
 
     render() {
-        var className = !this._valid ? 'invalid' : '';
-        
         return (
             <div className="view lexemeView">
-                <input
-                    type="text"
-                    value={this.state.inputValue}
-                    onChange={this.handleInputChange}
-                    onKeyPress={this.handleKeyup}
-                    className={className}
-                    autoFocus={true}
-                    placeholder="English or Czech word or phrase"
+                <ValidatedTextInput
+                    value={this.state.text}
+                    placeholderText="English or Czech word or phrase"
+                    autofocus={true}
+                    onValueChange={this.onValueChange}
+                    onKeyUp={this.onKeyUp}
                 />
-                <button onClick={this.handleSubmit}>Submit</button>
+                <button onClick={this.onSubmit}>Submit</button>
             </div>
         );
     }
 }
-
-export default LexemeView;

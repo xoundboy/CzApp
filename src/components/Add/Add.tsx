@@ -1,121 +1,103 @@
 import * as React from 'react';
 import '../../style/App.css';
-
 import LexemeView from './LexemeView';
 import PageView from '../../enum/PageView';
-// import ConfirmationView from './ConfirmationView';
-// import TranslationView from './TranslationView';
 import MetadataEntryView from './MetadataEntryView';
-// import NoteView from './NoteView';
-
 import Lexeme from '../../valueobject/Lexeme';
 import Language from '../../enum/Language';
-// import Gender from '../../enum/Gender';
-// import LexemeType from '../../enum/LexemeType';
-// import PhraseType from '../../enum/PhraseType';
-// import WordType from '../../enum/WordType';
+import LexemeUtil from '../../util/LexemeUtil';
+import TranslationView from './TranslationView';
+import ConfirmationView from './ConfirmationView';
+import NoteView from './NoteView';
 
-export interface State {
+export interface AddState {
   currentView: PageView;
   lexeme: Lexeme;
 }
 
-export interface Props {}
-
-class Add extends React.Component<Props, State> {
+export default class Add extends React.Component<object, AddState> {
 
   oReq: XMLHttpRequest;
 
-  constructor(props: Props) {
+  constructor(props: object) {
     super(props);
     this.state = {
-      currentView: PageView.Input,
-      lexeme: new Lexeme('')
+      currentView: PageView.Lexeme,
+      lexeme: new Lexeme()
     };
-    // this.onCancel = this.onCancel.bind(this);
-    // this.onLangClick = this.onLangClick.bind(this);
-    // this.onLexemeEdit = this.onLexemeEdit.bind(this);
+    this.onCancel = this.onCancel.bind(this);
+    this.onLexemeEdit = this.onLexemeEdit.bind(this);
     this.onLexemeSubmitted = this.onLexemeSubmitted.bind(this);
     this.onMetadataSubmitted = this.onMetadataSubmitted.bind(this);
-    // this.onNoteSubmitted = this.onNoteSubmitted.bind(this);
-    // this.onNotesClicked = this.onNotesClicked.bind(this);
-    // this.onSave = this.onSave.bind(this);
-    // this.onSwitchLangauges = this.onSwitchLangauges.bind(this);
-    // this.onTranslationEdit = this.onTranslationEdit.bind(this);
-    // this.onTranslationSubmit = this.onTranslationSubmit.bind(this);
+    this.onNoteSubmitted = this.onNoteSubmitted.bind(this);
+    this.onNotesClicked = this.onNotesClicked.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onTranslationEdit = this.onTranslationEdit.bind(this);
+    this.onTranslationSubmit = this.onTranslationSubmit.bind(this);
   }
 
-  onLexemeSubmitted(text: string) {
+  onLexemeSubmitted(lexeme: Lexeme) {
     var newView = this.state.lexeme.language === Language.None 
       ? PageView.MetadataEntry : PageView.Confirmation;
 
-    var newLexeme = new Lexeme(text);
-    this.setState({lexeme: newLexeme, currentView: newView});
+    lexeme.type = LexemeUtil.getLexemeType(lexeme.text);
+    this.setState({lexeme: lexeme, currentView: newView});
   }
 
   onMetadataSubmitted(lexeme: Lexeme) {
-    console.log(lexeme);
+    this.setState({lexeme: lexeme, currentView: PageView.Translation});
   }
 
-  // onTranslationSubmit(translation: string) {
-  //   this.setState({translation: translation, currentView: PageView.Confirmation});
-  // }
+  onTranslationSubmit(lexeme: Lexeme) {
+    this.setState({lexeme: lexeme, currentView: PageView.Confirmation});
+  }
  
-  // onLexemeEdit() {
-  //   this.setState({currentView: PageView.Input});
-  // }
-// 
-  // onTranslationEdit() {
-  //   this.setState({currentView: PageView.Translation});
-  // }
+  onLexemeEdit(lexeme: Lexeme) {
+    this.setState({currentView: PageView.Lexeme});
+  }
+
+  onTranslationEdit(lexeme: Lexeme) {
+    this.setState({currentView: PageView.Translation});
+  }
  
-  // onSwitchLangauges() {
-  //   this.setState({
-  //     lexemeLang: this.state.translationLang,
-  //     translationLang: this.state.lexemeLang
-  //   });
-  // }
+  onNotesClicked(lexeme: Lexeme) {
+    this.setState({currentView: PageView.Note});
+  }
 
-  // onNotesClicked() {
-  //   this.setState({currentView: PageView.Note});
-  // }
+  onNoteSubmitted(lexeme: Lexeme) {
+    this.setState({lexeme: lexeme, currentView: PageView.Confirmation});
+  }
 
-  // onNoteSubmitted(note: string) {
-  //   this.setState({
-  //     currentView: PageView.Confirmation,
-  //     note: note
-  //   });
-  // }
+  onCancel() {
+    this.setState({
+      lexeme: new Lexeme,
+      currentView: PageView.Lexeme
+    });
+  }
 
-  // onCancel() {
-  //   this.setState({
-  //     lexeme: '',
-  //     translation: '',
-  //     lexemeLang: Language.None,
-  //     translationLang: Language.None,
-  //     currentView: PageView.Input,
-  //     note: ''
-  //   });
-  // }
+  onSave(lexeme: Lexeme) {
+    this.oReq = new XMLHttpRequest();
+    this.oReq.open('POST', 'http://localhost:3002/words');
+    this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    this.oReq.addEventListener('load', this.onSaveCompleted);
 
-  // onSave() {
-  //   this.oReq = new XMLHttpRequest();
-  //   this.oReq.open('POST', 'http://localhost:3002/words');
-  //   this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  //   this.oReq.addEventListener('load', this.onSaveCompleted);
-  //   var params = 'english=' + this.state.lexeme + '&czech=' + this.state.translation + '&note=' + this.state.note;
-  //   this.oReq.send(params);
-  //   return false;
-  // }
+    var params = 
+      'english=' + this.state.lexeme.text + 
+      '&czech=' + this.state.lexeme.translation + 
+      '&note=' + this.state.lexeme.note;
 
-  // onSaveCompleted () {
-  //   console.log('hello');
-  // }
+    this.oReq.send(params);
+    return false;
+  }
+
+  onSaveCompleted () {
+    console.log('hello');
+  }
 
   render() {
     switch (this.state.currentView) {
 
-      case PageView.Input:
+      case PageView.Lexeme:
         return (
           <div className="page">
             <LexemeView
@@ -135,66 +117,42 @@ class Add extends React.Component<Props, State> {
           </div>
         );
 
-      // case PageView.Translation:
-      //   return (
-      //     <div className="page">
-      //       <TranslationView
-      //         lexeme={this.state.lexeme}
-      //         lexemeLang={this.state.lexemeLang}
-      //         translation={this.state.translation}
-      //         translationLang={this.state.translationLang}
-      //         onSubmit={this.onTranslationSubmit}
-      //       />
-      //     </div>
-      //   );
+      case PageView.Translation:
+        return (
+          <div className="page">
+            <TranslationView
+              lexeme={this.state.lexeme}
+              onSubmit={this.onTranslationSubmit}
+            />
+          </div>
+        );
 
-      // case PageView.Confirmation:
-      //   return (
-      //     <div className="page">
-      //       <ConfirmationView
-      //         input={this.state.lexeme}
-      //         inputLang={this.state.lexemeLang}
-      //         translation={this.state.translation}
-      //         translationLang={this.state.translationLang}
-      //         note={this.state.note}
-      //         onInputEdit={this.onLexemeEdit}
-      //         onTranslationEdit={this.onTranslationEdit}
-      //         onNotesClicked={this.onNotesClicked}
-      //         onCancel={this.onCancel}
-      //         onSave={this.onSave}
-      //         onSwitchLanguages={this.onSwitchLangauges}
-      //       />
-      //     </div>
-      //   );
+      case PageView.Confirmation:
+        return (
+          <div className="page">
+            <ConfirmationView
+              lexeme={this.state.lexeme}
+              onLexemeEdit={this.onLexemeEdit}
+              onTranslationEdit={this.onTranslationEdit}
+              onNotesClicked={this.onNotesClicked}
+              onCancel={this.onCancel}
+              onSave={this.onSave}
+            />
+          </div>
+        );
 
-      // case PageView.Note:
-      //   return (
-      //     <div className="page">
-      //       <NoteView
-      //         input={this.state.lexeme}
-      //         inputLang={this.state.lexemeLang}
-      //         translation={this.state.translation}
-      //         translationLang={this.state.translationLang}
-      //         note={this.state.note}
-      //         onNoteSubmitted={this.onNoteSubmitted}
-      //       />
-      //     </div>
-      // );
+      case PageView.Note:
+        return (
+          <div className="page">
+            <NoteView
+              lexeme={this.state.lexeme}
+              onSubmit={this.onNoteSubmitted}
+            />
+          </div>
+      );
 
       default:
         return null;
     }
   }
 }
-
-// function getTranslationLanguage(inputLang: Language): Language {
-//   if (inputLang === Language.English) {
-//     return Language.Czech;
-//   }
-//   if (inputLang === Language.Czech) {
-//     return Language.English;
-//   }
-//   return Language.None;
-// }
-
-export default Add;

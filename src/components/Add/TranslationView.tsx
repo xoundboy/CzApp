@@ -1,72 +1,81 @@
 import * as React from 'react';
-import InputViewBase, { InputViewBaseProps, InputViewBaseState } from './InputViewBase';
-import Language from '../../enum/Language';
 import LanguageUtil from '../../util/LanguageUtil';
-import { ChangeEvent } from 'react';
+import Lexeme from '../../valueobject/Lexeme';
+import ValidatedTextInput from '../generic/ValidatedTextInput';
+import { KeyboardEvent } from 'react';
 
-export interface TranslationViewProps extends InputViewBaseProps {
-    translation: string;
-    translationLang: Language;
+export interface TranslationViewProps {
+    lexeme: Lexeme;
+    onSubmit: ((lexeme: Lexeme) => void);
 }
 
-export interface TranslationViewState extends InputViewBaseState {
-    translationValue: string;
+export interface TranslationViewState {
+    translation: string | null;
+    valid: boolean;
 }
 
-class TranslationView extends InputViewBase<TranslationViewProps, TranslationViewState> {
+export default class TranslationView extends React.Component<TranslationViewProps, TranslationViewState> {
 
     constructor(props: TranslationViewProps) {
         super(props);
-        this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleKeyup = this.handleKeyup.bind(this);
+        this.onValueChange = this.onValueChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onKeyUp = this.onKeyUp.bind(this);
     }
 
     componentWillMount() {
-        this.setState({translationValue: this.props.translation});
+        this.setState({translation: this.props.lexeme.translation});
     }
 
-    handleSubmit() {
-        this.props.onSubmit(this.state.translationValue);
+    onSubmit() {
+        if (!this.state.translation) {
+            return;
+        }
+        let lexeme = Object.assign({}, this.props.lexeme);
+        lexeme.translation = this.state.translation;
+        this.props.onSubmit(lexeme);
     }
 
-    validateInput() {
-        this.valid = this.state.translationValue.length > 0;
+    onKeyUp(event: KeyboardEvent<HTMLInputElement>) {
+        if (event.which === 13) {
+            this.onSubmit();
+        }
     }
 
-    handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-       this.setState({translationValue: event.target.value});
+    onValueChange(value: string | null) {
+        this.setState({translation: value});
+    }
+
+    getFlagClassName() {
+        return 'flag ' + this.props.lexeme.language;
     }
 
     render() {
-        var translationFlagClass = 'flag ' + this.props.translationLang;
-        var placeholderText = 'Enter the ' + LanguageUtil.getLanguageName(this.props.translationLang) 
-            + ' translation for "' + this.props.lexeme + '"';
+        const languageName = LanguageUtil.getLanguageName(this.props.lexeme.translationLang);
+        const placeHolderText = `Enter the ${languageName} translation for ${this.props.lexeme.text}`;
+
         return (
-            <div className="view translationView" onSubmit={this.handleSubmit}>
+            <div className="view translationView">
                 <div className="top half">
                     <div className="content">
-                        <div>{this.props.lexeme}</div>
+                        <div>{this.props.lexeme.text}</div>
                         <div className={this.getFlagClassName()} />
                     </div>                        
                 </div>
                 <div className="bottom half">
                     <div className="content">
-                        <input
-                            type="text"
-                            value={this.state.translationValue}
-                            onChange={this.handleInputChange}
-                            autoFocus={true}
-                            onKeyPress={this.handleKeyup}
-                            placeholder={placeholderText}
+                        <ValidatedTextInput
+                            value={this.state.translation}
+                            placeholderText={placeHolderText}
+                            autofocus={true}
+                            onValueChange={this.onValueChange}
+                            onKeyUp={this.onKeyUp}
                         />
-                        <div className={translationFlagClass} />
-                        <button onClick={this.handleSubmit}>Submit</button>
+                        <div className={`flag ${this.props.lexeme.translationLang}`} />
+                        <button onClick={this.onSubmit}>Submit</button>
                     </div>
                 </div>
             </div>
         );
     }
 }
-
-export default TranslationView;

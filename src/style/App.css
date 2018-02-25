@@ -48,7 +48,8 @@ body {
         height: 60%;
         outline: 3px solid #5d0609;
         font-size: 32px; }
-    .page div.view input {
+    .page div.view input,
+    .page div.view select {
       font-size: 20px;
       width: 100%;
       padding: 10px;
@@ -56,11 +57,12 @@ body {
       box-sizing: border-box;
       background-color: #f5f5d9;
       display: block; }
-      .page div.view input.invalid {
+      .page div.view input.invalid,
+      .page div.view select.invalid {
         outline: 5px red solid; }
-    .page div.view.langView {
+    .page div.view.metadataEntryView {
       font-size: 20px; }
-      .page div.view.langView .inputText {
+      .page div.view.metadataEntryView .inputText {
         font-size: 36px;
         color: #000000;
         margin-bottom: 50px; }

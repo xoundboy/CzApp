@@ -1,31 +1,32 @@
 import * as React from 'react';
-import Language from '../../enum/Language';
 import { Component, ChangeEvent } from 'react';
+import Lexeme from '../../valueobject/Lexeme';
 
-export interface Props {
-    input: string;
-    inputLang: Language;
-    note: string;
-    translation: string;
-    translationLang: Language;
-    onNoteSubmitted: (note: string) => void;
+export interface NoteViewProps {
+    lexeme: Lexeme;
+    onSubmit: (lexeme: Lexeme) => void;
 }
 
-export interface State {
+export interface NoteViewState {
     note: string;
 }
 
-class NoteView extends Component<Props, State> {
+export default class NoteView extends Component<NoteViewProps, NoteViewState> {
 
-    constructor(props: Props) {
+    constructor(props: NoteViewProps) {
         super(props);
-        this.state = {note: props.note};
         this.onNoteSubmitted = this.onNoteSubmitted.bind(this);
         this.onChange = this.onChange.bind(this);
-      }
+    }
+
+    componentWillMount() {
+        this.setState({note: this.props.lexeme.note});
+    }
 
     onNoteSubmitted() {
-        this.props.onNoteSubmitted(this.state.note);
+        let lexeme = Object.assign({}, this.props.lexeme);
+        lexeme.note = this.state.note;
+        this.props.onSubmit(lexeme);
     }
 
     onChange(event: ChangeEvent<HTMLTextAreaElement>) {
@@ -33,17 +34,15 @@ class NoteView extends Component<Props, State> {
     }
 
     render() {
-        var inputFlagClass = 'flag ' + this.props.inputLang;
-        var translationFlagClass = 'flag ' + this.props.translationLang;
         return (
             <div className="view noteView">
                 <p className="input">
-                    <span className={inputFlagClass} />
-                    <span>{this.props.input}</span>
+                    <span className={`flag ${this.props.lexeme.language}`} />
+                    <span>{this.props.lexeme.text}</span>
                 </p>
                 <p className="translation">
-                    <span className={translationFlagClass} />
-                    <span>{this.props.translation}</span> 
+                    <span className={`flag ${this.props.lexeme.translationLang}`} />
+                    <span>{this.props.lexeme.translation}</span> 
                 </p>
 
                 <textarea onChange={this.onChange} value={this.state.note} />
@@ -52,5 +51,3 @@ class NoteView extends Component<Props, State> {
         );
     }
 }
-
-export default NoteView;

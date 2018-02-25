@@ -1,6 +1,6 @@
 enum PageView {
   Confirmation = 'confirmation',
-  Input = 'input',
+  Lexeme = 'lexeme',
   MetadataEntry = 'metadataEntry',
   Translation = 'translation',
   Note = 'note',
