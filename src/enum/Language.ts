@@ -1,7 +1,7 @@
 enum Language {
-    Czech = 'cz',
-    English = 'en',
-    None = 'no-language',
+    CZECH = 'cz',
+    ENGLISH = 'en',
+    NONE = 'no-language',
 }
 
 export default Language;

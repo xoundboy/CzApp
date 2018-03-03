@@ -1,8 +1,8 @@
 enum CzGender {
-    Feminine = 'feminine',
-    Masculine = 'masculine',
-    MasculineAnimatum = 'masculine animatum',
-    None = 'none'
+    FEMININE = 'feminine',
+    MASCULINE = 'masculine',
+    MASCULINEANIMATUM = 'masculine animatum',
+    NEUTER = 'neuter'
 }
 
 export default CzGender;

@@ -1,9 +1,11 @@
 {
-  "name": "my-app",
+  "name": "czapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/query-string": "^5.1.0",
     "node-sass-chokidar": "0.0.3",
+    "query-string": "^5.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts-ts": "2.13.0",

@@ -16,3 +16,4 @@ app.use('/', express.static('../public'));
 
 // CONTROLLERS
 app.use('/words', require('./words'));
+app.use('/lexemes', require('./lexemes'));

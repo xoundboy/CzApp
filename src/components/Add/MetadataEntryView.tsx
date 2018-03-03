@@ -106,17 +106,17 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderPhraseType() {
-        if (this.state.language !== Language.None && this.state.type === LexemeType.Phrase) {
+        if (this.state.language !== Language.NONE && this.state.type === LexemeType.PHRASE) {
             return (
                 <label>Phrase type
                 <select className="phraseType" onChange={this.onPhraseTypeChange}>
-                    <option>{PhraseType.None}</option>
-                    <option>{PhraseType.Coloquialism}</option>
-                    <option>{PhraseType.Idiom}</option>
-                    <option>{PhraseType.ModalVerb}</option>
-                    <option>{PhraseType.Other}</option>
-                    <option>{PhraseType.PhrasalVerb}</option>
-                    <option>{PhraseType.Proverb}</option>
+                    <option>{PhraseType.NONE}</option>
+                    <option>{PhraseType.COLLOQUIALISM}</option>
+                    <option>{PhraseType.IDIOM}</option>
+                    <option>{PhraseType.MODALVERB}</option>
+                    <option>{PhraseType.OTHER}</option>
+                    <option>{PhraseType.PHRASALVERB}</option>
+                    <option>{PhraseType.PROVERB}</option>
                 </select>
             </label>
             );
@@ -125,8 +125,8 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderNextButton() {
-        if (this.state.language !== Language.None && (this.state.wordType !== WordType.None 
-            || this.state.phraseType !== PhraseType.None)) {
+        if (this.state.language !== Language.NONE && (this.state.wordType !== WordType.NONE 
+            || this.state.phraseType !== PhraseType.NONE)) {
             return (
                 <button onClick={this.onNextButtonClicked}>Next</button>
             );
@@ -135,13 +135,13 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderCzVerbAspect() {
-        if (this.state.language === Language.Czech && this.state.wordType === WordType.Verb) {
+        if (this.state.language === Language.CZECH && this.state.wordType === WordType.VERB) {
             return (
                 <label>Czech verb aspect
                     <select className="czVerbAspect" onChange={this.onCzVerbAspectChange}>
-                        <option>{CzVerbAspect.Unknown}</option>
-                        <option>{CzVerbAspect.Perfective}</option>
-                        <option>{CzVerbAspect.Imperfective}</option>
+                        <option>{CzVerbAspect.UNKNOWN}</option>
+                        <option>{CzVerbAspect.PERFECTIVE}</option>
+                        <option>{CzVerbAspect.IMPERFECTIVE}</option>
                     </select>
                 </label>
             );
@@ -150,14 +150,14 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderCzGender() {
-        if (this.state.language === Language.Czech && this.state.wordType === WordType.Noun) {
+        if (this.state.language === Language.CZECH && this.state.wordType === WordType.NOUN) {
             return (
                 <label>Gender
                     <select className="gender" onChange={this.onGenderChange}>
-                        <option>{CzGender.None}</option>
-                        <option>{CzGender.Feminine}</option>
-                        <option>{CzGender.Masculine}</option>
-                        <option>{CzGender.MasculineAnimatum}</option>
+                        <option>{CzGender.NEUTER}</option>
+                        <option>{CzGender.FEMININE}</option>
+                        <option>{CzGender.MASCULINE}</option>
+                        <option>{CzGender.MASCULINEANIMATUM}</option>
                     </select>
                 </label>
             );
@@ -166,19 +166,19 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderWordType() {
-        if (this.state.type === LexemeType.Word && this.state.language !== Language.None) {
+        if (this.state.type === LexemeType.WORD && this.state.language !== Language.NONE) {
             return (
                 <label>Word type
                     <select className="wordType" onChange={this.onWordTypeChange}>
-                        <option>{WordType.None}</option>
-                        <option>{WordType.Verb}</option>
-                        <option>{WordType.Noun}</option>
-                        <option>{WordType.Adjective}</option>
-                        <option>{WordType.Adverb}</option>
-                        <option>{WordType.Pronoun}</option>
-                        <option>{WordType.Preposition}</option>
-                        <option>{WordType.Conjunction}</option>
-                        <option>{WordType.Gerund}</option>
+                        <option>{WordType.NONE}</option>
+                        <option>{WordType.VERB}</option>
+                        <option>{WordType.NOUN}</option>
+                        <option>{WordType.ADJECTIVE}</option>
+                        <option>{WordType.ADVERB}</option>
+                        <option>{WordType.PRONOUN}</option>
+                        <option>{WordType.PREPOSITION}</option>
+                        <option>{WordType.CONJUNCTION}</option>
+                        <option>{WordType.GERUND}</option>
                     </select>
                 </label>
             );
@@ -196,7 +196,7 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderLexemeFlag() {
-        if (this.state.language !== Language.None) {
+        if (this.state.language !== Language.NONE) {
             var className = 'flag '  + this.state.language;
             return (
                 <span className={className} />
@@ -206,18 +206,18 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     renderLanguage() {
-        if (this.state.language === Language.None) {
+        if (this.state.language === Language.NONE) {
             return (
                 <div>
                     <div className="whichLang">Which language is this?</div>
                     <div className="flagButtons">
                         <LanguageButton
-                            language={Language.Czech}
+                            language={Language.CZECH}
                             onClick={this.onLanguageButtonCick}
                             label=""
                         />
                         <LanguageButton
-                            language={Language.English}
+                            language={Language.ENGLISH}
                             onClick={this.onLanguageButtonCick}
                             label=""
                         />

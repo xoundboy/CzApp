@@ -1,6 +1,6 @@
 enum CzVerbAspect {
-    Unknown = 'unknown',
-    Perfective = 'perfective',
-    Imperfective = 'imperfective'
+    UNKNOWN = 'unknown',
+    PERFECTIVE = 'perfective',
+    IMPERFECTIVE = 'imperfective'
 }
 export default CzVerbAspect;

@@ -83,7 +83,7 @@ export default class ConfirmationView extends Component<ConfirmationViewProps, C
     }
 
     renderPhraseType() {
-        if (this.state.lexeme.language !== Language.None && this.state.lexeme.type === LexemeType.Phrase) {
+        if (this.state.lexeme.language !== Language.NONE && this.state.lexeme.type === LexemeType.PHRASE) {
             return (
                 <div>Phrase type: {this.state.lexeme.phraseType}</div>
             );
@@ -92,7 +92,7 @@ export default class ConfirmationView extends Component<ConfirmationViewProps, C
     }
 
     renderCzVerbAspect() {
-        if (this.state.lexeme.language === Language.Czech && this.state.lexeme.wordType === WordType.Verb) {
+        if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.VERB) {
             return (
                 <div>Verb aspect: {this.state.lexeme.czVerbAspect}</div>
             );
@@ -101,7 +101,7 @@ export default class ConfirmationView extends Component<ConfirmationViewProps, C
     }
 
     renderCzGender() {
-        if (this.state.lexeme.language === Language.Czech && this.state.lexeme.wordType === WordType.Noun) {
+        if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.NOUN) {
             return (
                 <div>Gender: {this.state.lexeme.czGender}</div>
             );
@@ -110,7 +110,7 @@ export default class ConfirmationView extends Component<ConfirmationViewProps, C
     }
 
     renderWordType() {
-        if (this.state.lexeme.type === LexemeType.Word && this.state.lexeme.language !== Language.None) {
+        if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NONE) {
             return (
                 <div>Word type: {this.state.lexeme.wordType}</div>
             );

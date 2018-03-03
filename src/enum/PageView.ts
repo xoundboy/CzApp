@@ -1,9 +1,9 @@
 enum PageView {
-  Confirmation = 'confirmation',
-  Lexeme = 'lexeme',
-  MetadataEntry = 'metadataEntry',
-  Translation = 'translation',
-  Note = 'note',
+  CONFIRMATION = 'confirmation',
+  LEXEME = 'lexeme',
+  METADATAENTRY = 'metadataEntry',
+  TRANSLATION = 'translation',
+  NOTE = 'note',
 }
 
 export default PageView;

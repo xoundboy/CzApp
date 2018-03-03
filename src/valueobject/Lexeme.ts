@@ -8,13 +8,13 @@ import CzVerbAspect from '../enum/CzVerbAspect';
 export default class Lexeme {
 
     public text: string = '';
-    public language: Language = Language.None;
+    public language: Language = Language.NONE;
     public translation: string = '';
-    public translationLang: Language = Language.None;
-    public type: LexemeType = LexemeType.None;
-    public czGender: CzGender = CzGender.None;
-    public czVerbAspect: CzVerbAspect = CzVerbAspect.Unknown;
+    public translationLang: Language = Language.NONE;
+    public type: LexemeType = LexemeType.NONE;
+    public czGender: CzGender = CzGender.NEUTER;
+    public czVerbAspect: CzVerbAspect = CzVerbAspect.UNKNOWN;
     public note: string = '';
-    public phraseType: PhraseType = PhraseType.None;
-    public wordType: WordType = WordType.None;
+    public phraseType: PhraseType = PhraseType.NONE;
+    public wordType: WordType = WordType.NONE;
 }
