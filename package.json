@@ -8,6 +8,7 @@
     "query-string": "^5.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
     "react-scripts-ts": "2.13.0",
     "require.js": "^1.0.0"
   },
@@ -20,6 +21,8 @@
     "eject": "react-scripts-ts eject"
   },
   "devDependencies": {
+    "@types/gapi": "0.0.35",
+    "@types/gapi.auth2": "0.0.47",
     "@types/jest": "^22.1.2",
     "@types/node": "^9.4.5",
     "@types/react": "^16.0.36",

@@ -6,7 +6,6 @@ import WordType from '../enum/WordType';
 import CzVerbAspect from '../enum/CzVerbAspect';
 
 export default class Lexeme {
-
     public text: string = '';
     public language: Language = Language.NONE;
     public translation: string = '';

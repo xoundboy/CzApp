@@ -1,0 +1,24 @@
+.navLayer {
+    position: fixed;
+
+    nav {
+        height: 100vh;
+        width:100vw;
+        background-color: grey;
+
+        a {
+            display: block;
+            text-align: left;
+            padding: 20px;
+            text-decoration: none;
+            color: white;
+            font-size: 32px;
+        }
+    }
+
+    .navButton {
+        height: 30px;
+        width: 30px;
+        background-image: url(../image/button/hamburger.svg);
+    }
+}
