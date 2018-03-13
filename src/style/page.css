@@ -15,11 +15,10 @@
 .pageLayer {
   padding-top: 40px; }
   .pageLayer .page {
-    text-align: center;
+    text-align: left;
     background-color: white;
     color: #570f0f;
     padding: 40px;
-    font-size: 30px;
     align-items: stretch; }
     .pageLayer .page div.view {
       width: 100%; }
