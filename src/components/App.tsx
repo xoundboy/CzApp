@@ -40,23 +40,32 @@ export default class App extends Component<object, AppState> {
 
     renderNavClosed() {
         return (
-            <div className="navButton" onClick={this.onNavButtonClicked} />
+            <div>
+                {this.renderNavButton()}
+            </div> 
         );
     }
 
     renderNavOpen() {
         return (
-            <nav>
-                <Link to="/settings">Settings</Link>
-                <Link to="/add">Add word or phrase</Link>
-            </nav>
+            <div>
+                {this.renderNavButton()}
+                <nav>
+                    <Link to="/settings" onClick={this.onNavButtonClicked} >Settings</Link>
+                    <Link to="/add" onClick={this.onNavButtonClicked} >Add word or phrase</Link>
+                </nav>
+            </div>
         );
+    }
+
+    renderNavButton() {
+        return (<div className="navButton" onClick={this.onNavButtonClicked} />);
     }
 
     renderPageContent() {
         return (
             <div className="pageContent">
-                <Route path="/" exact={true}><h1>CZ-App</h1></Route>
+                <Route path="/" exact={true}><h1/></Route>
                 <Route path="/settings" component={Settings} />
                 <Route path="/add" component={Add} />
             </div>
