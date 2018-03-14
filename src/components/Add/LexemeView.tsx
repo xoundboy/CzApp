@@ -2,6 +2,7 @@ import * as React from 'react';
 import Lexeme from '../../valueobject/Lexeme';
 import ValidatedTextInput from '../generic/ValidatedTextInput';
 import { KeyboardEvent } from 'react';
+import LanguageUtil from '../../util/LanguageUtil';
 
 export interface LexemeViewProps {
     lexeme: Lexeme;
@@ -50,7 +51,7 @@ export default class LexemeView extends React.Component<LexemeViewProps, LexemeV
             <div className="view lexemeView">
                 <ValidatedTextInput
                     value={this.state.text}
-                    placeholderText="English or Czech word or phrase"
+                    placeholderText={'Word or phrase in ' + LanguageUtil.getLanguageName(this.props.lexeme.language)}
                     autofocus={true}
                     onValueChange={this.onValueChange}
                     onKeyUp={this.onKeyUp}

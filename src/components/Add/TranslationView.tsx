@@ -56,24 +56,20 @@ export default class TranslationView extends React.Component<TranslationViewProp
 
         return (
             <div className="view translationView">
-                <div className="top half">
-                    <div className="content">
-                        <div>{this.props.lexeme.text}</div>
-                        <div className={this.getFlagClassName()} />
-                    </div>                        
-                </div>
-                <div className="bottom half">
-                    <div className="content">
-                        <ValidatedTextInput
-                            value={this.state.translation}
-                            placeholderText={placeHolderText}
-                            autofocus={true}
-                            onValueChange={this.onValueChange}
-                            onKeyUp={this.onKeyUp}
-                        />
-                        <div className={`flag ${this.props.lexeme.translationLang}`} />
-                        <button onClick={this.onSubmit}>Submit</button>
-                    </div>
+                <div className="content">
+                    <div>{this.props.lexeme.text}</div>
+                    <div className={this.getFlagClassName()} />
+                </div>                        
+                <div className="content">
+                    <ValidatedTextInput
+                        value={this.state.translation}
+                        placeholderText={placeHolderText}
+                        autofocus={true}
+                        onValueChange={this.onValueChange}
+                        onKeyUp={this.onKeyUp}
+                    />
+                    <div className={`flag ${this.props.lexeme.translationLang}`} />
+                    <button onClick={this.onSubmit}>Submit</button>
                 </div>
             </div>
         );

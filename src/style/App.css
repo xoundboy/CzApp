@@ -47,7 +47,6 @@ body {
     .navLayer nav a {
       display: block;
       text-align: left;
-      padding: 15px;
       text-decoration: none; }
   .navLayer .navButton {
     height: 30px;
@@ -72,66 +71,18 @@ body {
   padding-top: 40px; }
   .pageLayer .page {
     text-align: left;
-    background-color: white;
-    color: #570f0f;
-    padding: 40px;
     align-items: stretch; }
     .pageLayer .page div.view {
       width: 100%; }
-      .pageLayer .page div.view.translationView {
-        height: 100vh; }
-        .pageLayer .page div.view.translationView .half {
-          height: 50vh;
-          overflow: auto;
-          display: flex;
-          flex-direction: column;
-          justify-content: center; }
-          .pageLayer .page div.view.translationView .half .content {
-            align-items: stretch; }
-            .pageLayer .page div.view.translationView .half .content button {
-              margin-top: 30px; }
-      .pageLayer .page div.view.noteView {
-        height: 100vh; }
-        .pageLayer .page div.view.noteView textarea {
-          width: 80%;
-          height: 60%;
-          outline: 3px solid #5d0609;
-          font-size: 32px; }
-      .pageLayer .page div.view input,
-      .pageLayer .page div.view select {
-        font-size: 20px;
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 40px;
-        box-sizing: border-box;
-        background-color: #f5f5d9;
-        display: block; }
-        .pageLayer .page div.view input.invalid,
-        .pageLayer .page div.view select.invalid {
-          outline: 5px red solid; }
-      .pageLayer .page div.view.metadataEntryView {
-        font-size: 20px; }
-        .pageLayer .page div.view.metadataEntryView .inputText {
-          font-size: 36px;
-          color: #000000;
-          margin-bottom: 50px; }
-      .pageLayer .page div.view button {
-        font-size: 20px;
-        width: 100%;
-        padding: 10px;
-        background-color: maroon;
-        color: white;
-        border-radius: 4px;
-        padding: 18px 0;
-        box-shadow: 5px 5px 5px grey; }
-        .pageLayer .page div.view button.flag {
-          padding: 0;
-          height: 40px;
-          width: 76px;
-          margin: 10px; }
+      .pageLayer .page div.view input.invalid,
+      .pageLayer .page div.view select.invalid {
+        outline: 2px red solid; }
+      .pageLayer .page div.view button.flag {
+        padding: 0;
+        height: 40px;
+        width: 76px; }
     .pageLayer .page .flag {
       height: 20px;
-      width: 41px;
-      margin: 10px; }
+      width: 41px; }
     .pageLayer .page.confirmationView .editLink {
       margin-left: 20px; }
