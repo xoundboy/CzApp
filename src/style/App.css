@@ -86,3 +86,8 @@ body {
       width: 41px; }
     .pageLayer .page.confirmationView .editLink {
       margin-left: 20px; }
+
+.settingsSection {
+  margin: 20px; }
+  .settingsSection .sectionTitle {
+    font-weight: 800; }

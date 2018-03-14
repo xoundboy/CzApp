@@ -9,6 +9,7 @@ import Language from '../enum/Language';
 export interface AppState {
     navIsOpen: Boolean;
     inputLanguage: Language;
+    uiLanguage: Language;
 }
 
 export default class App extends Component<object, AppState> {
@@ -17,10 +18,12 @@ export default class App extends Component<object, AppState> {
         super(props);
         this.state = {
             navIsOpen: false,
-            inputLanguage: Language.ENGLISH // TODO - use storage provider
+            inputLanguage: Language.ENGLISH, // TODO - use storage provider
+            uiLanguage: Language.ENGLISH // TODO - use storage provider
         };
         this.onNavVisibilityChanged = this.onNavVisibilityChanged.bind(this);
         this.onInputLanguageChanged = this.onInputLanguageChanged.bind(this);
+        this.onUiLanguageChanged = this.onUiLanguageChanged.bind(this);
     }
 
     onNavVisibilityChanged() {
@@ -29,6 +32,10 @@ export default class App extends Component<object, AppState> {
 
     onInputLanguageChanged(value: Language) {
         this.setState({inputLanguage: value});
+    }
+
+    onUiLanguageChanged(value: Language) {
+        this.setState({uiLanguage: value});
     }
 
     render() {
@@ -77,6 +84,8 @@ export default class App extends Component<object, AppState> {
                     render={ () => <Settings 
                         inputLanguage={this.state.inputLanguage}  
                         onInputLanguageChanged={this.onInputLanguageChanged}
+                        uiLanguage={this.state.uiLanguage}
+                        onUiLanguageChanged={this.onUiLanguageChanged}
                     /> } 
                 />
                 <Route 
