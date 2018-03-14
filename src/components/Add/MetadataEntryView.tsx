@@ -79,9 +79,8 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     }
 
     onNextButtonClicked() {
-        var lexeme = new Lexeme();
+        var lexeme = new Lexeme(this.state.language);
         lexeme.text = this.state.text;
-        lexeme.language = this.state.language;
         lexeme.translationLang = this.state.translationLang;
         lexeme.wordType = this.state.wordType;
         lexeme.type = this.state.type;

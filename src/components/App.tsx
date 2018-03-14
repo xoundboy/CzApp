@@ -79,7 +79,12 @@ export default class App extends Component<object, AppState> {
                         onInputLanguageChanged={this.onInputLanguageChanged}
                     /> } 
                 />
-                <Route path="/add" component={Add} />
+                <Route 
+                    path="/add" 
+                    render={ () => <Add 
+                        inputLanguage={this.state.inputLanguage}
+                    /> } 
+                />
             </div>
         );
     }

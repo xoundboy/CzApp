@@ -39,7 +39,8 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
   renderInputLanguage() {
     return (
       <div>
-        <p>Input Language (which language are you learning?</p>
+        <p>Default Input Language (which language are you learning?)</p>
+
         <div className="radio">
           <label>
             <input 
@@ -51,6 +52,7 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
             English
           </label>
         </div>
+
         <div className="radio">
           <label>
             <input 
@@ -60,6 +62,18 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
               checked={this.state.selectedInputLanguage === Language.CZECH} 
             />
             Czech
+          </label>
+        </div>
+
+        <div className="radio">
+          <label>
+            <input 
+              type="radio" 
+              value={Language.NONE}
+              onChange={this.onInputLanguageChanged}
+              checked={this.state.selectedInputLanguage === Language.NONE} 
+            />
+            No default (you will be asked to identify the language when adding a new word or phrase)
           </label>
         </div>
       </div>

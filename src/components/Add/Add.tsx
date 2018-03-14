@@ -11,20 +11,24 @@ import ConfirmationView from './ConfirmationView';
 import NoteView from './NoteView';
 import * as QueryString from 'query-string'; 
 
+export interface AddProps {
+  inputLanguage: Language;
+}
+
 export interface AddState {
   currentView: PageView;
   lexeme: Lexeme;
 }
 
-export default class Add extends React.Component<object, AddState> {
+export default class Add extends React.Component<AddProps, AddState> {
 
   oReq: XMLHttpRequest;
 
-  constructor(props: object) {
+  constructor(props: AddProps) {
     super(props);
     this.state = {
       currentView: PageView.LEXEME,
-      lexeme: new Lexeme()
+      lexeme: new Lexeme(this.props.inputLanguage)
     };
     this.onCancel = this.onCancel.bind(this);
     this.onLexemeEdit = this.onLexemeEdit.bind(this);
@@ -38,11 +42,8 @@ export default class Add extends React.Component<object, AddState> {
   }
 
   onLexemeSubmitted(lexeme: Lexeme) {
-    var newView = this.state.lexeme.language === Language.NONE 
-      ? PageView.METADATAENTRY : PageView.CONFIRMATION;
-
     lexeme.type = LexemeUtil.getLexemeType(lexeme.text);
-    this.setState({lexeme: lexeme, currentView: newView});
+    this.setState({lexeme: lexeme, currentView: PageView.METADATAENTRY});
   }
 
   onMetadataSubmitted(lexeme: Lexeme) {
@@ -71,7 +72,7 @@ export default class Add extends React.Component<object, AddState> {
 
   onCancel() {
     this.setState({
-      lexeme: new Lexeme,
+      lexeme: new Lexeme(this.props.inputLanguage),
       currentView: PageView.LEXEME
     });
   }
