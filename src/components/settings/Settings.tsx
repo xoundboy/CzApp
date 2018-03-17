@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Component } from 'react';
 import Language from '../../enum/Language';
 import { ChangeEvent } from 'react';
+import LocalizedComponent from '../generic/LocalizedComponent';
 
 export interface SettingsProps {
   inputLanguage: Language;
@@ -15,7 +15,7 @@ export interface SettingsState {
   uiLanguage: Language;
 }
 
-export default class Settings extends Component<SettingsProps, SettingsState> {
+export default class Settings extends LocalizedComponent<SettingsProps, SettingsState> {
 
   constructor(props: SettingsProps) {
     super(props);
@@ -51,7 +51,9 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
   renderUiLanguage() {
     return (
       <div className="settingsSection">
-        <div className="sectionTitle">UI language</div>
+        <div className="sectionTitle">
+          {this.getCopy('SETTINGS_SECTION_UI_LANGUAGE')}
+        </div>
 
         <div className="radio">
           <label>
@@ -61,7 +63,7 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
               onChange={this.onUiLanguageChanged}
               checked={this.state.uiLanguage === Language.ENGLISH} 
             />
-            English
+            {this.getCopy('SETTINGS_LANGUAGE_OPTION_EN')}
           </label>
         </div>
 
@@ -73,7 +75,7 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
               onChange={this.onUiLanguageChanged}
               checked={this.state.uiLanguage === Language.CZECH} 
             />
-            Czech
+            {this.getCopy('SETTINGS_LANGUAGE_OPTION_CZ')}
           </label>
         </div>
       </div>
@@ -83,7 +85,9 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
   renderInputLanguage() {
     return (
       <div className="settingsSection">
-        <div className="sectionTitle">Default Input Language (which language are you learning?)</div>
+        <div className="sectionTitle">
+          {this.getCopy('SETTINGS_SECTION_DEFAULT_INPUT_LANG')}
+        </div>
 
         <div className="radio">
           <label>
@@ -93,7 +97,7 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
               onChange={this.onInputLanguageChanged}
               checked={this.state.selectedInputLanguage === Language.ENGLISH} 
             />
-            English
+            {this.getCopy('SETTINGS_LANGUAGE_OPTION_EN')}
           </label>
         </div>
 
@@ -105,7 +109,7 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
               onChange={this.onInputLanguageChanged}
               checked={this.state.selectedInputLanguage === Language.CZECH} 
             />
-            Czech
+            {this.getCopy('SETTINGS_LANGUAGE_OPTION_CZ')}
           </label>
         </div>
 
@@ -117,7 +121,7 @@ export default class Settings extends Component<SettingsProps, SettingsState> {
               onChange={this.onInputLanguageChanged}
               checked={this.state.selectedInputLanguage === Language.NONE} 
             />
-            No default (you will be asked to identify the language when adding a new word or phrase)
+            {this.getCopy('SETTINGS_LANGUAGE_OPTION_NONE')}
           </label>
         </div>
       </div>

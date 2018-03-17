@@ -5,3 +5,10 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
   box-sizing: border-box; }
+
+label {
+  display: block;
+  margin: 10px 0; }
+
+.view {
+  padding: 10px; }

@@ -38,54 +38,62 @@ body {
   height: 100vh;
   box-sizing: border-box; }
 
+label {
+  display: block;
+  margin: 10px 0; }
+
+.view {
+  padding: 10px; }
+
 .navLayer {
-  position: fixed; }
+  position: fixed;
+  background-color: white; }
   .navLayer nav {
     height: 100vh;
-    width: 100vw;
-    background-color: white; }
+    width: 100vw; }
     .navLayer nav a {
       display: block;
       text-align: left;
-      text-decoration: none; }
+      text-decoration: none;
+      margin: 10px 0; }
   .navLayer .navButton {
     height: 30px;
     width: 30px;
     background-image: url(../image/button/hamburger.svg); }
 
-.pageLayer .page .en.flag {
+.PageLayer .en.flag {
   background-image: url(../image/button/flag_uk.jpg); }
 
-.pageLayer .page .cz.flag {
+.PageLayer .cz.flag {
   background-image: url(../image/button/flag_cz.jpg); }
 
-.pageLayer .page .flag {
+.PageLayer .flag {
   background-size: contain;
   display: inline-block;
   border-radius: 3px;
   border: 2px solid silver; }
-  .pageLayer .page .no-language.flag {
+  .PageLayer .no-language.flag {
     display: none; }
 
-.pageLayer {
-  padding-top: 40px; }
-  .pageLayer .page {
-    text-align: left;
-    align-items: stretch; }
-    .pageLayer .page div.view {
-      width: 100%; }
-      .pageLayer .page div.view input.invalid,
-      .pageLayer .page div.view select.invalid {
-        outline: 2px red solid; }
-      .pageLayer .page div.view button.flag {
-        padding: 0;
-        height: 40px;
-        width: 76px; }
-    .pageLayer .page .flag {
-      height: 20px;
-      width: 41px; }
-    .pageLayer .page.confirmationView .editLink {
-      margin-left: 20px; }
+.PageLayer {
+  padding-top: 40px;
+  text-align: left;
+  align-items: stretch; }
+  .PageLayer div.view {
+    width: 100%; }
+    .PageLayer div.view input.invalid,
+    .PageLayer div.view select.invalid {
+      outline: 2px red solid; }
+    .PageLayer div.view button.flag {
+      margin: 10px;
+      height: 40px;
+      width: 76px;
+      cursor: pointer; }
+  .PageLayer .flag {
+    height: 20px;
+    width: 41px; }
+  .PageLayer.confirmationView .editLink {
+    margin-left: 20px; }
 
 .settingsSection {
   margin: 20px; }

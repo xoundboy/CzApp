@@ -1,10 +1,11 @@
 import * as React from 'react';
-import LanguageUtil from '../../util/LanguageUtil';
 import Lexeme from '../../valueobject/Lexeme';
 import ValidatedTextInput from '../generic/ValidatedTextInput';
 import { KeyboardEvent } from 'react';
+import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
+import Language from '../../enum/Language';
 
-export interface TranslationViewProps {
+export interface TranslationViewProps extends LocalizedComponentProps {
     lexeme: Lexeme;
     onSubmit: ((lexeme: Lexeme) => void);
 }
@@ -14,7 +15,7 @@ export interface TranslationViewState {
     valid: boolean;
 }
 
-export default class TranslationView extends React.Component<TranslationViewProps, TranslationViewState> {
+export default class TranslationView extends LocalizedComponent<TranslationViewProps, TranslationViewState> {
 
     constructor(props: TranslationViewProps) {
         super(props);
@@ -50,10 +51,13 @@ export default class TranslationView extends React.Component<TranslationViewProp
         return 'flag ' + this.props.lexeme.language;
     }
 
-    render() {
-        const languageName = LanguageUtil.getLanguageName(this.props.lexeme.translationLang);
-        const placeHolderText = `Enter the ${languageName} translation for ${this.props.lexeme.text}`;
+    getPlaceholderText() {
+        return (this.props.lexeme.translationLang === Language.ENGLISH) 
+            ? this.getCopy('PLACEHOLDER_TRANSLATION_IN_ENGLISH')
+            : this.getCopy('PLACEHOLDER_TRANSLATION_IN_CZECH');
+    }
 
+    render() {
         return (
             <div className="view translationView">
                 <div className="content">
@@ -63,13 +67,13 @@ export default class TranslationView extends React.Component<TranslationViewProp
                 <div className="content">
                     <ValidatedTextInput
                         value={this.state.translation}
-                        placeholderText={placeHolderText}
+                        placeholderText={this.getPlaceholderText()}
                         autofocus={true}
                         onValueChange={this.onValueChange}
                         onKeyUp={this.onKeyUp}
                     />
                     <div className={`flag ${this.props.lexeme.translationLang}`} />
-                    <button onClick={this.onSubmit}>Submit</button>
+                    <button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
                 </div>
             </div>
         );

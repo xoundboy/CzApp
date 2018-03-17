@@ -1,43 +1,41 @@
 @import "flag.scss";
-.pageLayer {
+.PageLayer {
   padding-top: 40px;
-  
-  .page {
-      text-align: left;
-      align-items: stretch;
-    
-      div.view {
-        width: 100%;
-    
-        input, 
-        select {
-          &.invalid {
-            outline: 2px red solid;
-          }
-        }
-    
-        button {
-          &.flag {
-            padding: 0;
-            height: 40px;
-            width: 76px;
-          }
-        }
-      }
-    
-      .flag {
-        @extend %flag;
-        height: 20px;
-        width: 41px;
-      }
-    
-    
-      &.confirmationView {
-        .editLink {
-          margin-left: 20px;
-        }
+  text-align: left;
+  align-items: stretch;
+
+  div.view {
+    width: 100%;
+
+    input, 
+    select {
+      &.invalid {
+        outline: 2px red solid;
       }
     }
+
+    button {
+      &.flag {
+        margin: 10px;
+        height: 40px;
+        width: 76px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .flag {
+    @extend %flag;
+    height: 20px;
+    width: 41px;
+  }
+
+
+  &.confirmationView {
+    .editLink {
+      margin-left: 20px;
+    }
+  }
 }
   
   

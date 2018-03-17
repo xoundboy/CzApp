@@ -1,5 +1,5 @@
-import * as React from 'react';
 import '../../style/App.css';
+import * as React from 'react';
 import LexemeView from './LexemeView';
 import PageView from '../../enum/PageView';
 import MetadataEntryView from './MetadataEntryView';
@@ -10,8 +10,9 @@ import TranslationView from './TranslationView';
 import ConfirmationView from './ConfirmationView';
 import NoteView from './NoteView';
 import * as QueryString from 'query-string'; 
+import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 
-export interface AddProps {
+export interface AddProps extends LocalizedComponentProps {
   inputLanguage: Language;
 }
 
@@ -20,7 +21,7 @@ export interface AddState {
   lexeme: Lexeme;
 }
 
-export default class Add extends React.Component<AddProps, AddState> {
+export default class Add extends LocalizedComponent<AddProps, AddState> {
 
   oReq: XMLHttpRequest;
 
@@ -96,56 +97,51 @@ export default class Add extends React.Component<AddProps, AddState> {
 
       case PageView.LEXEME:
         return (
-          <div className="page">
-            <LexemeView
-              lexeme={this.state.lexeme}
-              onSubmit={this.onLexemeSubmitted}
-            />
-          </div>
+          <LexemeView
+            uiLanguage={this.props.uiLanguage}
+            lexeme={this.state.lexeme}
+            onSubmit={this.onLexemeSubmitted}
+          />
         );
 
       case PageView.METADATAENTRY:
         return (
-          <div className="page">
-            <MetadataEntryView 
-              lexeme={this.state.lexeme} 
-              onSubmit={this.onMetadataSubmitted} 
-            />
-          </div>
+          <MetadataEntryView 
+            uiLanguage={this.props.uiLanguage}
+            lexeme={this.state.lexeme} 
+            onSubmit={this.onMetadataSubmitted} 
+          />
         );
 
       case PageView.TRANSLATION:
         return (
-          <div className="page">
-            <TranslationView
-              lexeme={this.state.lexeme}
-              onSubmit={this.onTranslationSubmit}
-            />
-          </div>
+          <TranslationView
+            uiLanguage={this.props.uiLanguage}
+            lexeme={this.state.lexeme}
+            onSubmit={this.onTranslationSubmit}
+          />
         );
 
       case PageView.CONFIRMATION:
         return (
-          <div className="page">
-            <ConfirmationView
-              lexeme={this.state.lexeme}
-              onLexemeEdit={this.onLexemeEdit}
-              onTranslationEdit={this.onTranslationEdit}
-              onNotesClicked={this.onNotesClicked}
-              onCancel={this.onCancel}
-              onSave={this.onSave}
-            />
-          </div>
+          <ConfirmationView
+            uiLanguage={this.props.uiLanguage}
+            lexeme={this.state.lexeme}
+            onLexemeEdit={this.onLexemeEdit}
+            onTranslationEdit={this.onTranslationEdit}
+            onNotesClicked={this.onNotesClicked}
+            onCancel={this.onCancel}
+            onSave={this.onSave}
+          />
         );
 
       case PageView.NOTE:
         return (
-          <div className="page">
-            <NoteView
-              lexeme={this.state.lexeme}
-              onSubmit={this.onNoteSubmitted}
-            />
-          </div>
+          <NoteView
+            uiLanguage={this.props.uiLanguage}
+            lexeme={this.state.lexeme}
+            onSubmit={this.onNoteSubmitted}
+          />
       );
 
       default:

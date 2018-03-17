@@ -2,9 +2,10 @@ import * as React from 'react';
 import Lexeme from '../../valueobject/Lexeme';
 import ValidatedTextInput from '../generic/ValidatedTextInput';
 import { KeyboardEvent } from 'react';
-import LanguageUtil from '../../util/LanguageUtil';
+import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
+import Language from '../../enum/Language';
 
-export interface LexemeViewProps {
+export interface LexemeViewProps extends LocalizedComponentProps {
     lexeme: Lexeme;
     onSubmit: ((lexeme: Lexeme) => void);
 }
@@ -14,7 +15,7 @@ export interface LexemeViewState {
     valid: boolean;
 }
 
-export default class LexemeView extends React.Component<LexemeViewProps, LexemeViewState> {
+export default class LexemeView extends LocalizedComponent<LexemeViewProps, LexemeViewState> {
 
     constructor(props: LexemeViewProps) {
         super(props);
@@ -46,17 +47,28 @@ export default class LexemeView extends React.Component<LexemeViewProps, LexemeV
         }
     }
 
+    getPlaceHolderText() {
+        switch (this.props.lexeme.language) {
+            case Language.ENGLISH:
+                return this.getCopy('PLACEHOLDER_INPUT_IN_ENGLISH');
+            case Language.CZECH:
+                return this.getCopy('PLACEHOLDER_INPUT_IN_CZECH');
+            default:
+                return this.getCopy('PLACEHOLDER_INPUT_NO_LANGUAGE');
+        }
+    }
+
     render() {
         return (
             <div className="view lexemeView">
                 <ValidatedTextInput
                     value={this.state.text}
-                    placeholderText={'Word or phrase in ' + LanguageUtil.getLanguageName(this.props.lexeme.language)}
+                    placeholderText={this.getPlaceHolderText()}
                     autofocus={true}
                     onValueChange={this.onValueChange}
                     onKeyUp={this.onKeyUp}
                 />
-                <button onClick={this.onSubmit}>Submit</button>
+                <button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
             </div>
         );
     }

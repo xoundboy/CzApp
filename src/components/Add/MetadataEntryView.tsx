@@ -1,3 +1,4 @@
+/* tslint:disable:max-line-length */
 import * as React from 'react';
 import Language from '../../enum/Language';
 import LanguageButton from './LanguageButton';
@@ -9,8 +10,9 @@ import WordType from '../../enum/WordType';
 import LanguageUtil from '../../util/LanguageUtil';
 import { ChangeEvent } from 'react';
 import CzVerbAspect from '../../enum/CzVerbAspect';
+import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 
-export interface MetadataEntryViewProps {
+export interface MetadataEntryViewProps extends LocalizedComponentProps {
     lexeme: Lexeme;
     onSubmit: ((lexeme: Lexeme) => void);
 }
@@ -28,7 +30,7 @@ export interface MetadataEntryViewState {
     wordType: WordType;
 }
 
-class MetadataEntryView extends React.Component<MetadataEntryViewProps, MetadataEntryViewState> {
+class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, MetadataEntryViewState> {
 
     constructor(props: MetadataEntryViewProps) {
         super(props);
@@ -107,15 +109,13 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     renderPhraseType() {
         if (this.state.language !== Language.NONE && this.state.type === LexemeType.PHRASE) {
             return (
-                <label>Phrase type
+                <label>{this.getCopy('PHRASE_TYPE_SELECT_LABEL')}
                 <select className="phraseType" onChange={this.onPhraseTypeChange}>
-                    <option>{PhraseType.NONE}</option>
-                    <option>{PhraseType.COLLOQUIALISM}</option>
-                    <option>{PhraseType.IDIOM}</option>
-                    <option>{PhraseType.MODALVERB}</option>
-                    <option>{PhraseType.OTHER}</option>
-                    <option>{PhraseType.PHRASALVERB}</option>
-                    <option>{PhraseType.PROVERB}</option>
+                    <option value={PhraseType.NONE}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.NONE)}</option>
+                    <option value={PhraseType.COLLOQUIALISM}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.COLLOQUIALISM)}</option>
+                    <option value={PhraseType.IDIOM}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.IDIOM)}</option>
+                    <option value={PhraseType.OTHER}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.OTHER)}</option>
+                    <option value={PhraseType.PROVERB}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.PROVERB)}</option>
                 </select>
             </label>
             );
@@ -127,7 +127,7 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
         if (this.state.language !== Language.NONE && (this.state.wordType !== WordType.NONE 
             || this.state.phraseType !== PhraseType.NONE)) {
             return (
-                <button onClick={this.onNextButtonClicked}>Next</button>
+                <button onClick={this.onNextButtonClicked}>{this.getCopy('BUTTON_NEXT')}</button>
             );
         }
         return null;
@@ -136,11 +136,11 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     renderCzVerbAspect() {
         if (this.state.language === Language.CZECH && this.state.wordType === WordType.VERB) {
             return (
-                <label>Czech verb aspect
+                <label>{this.getCopy('CZ_VERB_ASPECT_SELECT_LABEL')}
                     <select className="czVerbAspect" onChange={this.onCzVerbAspectChange}>
-                        <option>{CzVerbAspect.UNKNOWN}</option>
-                        <option>{CzVerbAspect.PERFECTIVE}</option>
-                        <option>{CzVerbAspect.IMPERFECTIVE}</option>
+                        <option value={CzVerbAspect.UNKNOWN}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.UNKNOWN)}</option>
+                        <option value={CzVerbAspect.PERFECTIVE}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.PERFECTIVE)}</option>
+                        <option value={CzVerbAspect.IMPERFECTIVE}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.IMPERFECTIVE)}</option>
                     </select>
                 </label>
             );
@@ -151,12 +151,12 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     renderCzGender() {
         if (this.state.language === Language.CZECH && this.state.wordType === WordType.NOUN) {
             return (
-                <label>Gender
+                <label>{this.getCopy('CZ_GENDER_SELECT_LABEL')}
                     <select className="gender" onChange={this.onGenderChange}>
-                        <option>{CzGender.NEUTER}</option>
-                        <option>{CzGender.FEMININE}</option>
-                        <option>{CzGender.MASCULINE}</option>
-                        <option>{CzGender.MASCULINEANIMATUM}</option>
+                        <option value={CzGender.NEUTER}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.NEUTER)}</option>
+                        <option value={CzGender.FEMININE}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.FEMININE)}</option>
+                        <option value={CzGender.MASCULINE}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.MASCULINE)}</option>
+                        <option value={CzGender.MASCULINE_ANIMATUM}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.MASCULINE_ANIMATUM)}</option>
                     </select>
                 </label>
             );
@@ -167,17 +167,17 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
     renderWordType() {
         if (this.state.type === LexemeType.WORD && this.state.language !== Language.NONE) {
             return (
-                <label>Word type
+                <label>{this.getCopy('WORD_TYPE_SELECT_LABEL')}
                     <select className="wordType" onChange={this.onWordTypeChange}>
-                        <option>{WordType.NONE}</option>
-                        <option>{WordType.VERB}</option>
-                        <option>{WordType.NOUN}</option>
-                        <option>{WordType.ADJECTIVE}</option>
-                        <option>{WordType.ADVERB}</option>
-                        <option>{WordType.PRONOUN}</option>
-                        <option>{WordType.PREPOSITION}</option>
-                        <option>{WordType.CONJUNCTION}</option>
-                        <option>{WordType.GERUND}</option>
+                        <option value={WordType.NONE}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.NONE)}</option>
+                        <option value={WordType.VERB}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.VERB)}</option>
+                        <option value={WordType.NOUN}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.NOUN)}</option>
+                        <option value={WordType.ADJECTIVE}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.ADJECTIVE)}</option>
+                        <option value={WordType.ADVERB}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.ADVERB)}</option>
+                        <option value={WordType.PRONOUN}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.PRONOUN)}</option>
+                        <option value={WordType.PREPOSITION}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.PREPOSITION)}</option>
+                        <option value={WordType.CONJUNCTION}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.CONJUNCTION)}</option>
+                        <option value={WordType.GERUND}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.GERUND)}</option>
                     </select>
                 </label>
             );
@@ -196,9 +196,8 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
 
     renderLexemeFlag() {
         if (this.state.language !== Language.NONE) {
-            var className = 'flag '  + this.state.language;
             return (
-                <span className={className} />
+                <span className={'flag '  + this.state.language} />
             );
         }
         return null;
@@ -208,7 +207,7 @@ class MetadataEntryView extends React.Component<MetadataEntryViewProps, Metadata
         if (this.state.language === Language.NONE) {
             return (
                 <div>
-                    <div className="whichLang">Which language is this?</div>
+                    <div className="whichLang">{this.getCopy('WHICH_LANGUAGE')}</div>
                     <div className="flagButtons">
                         <LanguageButton
                             language={Language.CZECH}

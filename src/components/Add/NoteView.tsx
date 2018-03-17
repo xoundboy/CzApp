@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { Component, ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import Lexeme from '../../valueobject/Lexeme';
+import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 
-export interface NoteViewProps {
+export interface NoteViewProps extends LocalizedComponentProps {
     lexeme: Lexeme;
     onSubmit: (lexeme: Lexeme) => void;
 }
@@ -11,7 +12,7 @@ export interface NoteViewState {
     note: string;
 }
 
-export default class NoteView extends Component<NoteViewProps, NoteViewState> {
+export default class NoteView extends LocalizedComponent<NoteViewProps, NoteViewState> {
 
     constructor(props: NoteViewProps) {
         super(props);
@@ -46,7 +47,7 @@ export default class NoteView extends Component<NoteViewProps, NoteViewState> {
                 </p>
 
                 <textarea onChange={this.onChange} value={this.state.note} />
-                <p><button onClick={this.onNoteSubmitted}>Add note</button></p>
+                <p><button onClick={this.onNoteSubmitted}>{this.getCopy('BUTTON_ADD_NOTE')}</button></p>
             </div>
         );
     }
