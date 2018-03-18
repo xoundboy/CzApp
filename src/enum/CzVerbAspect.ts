@@ -1,5 +1,5 @@
 enum CzVerbAspect {
-    UNKNOWN = 'UNKNOWN',
+    NULL = 'NULL',
     PERFECTIVE = 'PERFECTIVE',
     IMPERFECTIVE = 'IMPERFECTIVE'
 }

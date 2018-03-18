@@ -1,7 +1,7 @@
 enum LexemeType {
+    NULL = 'NULL',
     WORD = 'word',
-    PHRASE = 'phrase',
-    NONE = 'none'
+    PHRASE = 'phrase'
 }
 
 export default LexemeType;

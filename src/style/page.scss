@@ -13,28 +13,6 @@
         outline: 2px red solid;
       }
     }
-
-    button {
-      &.flag {
-        margin: 10px;
-        height: 40px;
-        width: 76px;
-        cursor: pointer;
-      }
-    }
-  }
-
-  .flag {
-    @extend %flag;
-    height: 20px;
-    width: 41px;
-  }
-
-
-  &.confirmationView {
-    .editLink {
-      margin-left: 20px;
-    }
   }
 }
   

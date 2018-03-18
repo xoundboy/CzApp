@@ -117,9 +117,9 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
           <label>
             <input 
               type="radio" 
-              value={Language.NONE}
+              value={Language.NULL}
               onChange={this.onInputLanguageChanged}
-              checked={this.state.selectedInputLanguage === Language.NONE} 
+              checked={this.state.selectedInputLanguage === Language.NULL} 
             />
             {this.getCopy('SETTINGS_LANGUAGE_OPTION_NONE')}
           </label>

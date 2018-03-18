@@ -17,7 +17,7 @@ export default class LanguageUtil {
             case Language.CZECH:
                 return Language.ENGLISH;
             default:
-                return Language.NONE;
+                return Language.NULL;
         }
     }
 }

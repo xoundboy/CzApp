@@ -1,17 +1,3 @@
-.PageLayer .en.flag {
-  background-image: url(../image/button/flag_uk.jpg); }
-
-.PageLayer .cz.flag {
-  background-image: url(../image/button/flag_cz.jpg); }
-
-.PageLayer .flag {
-  background-size: contain;
-  display: inline-block;
-  border-radius: 3px;
-  border: 2px solid silver; }
-  .PageLayer .no-language.flag {
-    display: none; }
-
 .PageLayer {
   padding-top: 40px;
   text-align: left;
@@ -21,13 +7,3 @@
     .PageLayer div.view input.invalid,
     .PageLayer div.view select.invalid {
       outline: 2px red solid; }
-    .PageLayer div.view button.flag {
-      margin: 10px;
-      height: 40px;
-      width: 76px;
-      cursor: pointer; }
-  .PageLayer .flag {
-    height: 20px;
-    width: 41px; }
-  .PageLayer.confirmationView .editLink {
-    margin-left: 20px; }

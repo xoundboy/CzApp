@@ -1,4 +1,5 @@
 enum WordType {
+    NULL = 'NULL',
     ADJECTIVE = 'ADJECTIVE',
     ADVERB = 'ADVERB',
     CONJUNCTION = 'CONJUNCTION',
@@ -6,7 +7,6 @@ enum WordType {
     NOUN = 'NOUN',
     PREPOSITION = 'PREPOSITION',
     PRONOUN = 'PRONOUN',
-    VERB = 'VERB',
-    NONE = 'NONE'
+    VERB = 'VERB'
 }
 export default WordType;

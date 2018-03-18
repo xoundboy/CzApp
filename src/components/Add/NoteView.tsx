@@ -38,11 +38,9 @@ export default class NoteView extends LocalizedComponent<NoteViewProps, NoteView
         return (
             <div className="view noteView">
                 <p className="input">
-                    <span className={`flag ${this.props.lexeme.language}`} />
                     <span>{this.props.lexeme.text}</span>
                 </p>
                 <p className="translation">
-                    <span className={`flag ${this.props.lexeme.translationLang}`} />
                     <span>{this.props.lexeme.translation}</span> 
                 </p>
 

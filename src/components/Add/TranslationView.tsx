@@ -47,10 +47,6 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
         this.setState({translation: value});
     }
 
-    getFlagClassName() {
-        return 'flag ' + this.props.lexeme.language;
-    }
-
     getPlaceholderText() {
         return (this.props.lexeme.translationLang === Language.ENGLISH) 
             ? this.getCopy('PLACEHOLDER_TRANSLATION_IN_ENGLISH')
@@ -60,11 +56,8 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
     render() {
         return (
             <div className="view translationView">
-                <div className="content">
-                    <div>{this.props.lexeme.text}</div>
-                    <div className={this.getFlagClassName()} />
-                </div>                        
-                <div className="content">
+                <div>{this.props.lexeme.text}</div>
+                <div>
                     <ValidatedTextInput
                         value={this.state.translation}
                         placeholderText={this.getPlaceholderText()}
@@ -72,9 +65,8 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
                         onValueChange={this.onValueChange}
                         onKeyUp={this.onKeyUp}
                     />
-                    <div className={`flag ${this.props.lexeme.translationLang}`} />
-                    <button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
                 </div>
+                <button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
             </div>
         );
     }

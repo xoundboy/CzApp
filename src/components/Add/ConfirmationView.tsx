@@ -61,7 +61,6 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
         return (
             <div className="view confirmationView">
                 <div className="input">
-                    <span className={`flag ${this.state.lexeme.language}`} />
                     <span>{this.state.lexeme.text}</span>
                     <button onClick={this.onLexemeEdit}>{this.getCopy('BUTTON_EDIT')}</button>
                     {this.renderWordType()}
@@ -70,7 +69,6 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
                     {this.renderPhraseType()}
                 </div>
                 <p className="translation">
-                    <span className={`flag ${this.state.lexeme.translationLang}`} />
                     <span>{this.state.lexeme.translation}</span> 
                     <button onClick={this.onTranslationEdit}>{this.getCopy('BUTTON_EDIT')}</button>
                 </p>
@@ -84,7 +82,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
     }
 
     renderPhraseType() {
-        if (this.state.lexeme.language !== Language.NONE && this.state.lexeme.type === LexemeType.PHRASE) {
+        if (this.state.lexeme.language !== Language.NULL && this.state.lexeme.type === LexemeType.PHRASE) {
             const phraseTypeLabel = this.getCopy('CONFIRMATION_PHRASE_TYPE');
             const phraseType = this.getCopy(DictionaryUtil.getPhraseTypeKey(this.state.lexeme.phraseType));
             return (
@@ -117,7 +115,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
     }
 
     renderWordType() {
-        if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NONE) {
+        if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
             const wordTypeLabel = this.getCopy('CONFIRMATION_WORD_TYPE');
             const wordType = this.getCopy(DictionaryUtil.getWordTypeKey(this.state.lexeme.wordType));
             return (

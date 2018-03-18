@@ -17,7 +17,6 @@
     public static CZ_GENDER_OPTION_MASCULINE = 'masculine';
     public static CZ_GENDER_OPTION_MASCULINE_ANIMATUM = 'masculine animatum';
     public static CZ_VERB_ASPECT_SELECT_LABEL = 'Czech verb aspect';
-    public static CZ_VERB_ASPECT_OPTION_UNKNOWN = 'unknown';
     public static CZ_VERB_ASPECT_OPTION_PERFECTIVE = 'perfective';
     public static CZ_VERB_ASPECT_OPTION_IMPERFECTIVE = 'imperfective';
     public static MENULABEL_ADD = 'Add word or phrase';
@@ -25,15 +24,14 @@
     public static MENULABEL_SETTINGS = 'Settings';
     public static PHRASE_TYPE_OPTION_COLLOQUIALISM = 'colloquialism';
     public static PHRASE_TYPE_OPTION_IDIOM  = 'idiom';
-    public static PHRASE_TYPE_OPTION_NONE = 'none';
     public static PHRASE_TYPE_OPTION_OTHER = 'other';
     public static PHRASE_TYPE_OPTION_PROVERB = 'proverb';
     public static PHRASE_TYPE_SELECT_LABEL = 'Phrase type';
     public static PLACEHOLDER_INPUT_IN_CZECH = 'Czech word or phrase';
     public static PLACEHOLDER_INPUT_IN_ENGLISH = 'English word or phrase';
     public static PLACEHOLDER_INPUT_NO_LANGUAGE = 'Word or phrase';
-    public static PLACEHOLDER_TRANSLATION_IN_CZECH = 'Word or phrase in Czech';
-    public static PLACEHOLDER_TRANSLATION_IN_ENGLISH = 'Word or phrase in Czech';
+    public static PLACEHOLDER_TRANSLATION_IN_CZECH = 'Czech translation';
+    public static PLACEHOLDER_TRANSLATION_IN_ENGLISH = 'English translation';
     public static SETTINGS_LANGUAGE_OPTION_CZ = 'Czech';
     public static SETTINGS_LANGUAGE_OPTION_EN = 'English';
     public static SETTINGS_LANGUAGE_OPTION_NONE = 'No default (you will be asked to identify the language when adding a new word or phrase)';
@@ -41,7 +39,6 @@
     public static SETTINGS_SECTION_UI_LANGUAGE = 'UI language';
     public static WHICH_LANGUAGE = 'Which language is this?';
     public static WORD_TYPE_SELECT_LABEL = 'Word type';
-    public static WORD_TYPE_OPTION_NONE = 'none';
     public static WORD_TYPE_OPTION_VERB = 'verb';
     public static WORD_TYPE_OPTION_NOUN = 'noun';
     public static WORD_TYPE_OPTION_ADJECTIVE = 'adjective';

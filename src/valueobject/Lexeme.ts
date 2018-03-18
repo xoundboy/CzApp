@@ -9,18 +9,18 @@ import LanguageUtil from '../util/LanguageUtil';
 export default class Lexeme {
     
     public text: string = '';
-    public language: Language = Language.NONE;
+    public language: Language = Language.NULL;
     public translation: string = '';
-    public translationLang: Language = Language.NONE;
-    public type: LexemeType = LexemeType.NONE;
-    public czGender: CzGender = CzGender.NEUTER;
-    public czVerbAspect: CzVerbAspect = CzVerbAspect.UNKNOWN;
+    public translationLang: Language = Language.NULL;
+    public type: LexemeType = LexemeType.NULL;
+    public czGender: CzGender = CzGender.NULL;
+    public czVerbAspect: CzVerbAspect = CzVerbAspect.NULL;
     public note: string = '';
-    public phraseType: PhraseType = PhraseType.NONE;
-    public wordType: WordType = WordType.NONE;
+    public phraseType: PhraseType = PhraseType.NULL;
+    public wordType: WordType = WordType.NULL;
 
     constructor(language: Language) {
         this.language = language;
-        this.translationLang = language !== Language.NONE ? LanguageUtil.getOtherLanguage(language) : Language.NONE;
+        this.translationLang = language !== Language.NULL ? LanguageUtil.getOtherLanguage(language) : Language.NULL;
     }
 }

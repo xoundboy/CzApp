@@ -1,9 +1,9 @@
 enum PhraseType {
+    NULL = 'NULL',
     COLLOQUIALISM = 'COLLOQUIALISM',
     IDIOM = 'IDIOM',
     OTHER = 'OTHER',
-    PROVERB = 'PROVERB',
-    NONE = 'NONE'
+    PROVERB = 'PROVERB'
 }
 
 export default PhraseType;

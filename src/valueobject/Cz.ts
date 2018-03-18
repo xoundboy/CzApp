@@ -18,14 +18,12 @@ export default class Cz {
     public static CZ_GENDER_SELECT_LABEL = 'Rod';
     public static CZ_VERB_ASPECT_OPTION_IMPERFECTIVE = 'imperfektivní';
     public static CZ_VERB_ASPECT_OPTION_PERFECTIVE = 'perfektivní';
-    public static CZ_VERB_ASPECT_OPTION_UNKNOWN = 'neznámý';
     public static CZ_VERB_ASPECT_SELECT_LABEL = 'Český slovesný aspekt';
     public static MENULABEL_ADD = 'Přidat slovo nebo frázi';
     public static MENULABEL_HOME = 'Domov';
     public static MENULABEL_SETTINGS = 'Nastavení';
     public static PHRASE_TYPE_OPTION_COLLOQUIALISM = 'hovorový hovor';
     public static PHRASE_TYPE_OPTION_IDIOM  = 'idiom';
-    public static PHRASE_TYPE_OPTION_NONE = 'žádný';
     public static PHRASE_TYPE_OPTION_OTHER = 'jiný';
     public static PHRASE_TYPE_OPTION_PROVERB = 'přísloví';
     public static PHRASE_TYPE_SELECT_LABEL = 'Typ fráze';
@@ -43,7 +41,6 @@ export default class Cz {
     public static WORD_TYPE_OPTION_ADVERB = 'adverb';
     public static WORD_TYPE_OPTION_CONJUNCTION = 'spojení';
     public static WORD_TYPE_OPTION_GERUND = 'gerundium';
-    public static WORD_TYPE_OPTION_NONE = 'žádný';
     public static WORD_TYPE_OPTION_NOUN = 'podstatné jméno';
     public static WORD_TYPE_OPTION_PREPOSITION = 'předložka';
     public static WORD_TYPE_OPTION_PRONOUN = 'příslovce';
