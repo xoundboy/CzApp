@@ -5,6 +5,7 @@ import Language from '../../enum/Language';
 import WordType from '../../enum/WordType';
 import DictionaryUtil from '../../util/DictionaryUtil';
 import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
+import PhraseType from 'enum/PhraseType';
 
 export interface ConfirmationViewProps extends LocalizedComponentProps {
     lexeme: Lexeme;
@@ -82,6 +83,9 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
     }
 
     renderPhraseType() {
+        if (this.state.lexeme.phraseType === PhraseType.NULL) {
+            return null;
+        }
         if (this.state.lexeme.language !== Language.NULL && this.state.lexeme.type === LexemeType.PHRASE) {
             const phraseTypeLabel = this.getCopy('CONFIRMATION_PHRASE_TYPE');
             const phraseType = this.getCopy(DictionaryUtil.getPhraseTypeKey(this.state.lexeme.phraseType));
@@ -115,6 +119,9 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
     }
 
     renderWordType() {
+        if (this.state.lexeme.wordType === WordType.NULL) {
+            return null;
+        }
         if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
             const wordTypeLabel = this.getCopy('CONFIRMATION_WORD_TYPE');
             const wordType = this.getCopy(DictionaryUtil.getWordTypeKey(this.state.lexeme.wordType));
