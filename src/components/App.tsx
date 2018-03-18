@@ -3,6 +3,7 @@ import Language from '../enum/Language';
 import { Component } from 'react';
 import MenuLayer from './MenuLayer';
 import PageLayer from './PageLayer';
+import LocalStorage from 'model/LocalStorage';
 
 export interface AppState {
     inputLanguage: Language;
@@ -14,8 +15,8 @@ export default class App extends Component<object, AppState> {
     constructor(props: object) {
         super(props);
         this.state = {
-            inputLanguage: Language.ENGLISH, // TODO - use storage provider
-            uiLanguage: Language.ENGLISH // TODO - use storage provider
+            inputLanguage: LocalStorage.inputLanguage || Language.ENGLISH, 
+            uiLanguage: LocalStorage.uiLanguage || Language.ENGLISH
         };
         
         this.onInputLanguageChanged = this.onInputLanguageChanged.bind(this);
@@ -23,10 +24,12 @@ export default class App extends Component<object, AppState> {
     }
 
     onInputLanguageChanged(value: Language) {
+        LocalStorage.inputLanguage = value;
         this.setState({inputLanguage: value});
     }
 
     onUiLanguageChanged(value: Language) {
+        LocalStorage.uiLanguage = value;
         this.setState({uiLanguage: value});
     }
 
