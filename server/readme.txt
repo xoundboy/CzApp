@@ -1,5 +1,8 @@
+START MYSQL SERVER
+/usr/local/opt/mysql@5.5/bin/mysql.server start
+
 DEV SERVER
-$ nodemon server.js //auto-restart server after code change
+$ nodemon server.js //auto-restart server after code change - but this isn't required for development if using debug configuration / breakpoints
 
 DUMP DB
 mysqldump -uczapp -p czapp > czapp.sql

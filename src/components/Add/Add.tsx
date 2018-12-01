@@ -108,7 +108,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
         return (
           <MetadataEntryView 
             uiLanguage={this.props.uiLanguage}
-            lexeme={this.state.lexeme} 
+            lexeme={this.state.lexeme}
             onSubmit={this.onMetadataSubmitted} 
           />
         );

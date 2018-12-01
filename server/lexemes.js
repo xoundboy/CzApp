@@ -29,9 +29,35 @@ router.post('/', function(req, res){
 		var gender = formatEnum(req.body.czGender);
 		var verbAspect = formatEnum(req.body.czVerbAspect);
 		var notes = req.body.notes || "";
-		return `CALL insertCzLexeme('${word}','${phrase}','${wordType}','${phraseType}','${type}','${gender}','` +
-				`${verbAspect}','${notes}', @insert_id); SELECT @insert_id;`;
+		var language = req.body.language;
+
+		var czWord;
+		var czPhrase;
+		var enWord;
+		var enPhrase;
+
+		if (language === "cz"){
+			if (type === "word"){
+				czWord = req.body.text;
+				enWord = req.body.translation;
+			} else {
+				czPhrase = req.body.text;
+				enPhrase = req.body.translation;
+			}
+		} else {
+			if (type === "word"){
+				enWord = req.body.text;
+				czWord = req.body.translation;
+			} else {
+				enPhrase = req.body.text;
+				czPhrase = req.body.translation;
+			}
+		}
+
+		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}','${type}','${gender}','` +
+				`${verbAspect}','${notes}', @insert_id);`;
 	}
+
 
 	if (isValid(req)){
 		util.runQueryAndResponse(getQuery(), res);
