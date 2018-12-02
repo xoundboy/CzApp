@@ -5,7 +5,8 @@ DEV SERVER
 $ nodemon server.js //auto-restart server after code change - but this isn't required for development if using debug configuration / breakpoints
 
 DUMP DB
-mysqldump -uczapp -p czapp > czapp.sql
+$ npm run dumpnodata // no data
+$ npm run dump // with data
 
 DEBUG (Node debug mode in Jetbrains)
 Don't forget to point to server.js and set environment variables in the debug configuration:

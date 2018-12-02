@@ -31,13 +31,13 @@ router.post('/', function(req, res){
 		var notes = req.body.notes || "";
 		var language = req.body.language;
 
-		var czWord;
-		var czPhrase;
-		var enWord;
-		var enPhrase;
+		var czWord = '';
+		var czPhrase = '';
+		var enWord = '';
+		var enPhrase = '';
 
 		if (language === "cz"){
-			if (type === "word"){
+			if (type === "WORD"){
 				czWord = req.body.text;
 				enWord = req.body.translation;
 			} else {
@@ -45,7 +45,7 @@ router.post('/', function(req, res){
 				enPhrase = req.body.translation;
 			}
 		} else {
-			if (type === "word"){
+			if (type === "WORD"){
 				enWord = req.body.text;
 				czWord = req.body.translation;
 			} else {
