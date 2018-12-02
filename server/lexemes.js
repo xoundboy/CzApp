@@ -21,20 +21,17 @@ router.post('/', function(req, res){
 	}
 
 	function getQuery() {
-		var word = (req.body.type === "word") ? req.body.text : "";
-		var phrase = (req.body.type === "phrase") ? req.body.text : "";
-		var wordType = formatEnum(req.body.wordType);
-		var phraseType = formatEnum(req.body.phraseType);
-		var type = formatEnum(req.body.type);
-		var gender = formatEnum(req.body.czGender);
-		var verbAspect = formatEnum(req.body.czVerbAspect);
-		var notes = req.body.notes || "";
-		var language = req.body.language;
-
-		var czWord = '';
-		var czPhrase = '';
-		var enWord = '';
-		var enPhrase = '';
+		let wordType = formatEnum(req.body.wordType);
+		let phraseType = formatEnum(req.body.phraseType);
+		let type = formatEnum(req.body.type);
+		let gender = formatEnum(req.body.czGender);
+		let verbAspect = formatEnum(req.body.czVerbAspect);
+		let notes = req.body.notes || "";
+		let language = req.body.language;
+		let czWord = '';
+		let czPhrase = '';
+		let enWord = '';
+		let enPhrase = '';
 
 		if (language === "cz"){
 			if (type === "WORD"){
@@ -54,10 +51,9 @@ router.post('/', function(req, res){
 			}
 		}
 
-		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}','${type}','${gender}','` +
-				`${verbAspect}','${notes}', @insert_id);`;
+		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}
+			','${type}','${gender}','${verbAspect}','${notes}', @insert_id);`;
 	}
-
 
 	if (isValid(req)){
 		util.runQueryAndResponse(getQuery(), res);

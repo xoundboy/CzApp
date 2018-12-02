@@ -17,7 +17,7 @@
         "curly": [true, "next-line-multi-line"],
         "eofline": false,
         "forin": true,
-        "indent": [ true, "spaces" ],
+        "indent": [ true, "tabs" ],
         "interface-name": [true, "never-prefix"],
         "jsdoc-format": true,
         "jsx-no-lambda": false,
