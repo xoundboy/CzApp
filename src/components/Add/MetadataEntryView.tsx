@@ -122,12 +122,12 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
         if (this.state.language !== Language.NULL && this.state.type === LexemeType.PHRASE) {
             return (
                 <label>{this.getCopy('PHRASE_TYPE_SELECT_LABEL')}
-                <select className="phraseType" onChange={this.onPhraseTypeChange}>
-                    <option value={PhraseType.NULL} selected={this.state.phraseType === PhraseType.NULL}>-</option>
-                    <option value={PhraseType.COLLOQUIALISM} selected={this.state.phraseType === PhraseType.COLLOQUIALISM}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.COLLOQUIALISM)}</option>
-                    <option value={PhraseType.IDIOM} selected={this.state.phraseType === PhraseType.IDIOM}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.IDIOM)}</option>
-                    <option value={PhraseType.OTHER} selected={this.state.phraseType === PhraseType.OTHER}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.OTHER)}</option>
-                    <option value={PhraseType.PROVERB} selected={this.state.phraseType === PhraseType.PROVERB}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.PROVERB)}</option>
+                <select className="phraseType" value={this.state.phraseType} onChange={this.onPhraseTypeChange}>
+                    <option value={PhraseType.NULL}>-</option>
+                    <option value={PhraseType.COLLOQUIALISM}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.COLLOQUIALISM)}</option>
+                    <option value={PhraseType.IDIOM}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.IDIOM)}</option>
+                    <option value={PhraseType.OTHER}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.OTHER)}</option>
+                    <option value={PhraseType.PROVERB}>{this.getCopy('PHRASE_TYPE_OPTION_' + PhraseType.PROVERB)}</option>
                 </select>
             </label>
             );
@@ -145,10 +145,10 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
         if (this.state.language === Language.CZECH && this.state.wordType === WordType.VERB) {
             return (
                 <label>{this.getCopy('CZ_VERB_ASPECT_SELECT_LABEL')}
-                    <select className="czVerbAspect" onChange={this.onCzVerbAspectChange}>
-                        <option value={CzVerbAspect.NULL} selected={this.state.czVerbAspect === CzVerbAspect.NULL}>-</option>
-                        <option value={CzVerbAspect.PERFECTIVE} selected={this.state.czVerbAspect === CzVerbAspect.PERFECTIVE}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.PERFECTIVE)}</option>
-                        <option value={CzVerbAspect.IMPERFECTIVE} selected={this.state.czVerbAspect === CzVerbAspect.IMPERFECTIVE}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.IMPERFECTIVE)}</option>
+                    <select className="czVerbAspect" value={this.state.czVerbAspect} onChange={this.onCzVerbAspectChange}>
+                        <option value={CzVerbAspect.NULL}>-</option>
+                        <option value={CzVerbAspect.PERFECTIVE}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.PERFECTIVE)}</option>
+                        <option value={CzVerbAspect.IMPERFECTIVE}>{this.getCopy('CZ_VERB_ASPECT_OPTION_' + CzVerbAspect.IMPERFECTIVE)}</option>
                     </select>
                 </label>
             );
@@ -160,12 +160,12 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
         if (this.state.language === Language.CZECH && this.state.wordType === WordType.NOUN) {
             return (
                 <label>{this.getCopy('CZ_GENDER_SELECT_LABEL')}
-                    <select className="gender" onChange={this.onGenderChange}>
-                        <option value={CzGender.NULL} selected={this.state.czGender === CzGender.NULL}>-</option>
-                        <option value={CzGender.NEUTER} selected={this.state.czGender === CzGender.NEUTER}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.NEUTER)}</option>
-                        <option value={CzGender.FEMININE} selected={this.state.czGender === CzGender.FEMININE}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.FEMININE)}</option>
-                        <option value={CzGender.MASCULINE} selected={this.state.czGender === CzGender.MASCULINE}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.MASCULINE)}</option>
-                        <option value={CzGender.MASCULINE_ANIMATUM} selected={this.state.czGender === CzGender.MASCULINE_ANIMATUM}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.MASCULINE_ANIMATUM)}</option>
+                    <select className="gender" value={this.state.czGender} onChange={this.onGenderChange}>
+                        <option value={CzGender.NULL}>-</option>
+                        <option value={CzGender.NEUTER}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.NEUTER)}</option>
+                        <option value={CzGender.FEMININE}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.FEMININE)}</option>
+                        <option value={CzGender.MASCULINE}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.MASCULINE)}</option>
+                        <option value={CzGender.MASCULINE_ANIMATUM}>{this.getCopy('CZ_GENDER_OPTION_' + CzGender.MASCULINE_ANIMATUM)}</option>
                     </select>
                 </label>
             );
@@ -177,16 +177,16 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
         if (this.state.type === LexemeType.WORD && this.state.language !== Language.NULL) {
             return (
                 <label>{this.getCopy('WORD_TYPE_SELECT_LABEL')}
-                    <select className="wordType" onChange={this.onWordTypeChange}>
-                        <option value={WordType.NULL} selected={this.state.wordType === WordType.NULL}>-</option>
-                        <option value={WordType.VERB} selected={this.state.wordType === WordType.VERB}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.VERB)}</option>
-                        <option value={WordType.NOUN} selected={this.state.wordType === WordType.NOUN}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.NOUN)}</option>
-                        <option value={WordType.ADJECTIVE} selected={this.state.wordType === WordType.ADJECTIVE}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.ADJECTIVE)}</option>
-                        <option value={WordType.ADVERB} selected={this.state.wordType === WordType.ADVERB}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.ADVERB)}</option>
-                        <option value={WordType.PRONOUN} selected={this.state.wordType === WordType.PRONOUN}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.PRONOUN)}</option>
-                        <option value={WordType.PREPOSITION} selected={this.state.wordType === WordType.PREPOSITION}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.PREPOSITION)}</option>
-                        <option value={WordType.CONJUNCTION} selected={this.state.wordType === WordType.CONJUNCTION}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.CONJUNCTION)}</option>
-                        <option value={WordType.GERUND} selected={this.state.wordType === WordType.GERUND}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.GERUND)}</option>
+                    <select className="wordType" value={this.state.wordType} onChange={this.onWordTypeChange}>
+                        <option value={WordType.NULL}>-</option>
+                        <option value={WordType.VERB}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.VERB)}</option>
+                        <option value={WordType.NOUN}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.NOUN)}</option>
+                        <option value={WordType.ADJECTIVE}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.ADJECTIVE)}</option>
+                        <option value={WordType.ADVERB}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.ADVERB)}</option>
+                        <option value={WordType.PRONOUN}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.PRONOUN)}</option>
+                        <option value={WordType.PREPOSITION}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.PREPOSITION)}</option>
+                        <option value={WordType.CONJUNCTION}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.CONJUNCTION)}</option>
+                        <option value={WordType.GERUND}>{this.getCopy('WORD_TYPE_OPTION_' + WordType.GERUND)}</option>
                     </select>
                 </label>
             );
