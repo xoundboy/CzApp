@@ -1,5 +1,7 @@
 /* tslint:disable:max-line-length */
-export default class En {
+import Dictionary from '../api/Dictionary';
+
+const En: Dictionary = class {
 	public static BUTTON_NEXT = 'Next';
 	public static BUTTON_SUBMIT = 'Submit';
 	public static BUTTON_EDIT = 'Edit';
@@ -37,6 +39,10 @@ export default class En {
 	public static SETTINGS_LANGUAGE_OPTION_NONE = 'No default (you will be asked to identify the language when adding a new word or phrase)';
 	public static SETTINGS_SECTION_DEFAULT_INPUT_LANG = 'Default Input Language (which language are you learning?)';
 	public static SETTINGS_SECTION_UI_LANGUAGE = 'UI language';
+	public static TAB_LEXEME_INPUT = 'Lexeme';
+	public static TAB_TRANSLATION_INPUT = 'Translation';
+	public static TAB_NOTE_INPUT = 'Note';
+	public static TAB_CONFIRMATION_INPUT = 'Confirm';
 	public static WHICH_LANGUAGE = 'Which language is this?';
 	public static WORD_TYPE_SELECT_LABEL = 'Word type';
 	public static WORD_TYPE_OPTION_VERB = 'verb';
@@ -47,4 +53,6 @@ export default class En {
 	public static WORD_TYPE_OPTION_PREPOSITION = 'preposition';
 	public static WORD_TYPE_OPTION_CONJUNCTION = 'conjunction';
 	public static WORD_TYPE_OPTION_GERUND = 'gerund';
-}
+};
+
+export default En;

@@ -10,11 +10,7 @@
         "autoFixOnSave": true,
         "ban": false,
         "class-name": true,
-        "comment-format": [
-            true,
-            "check-space"
-        ],
-        "curly": [true, "next-line-multi-line"],
+        "curly": [true, "as-needed"],
         "eofline": false,
         "forin": true,
         "indent": [ true, "tabs" ],

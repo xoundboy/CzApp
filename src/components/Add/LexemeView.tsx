@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Lexeme from '../../valueobject/Lexeme';
 import ValidatedTextInput from '../generic/ValidatedTextInput';
-import { KeyboardEvent } from 'react';
+import { FormEvent } from 'react';
 import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 import Language from '../../enum/Language';
 
@@ -21,8 +21,8 @@ export default class LexemeView extends LocalizedComponent<LexemeViewProps, Lexe
 	constructor(props: LexemeViewProps) {
 		super(props);
 		this.onValueChange = this.onValueChange.bind(this);
+		this.onFormSubmit = this.onFormSubmit.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
-		this.onKeyUp = this.onKeyUp.bind(this);
 	}
 
 	componentWillMount() {
@@ -33,19 +33,18 @@ export default class LexemeView extends LocalizedComponent<LexemeViewProps, Lexe
 		this.setState({text: value});
 	}
 
-	onSubmit() {
-		if (!this.state.text) {
+	onFormSubmit(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+		if (!this.state.text)
 			return;
-		}
+		console.log('submit');
 		let lexeme = Object.assign({}, this.props.lexeme);
 		lexeme.text = this.state.text;
 		this.props.onSubmit(lexeme);
 	}
 
-	onKeyUp(event: KeyboardEvent<HTMLInputElement>) {
-		if (event.which === 13) {
-			this.onSubmit();
-		}
+	onSubmit() {
+		// todo
 	}
 
 	getPlaceHolderText() {
@@ -62,15 +61,19 @@ export default class LexemeView extends LocalizedComponent<LexemeViewProps, Lexe
 	render() {
 		return (
 			<div className="view lexemeView">
-				<ValidatedTextInput
-					value={this.state.text}
-					placeholderText={this.getPlaceHolderText()}
-					autofocus={true}
-					onValueChange={this.onValueChange}
-					onKeyUp={this.onKeyUp}
-				/>
-				<button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
-				<button onClick={this.props.onLanguagesSwitched}>{this.getCopy('BUTTON_SWITCH_LANGUAGES')}</button>
+				<form onSubmit={this.onFormSubmit}>
+					<div className="formRow">
+						<ValidatedTextInput
+							value={this.state.text}
+							placeholderText={this.getPlaceHolderText()}
+							autofocus={true}
+							onValueChange={this.onValueChange}
+						/>
+					</div>
+					<div className="formRow">
+						<button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
+					</div>
+				</form>
 			</div>
 		);
 	}

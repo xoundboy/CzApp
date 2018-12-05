@@ -1,32 +1,33 @@
 {
-	"name": "czapp",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@types/query-string": "^5.1.0",
-		"node-sass-chokidar": "0.0.3",
-		"query-string": "^5.1.0",
-		"react": "^16.2.0",
-		"react-dom": "^16.2.0",
-		"react-router-dom": "^4.2.2",
-		"react-scripts-ts": "2.13.0",
-		"require.js": "^1.0.0"
-	},
-	"scripts": {
-		"build-css": "node-sass-chokidar src/ -o src/",
-		"watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-		"start": "react-scripts-ts start",
-		"build": "react-scripts-ts build",
-		"test": "react-scripts-ts test --env=jsdom",
-		"eject": "react-scripts-ts eject"
-	},
-	"devDependencies": {
-		"@types/gapi": "0.0.35",
-		"@types/gapi.auth2": "0.0.47",
-		"@types/jest": "^22.1.2",
-		"@types/node": "^9.4.5",
-		"@types/react": "^16.0.36",
-		"@types/react-dom": "^16.0.3",
-		"typescript": "^2.7.1"
-	}
+  "name": "czapp",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/query-string": "^5.1.0",
+    "node-sass-chokidar": "0.0.3",
+    "query-string": "^5.1.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-scripts-ts": "2.13.0",
+    "require.js": "^1.0.0"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/gapi": "0.0.35",
+    "@types/gapi.auth2": "0.0.47",
+    "@types/jest": "^22.1.2",
+    "@types/node": "^9.4.5",
+    "@types/react": "^16.1.0",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-router-dom": "^4.2.2",
+    "typescript": "^2.7.1"
+  }
 }

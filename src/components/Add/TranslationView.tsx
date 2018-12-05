@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Lexeme from '../../valueobject/Lexeme';
 import ValidatedTextInput from '../generic/ValidatedTextInput';
-import { KeyboardEvent } from 'react';
 import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 import Language from '../../enum/Language';
 
@@ -21,7 +20,6 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
 		super(props);
 		this.onValueChange = this.onValueChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
-		this.onKeyUp = this.onKeyUp.bind(this);
 	}
 
 	componentWillMount() {
@@ -29,18 +27,12 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
 	}
 
 	onSubmit() {
-		if (!this.state.translation) {
+		if (!this.state.translation)
 			return;
-		}
+
 		let lexeme = Object.assign({}, this.props.lexeme);
 		lexeme.translation = this.state.translation;
 		this.props.onSubmit(lexeme);
-	}
-
-	onKeyUp(event: KeyboardEvent<HTMLInputElement>) {
-		if (event.which === 13) {
-			this.onSubmit();
-		}
 	}
 
 	onValueChange(value: string | null) {
@@ -63,7 +55,6 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
 						placeholderText={this.getPlaceholderText()}
 						autofocus={true}
 						onValueChange={this.onValueChange}
-						onKeyUp={this.onKeyUp}
 					/>
 				</div>
 				<button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>

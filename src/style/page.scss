@@ -1,19 +1,17 @@
 @import "flag.scss";
 .PageLayer {
-  padding-top: 40px;
-  text-align: left;
-  align-items: stretch;
+	padding-top: 40px;
+	text-align: left;
+	align-items: stretch;
 
-  div.view {
-    width: 100%;
+	div.view {
+		width: 100%;
 
-    input, 
-    select {
-      &.invalid {
-        outline: 2px red solid;
-      }
-    }
-  }
+		input,
+		select {
+			&.invalid {
+				outline: 2px red solid;
+			}
+		}
+	}
 }
-  
-  

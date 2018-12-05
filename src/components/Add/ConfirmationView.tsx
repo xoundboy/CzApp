@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Route } from 'react-router-dom';
 import Lexeme from '../../valueobject/Lexeme';
 import LexemeType from '../../enum/LexemeType';
 import Language from '../../enum/Language';
@@ -11,7 +12,6 @@ export interface ConfirmationViewProps extends LocalizedComponentProps {
 	lexeme: Lexeme;
 	onCancel: () => void;
 	onLexemeEdit: (lexeme: Lexeme) => void;
-	onNotesClicked: (lexeme: Lexeme) => void;
 	onSave: (lexeme: Lexeme) => void;
 	onTranslationEdit: (lexeme: Lexeme) => void;
 }
@@ -28,7 +28,6 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 		this.onLexemeEdit = this.onLexemeEdit.bind(this);
 		this.onTranslationEdit = this.onTranslationEdit.bind(this);
 		this.onSave = this.onSave.bind(this);
-		this.onNotesClicked = this.onNotesClicked.bind(this);
 	}
 
 	componentWillMount() {
@@ -54,10 +53,6 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 		this.props.onSave(this.state.lexeme);
 	}
 
-	onNotesClicked() {
-		this.props.onNotesClicked(this.state.lexeme);
-	}
-
 	render() {
 		return (
 			<div className="view confirmationView">
@@ -71,21 +66,43 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 				</div>
 				<p className="translation">
 					<span>{this.state.lexeme.translation}</span>
-					<button onClick={this.onTranslationEdit}>{this.getCopy('BUTTON_EDIT')}</button>
+					{/*<button onClick={this.onTranslationEdit}>{this.getCopy('BUTTON_EDIT')}</button>*/}
+					<Route
+						render={({history}) => (
+							<button
+								type="button"
+								onClick={() => { history.push('/add/translation'); }}
+							>
+								{this.getCopy('BUTTON_EDIT')}
+							</button>
+							)}
+					/>
 				</p>
-				<p>{this.state.lexeme.note}</p>
+
 				<p><button onClick={this.onSave}>{this.getCopy('BUTTON_SAVE')}</button></p>
 				<p><button onClick={this.props.onCancel}>{this.getCopy('BUTTON_CANCEL')}</button></p>
-				<p><button onClick={this.onNotesClicked}>{this.getCopy('BUTTON_ADD_NOTE')}</button></p>
+				{/*<p><button type="button" onClick={this.onNotesClicked}>{this.getCopy('BUTTON_ADD_NOTE')}</button>)</p>*/}
+				<p>{this.state.lexeme.note}</p>
+				<Route
+					render={({history}) => (
+						<button
+							type="button"
+							onClick={() => { history.push('/add/note'); }}
+						>
+							{this.getCopy('BUTTON_ADD_NOTE')}
+						</button>
+					)}
+				/>
+
 				<p><button onClick={this.onSwitchLanguages}>{this.getCopy('BUTTON_SWITCH_LANGUAGES')}</button></p>
 			</div>
 		);
 	}
 
 	renderPhraseType() {
-		if (this.state.lexeme.phraseType === PhraseType.NULL) {
+		if (this.state.lexeme.phraseType === PhraseType.NULL)
 			return null;
-		}
+
 		if (this.state.lexeme.language !== Language.NULL && this.state.lexeme.type === LexemeType.PHRASE) {
 			const phraseTypeLabel = this.getCopy('CONFIRMATION_PHRASE_TYPE');
 			const phraseType = this.getCopy(DictionaryUtil.getPhraseTypeKey(this.state.lexeme.phraseType));
@@ -119,9 +136,9 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 	}
 
 	renderWordType() {
-		if (this.state.lexeme.wordType === WordType.NULL) {
+		if (this.state.lexeme.wordType === WordType.NULL)
 			return null;
-		}
+
 		if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
 			const wordTypeLabel = this.getCopy('CONFIRMATION_WORD_TYPE');
 			const wordType = this.getCopy(DictionaryUtil.getWordTypeKey(this.state.lexeme.wordType));

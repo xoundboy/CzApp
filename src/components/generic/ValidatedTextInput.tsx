@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { ChangeEvent, KeyboardEvent } from 'react';
+import { FormEvent } from 'react';
 
 export interface ValidatedTextInputProps {
 	value: string;
 	placeholderText: string;
 	autofocus: boolean;
 	onValueChange: ((value: string | null) => void);
-	onKeyUp: ((event: KeyboardEvent<HTMLInputElement>) => void);
 }
 
 export interface ValidatedTextInputState {
-	value: string;
 	valid: boolean;
 }
 
@@ -21,13 +19,9 @@ export default class ValidatedTextInput extends React.Component<ValidatedTextInp
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 
-	componentWillMount() {
-		this.setState({value: this.props.value});
-	}
-
-	handleInputChange(event: ChangeEvent<HTMLInputElement>) {
-		const value = event.target.value;
-		this.setState({value: value});
+	handleInputChange(event: FormEvent<HTMLTextAreaElement>) {
+		let element = event.target as HTMLTextAreaElement;
+		const value = element.value;
 		const returnValue = this.isValid(value) ? value : null;
 		this.props.onValueChange(returnValue);
 	}
@@ -37,16 +31,10 @@ export default class ValidatedTextInput extends React.Component<ValidatedTextInp
 	}
 
 	render() {
-		const className = !this.state.valid ? 'invalid' : '';
 		return (
-			<input
-				type="text"
-				value={this.state.value}
+			<textarea
+				value={this.props.value}
 				onChange={this.handleInputChange}
-				onKeyUp={this.props.onKeyUp}
-				className={className}
-				autoFocus={this.props.autofocus}
-				placeholder={this.props.placeholderText}
 			/>
 		);
 	}

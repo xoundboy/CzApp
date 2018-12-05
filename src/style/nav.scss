@@ -1,22 +1,22 @@
 .navLayer {
-    position: fixed;
-    background-color: white;
+	position: fixed;
+	background-color: white;
 
-    nav {
-        height: 100vh;
-        width:  100vw;
-        
-        a {
-            display: block;
-            text-align: left;
-            text-decoration: none;
-            margin: 10px 0;
-        }
-    }
+	nav {
+		height: 100vh;
+		width:  100vw;
 
-    .navButton {
-        height: 30px;
-        width: 30px;
-        background-image: url(../image/button/hamburger.svg);
-    }
+		a {
+			display: block;
+			text-align: left;
+			text-decoration: none;
+			margin: 10px 0;
+		}
+	}
+
+	.navButton {
+		height: 30px;
+		width: 30px;
+		background-image: url(../image/button/hamburger.svg);
+	}
 }

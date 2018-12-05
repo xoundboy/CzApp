@@ -1,5 +1,7 @@
 /* tslint:disable:max-line-length */
-export default class Cz {
+import Dictionary from '../api/Dictionary';
+
+const Cz: Dictionary = class {
 	public static BUTTON_ADD_NOTE = 'Přidat poznámek';
 	public static BUTTON_CANCEL = 'Zrušit';
 	public static BUTTON_EDIT = 'Upravit';
@@ -29,6 +31,7 @@ export default class Cz {
 	public static PHRASE_TYPE_SELECT_LABEL = 'Typ fráze';
 	public static PLACEHOLDER_INPUT_IN_CZECH = 'Slovo nebo fráze v češtině';
 	public static PLACEHOLDER_INPUT_IN_ENGLISH = 'Slovo nebo fráze v angličtině';
+	public static PLACEHOLDER_INPUT_NO_LANGUAGE = 'Slovo nebo fráze';
 	public static PLACEHOLDER_TRANSLATION_IN_CZECH = 'Český překlad';
 	public static PLACEHOLDER_TRANSLATION_IN_ENGLISH = 'Anglický překlad';
 	public static SETTINGS_LANGUAGE_OPTION_CZ = 'Čeština';
@@ -36,6 +39,10 @@ export default class Cz {
 	public static SETTINGS_LANGUAGE_OPTION_NONE = 'Žádná výchozí hodnota (při přidávání nového slova nebo fráze budete vyzváni k identifikaci jazyka)';
 	public static SETTINGS_SECTION_DEFAULT_INPUT_LANG = 'Výchozí vstupní jazyk (který jazyk se učíte?)';
 	public static SETTINGS_SECTION_UI_LANGUAGE = 'Jazyk uživatelského rozhraní';
+	public static TAB_LEXEME_INPUT = 'Lexeme';
+	public static TAB_TRANSLATION_INPUT = 'Překlad';
+	public static TAB_NOTE_INPUT = 'Poznámka';
+	public static TAB_CONFIRMATION_INPUT = 'Potvrdit';
 	public static WHICH_LANGUAGE = 'Jaký je tohle jazyk?';
 	public static WORD_TYPE_OPTION_ADJECTIVE = 'přídavné jméno';
 	public static WORD_TYPE_OPTION_ADVERB = 'adverb';
@@ -46,4 +53,6 @@ export default class Cz {
 	public static WORD_TYPE_OPTION_PRONOUN = 'příslovce';
 	public static WORD_TYPE_OPTION_VERB = 'sloveso';
 	public static WORD_TYPE_SELECT_LABEL = 'Typ slova';
-}
+};
+
+export default Cz;

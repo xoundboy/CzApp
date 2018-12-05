@@ -16,10 +16,9 @@ export default class LocalizedComponent<TProps extends LocalizedComponentProps, 
 	}
 
 	getCopy(key: string) {
-		if (this.props.uiLanguage === Language.ENGLISH) {
+		if (this.props.uiLanguage === Language.ENGLISH)
 			return En[key];
-		} else if (this.props.uiLanguage === Language.CZECH) {
+		else if (this.props.uiLanguage === Language.CZECH)
 			return Cz[key];
-		}
 	}
 }

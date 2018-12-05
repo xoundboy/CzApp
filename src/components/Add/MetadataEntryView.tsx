@@ -69,12 +69,12 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 			wordType: (event.target.value as WordType),
 			phraseType: PhraseType.NULL
 		});
-		if (this.state.wordType !== WordType.VERB || this.state.language === Language.ENGLISH) {
+		if (this.state.wordType !== WordType.VERB || this.state.language === Language.ENGLISH)
 			this.setState({czVerbAspect: CzVerbAspect.NULL});
-		}
-		if (this.state.wordType !== WordType.NOUN || this.state.language === Language.ENGLISH) {
+
+		if (this.state.wordType !== WordType.NOUN || this.state.language === Language.ENGLISH)
 			this.setState({czGender: CzGender.NULL});
-		}
+
 	}
 
 	onGenderChange(event: ChangeEvent<HTMLSelectElement>) {
@@ -119,7 +119,7 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 	}
 
 	renderPhraseType() {
-		if (this.state.language !== Language.NULL && this.state.type === LexemeType.PHRASE) {
+		if (this.state.language !== Language.NULL && this.state.type === LexemeType.PHRASE)
 			return (
 				<label>{this.getCopy('PHRASE_TYPE_SELECT_LABEL')}
 				<select className="phraseType" value={this.state.phraseType} onChange={this.onPhraseTypeChange}>
@@ -131,7 +131,7 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 				</select>
 			</label>
 			);
-		}
+
 		return null;
 	}
 
@@ -142,7 +142,7 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 	}
 
 	renderCzVerbAspect() {
-		if (this.state.language === Language.CZECH && this.state.wordType === WordType.VERB) {
+		if (this.state.language === Language.CZECH && this.state.wordType === WordType.VERB)
 			return (
 				<label>{this.getCopy('CZ_VERB_ASPECT_SELECT_LABEL')}
 					<select className="czVerbAspect" value={this.state.czVerbAspect} onChange={this.onCzVerbAspectChange}>
@@ -152,12 +152,12 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 					</select>
 				</label>
 			);
-		}
+
 		return null;
 	}
 
 	renderCzGender() {
-		if (this.state.language === Language.CZECH && this.state.wordType === WordType.NOUN) {
+		if (this.state.language === Language.CZECH && this.state.wordType === WordType.NOUN)
 			return (
 				<label>{this.getCopy('CZ_GENDER_SELECT_LABEL')}
 					<select className="gender" value={this.state.czGender} onChange={this.onGenderChange}>
@@ -169,12 +169,12 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 					</select>
 				</label>
 			);
-		}
+
 		return null;
 	}
 
 	renderWordType() {
-		if (this.state.type === LexemeType.WORD && this.state.language !== Language.NULL) {
+		if (this.state.type === LexemeType.WORD && this.state.language !== Language.NULL)
 			return (
 				<label>{this.getCopy('WORD_TYPE_SELECT_LABEL')}
 					<select className="wordType" value={this.state.wordType} onChange={this.onWordTypeChange}>
@@ -190,7 +190,7 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 					</select>
 				</label>
 			);
-		}
+		
 		return null;
 	}
 
@@ -201,7 +201,7 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 	}
 
 	renderLanguage() {
-		if (this.state.language === Language.NULL) {
+		if (this.state.language === Language.NULL)
 			return (
 				<div>
 					<div className="whichLang">{this.getCopy('WHICH_LANGUAGE')}</div>
@@ -219,7 +219,7 @@ class MetadataEntryView extends LocalizedComponent<MetadataEntryViewProps, Metad
 					</div>
 				</div>
 			);
-		}
+
 		return null;
 	}
 }

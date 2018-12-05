@@ -11,9 +11,11 @@ import ConfirmationView from './ConfirmationView';
 import NoteView from './NoteView';
 import * as QueryString from 'query-string'; 
 import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
+import { Route } from 'react-router';
 
 export interface AddProps extends LocalizedComponentProps {
 	inputLanguage: Language;
+	pageView: PageView;
 }
 
 export interface AddState {
@@ -98,60 +100,81 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 	}
 
 	render() {
-		switch (this.state.currentView) {
+		return (
+			<div>
+				<h1 className="formRow">Add Lexeme Pair</h1>
+				{this.renderTabs()}
+				{this.renderPanel()}
+			</div>
+		);
+	}
 
-		case PageView.LEXEME:
-			return (
-				<LexemeView
-					uiLanguage={this.props.uiLanguage}
-					lexeme={this.state.lexeme}
-					onSubmit={this.onLexemeSubmitted}
-					onLanguagesSwitched={this.onLanguagesSwitched}
+	renderTabs() {
+		return (
+			<div className="tabs">
+				<Route
+					render={({history}) => (
+						<button
+							type="button"
+							onClick={() => { history.push('/add/note'); }}
+						>
+							{/*{this.getCopy(TAB_LEXEME_INPUT)}*/}
+						</button>
+					)}
 				/>
-			);
 
-		case PageView.METADATAENTRY:
-			return (
-				<MetadataEntryView
-					uiLanguage={this.props.uiLanguage}
-					lexeme={this.state.lexeme}
-					onSubmit={this.onMetadataSubmitted}
-				/>
-			);
+			</div>
+		);
+	}
 
-		case PageView.TRANSLATION:
-			return (
-				<TranslationView
-					uiLanguage={this.props.uiLanguage}
-					lexeme={this.state.lexeme}
-					onSubmit={this.onTranslationSubmit}
-				/>
-			);
-
-		case PageView.CONFIRMATION:
-			return (
-				<ConfirmationView
-					uiLanguage={this.props.uiLanguage}
-					lexeme={this.state.lexeme}
-					onLexemeEdit={this.onLexemeEdit}
-					onTranslationEdit={this.onTranslationEdit}
-					onNotesClicked={this.onNotesClicked}
-					onCancel={this.onCancel}
-					onSave={this.onSave}
-				/>
-			);
-
-		case PageView.NOTE:
-			return (
-				<NoteView
-					uiLanguage={this.props.uiLanguage}
-					lexeme={this.state.lexeme}
-					onSubmit={this.onNoteSubmitted}
-				/>
-			);
-
-		default:
-			return null;
+	renderPanel() {
+		switch (this.props.pageView) {
+			case PageView.LEXEME:
+				return (
+					<LexemeView
+						uiLanguage={this.props.uiLanguage}
+						lexeme={this.state.lexeme}
+						onSubmit={this.onLexemeSubmitted}
+						onLanguagesSwitched={this.onLanguagesSwitched}
+					/>
+				);
+			case PageView.METADATAENTRY:
+				return (
+					<MetadataEntryView
+						uiLanguage={this.props.uiLanguage}
+						lexeme={this.state.lexeme}
+						onSubmit={this.onMetadataSubmitted}
+					/>
+				);
+			case PageView.TRANSLATION:
+				return (
+					<TranslationView
+						uiLanguage={this.props.uiLanguage}
+						lexeme={this.state.lexeme}
+						onSubmit={this.onTranslationSubmit}
+					/>
+				);
+			case PageView.CONFIRMATION:
+				return (
+					<ConfirmationView
+						uiLanguage={this.props.uiLanguage}
+						lexeme={this.state.lexeme}
+						onLexemeEdit={this.onLexemeEdit}
+						onTranslationEdit={this.onTranslationEdit}
+						onCancel={this.onCancel}
+						onSave={this.onSave}
+					/>
+				);
+			case PageView.NOTE:
+				return (
+					<NoteView
+						uiLanguage={this.props.uiLanguage}
+						lexeme={this.state.lexeme}
+						onSubmit={this.onNoteSubmitted}
+					/>
+				);
+			default:
+				return null;
 		}
 	}
 }

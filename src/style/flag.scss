@@ -1,26 +1,26 @@
 %flag-en {
-    background-image: url(../image/button/flag_uk.jpg);
+	background-image: url(../image/button/flag_uk.jpg);
 }
 
 %flag-cz {
-    background-image: url(../image/button/flag_cz.jpg);
+	background-image: url(../image/button/flag_cz.jpg);
 }
 
 %flag {
-    background-size: contain;
-    display: inline-block;
-    border-radius: 3px;
-    border: 2px solid silver;
+	background-size: contain;
+	display: inline-block;
+	border-radius: 3px;
+	border: 2px solid silver;
 
-    &.cz {
-        @extend %flag-cz;
-    }
+	&.cz {
+		@extend %flag-cz;
+	}
 
-    &.en {
-        @extend %flag-en;
-    }
+	&.en {
+		@extend %flag-en;
+	}
 
-    &.no-language {
-        display: none;
-    }
+	&.no-language {
+		display: none;
+	}
 }

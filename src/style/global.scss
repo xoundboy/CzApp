@@ -1,15 +1,31 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  height: 100vh;
-  box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 100vh;
+	box-sizing: border-box;
 }
 label {
-  display: block;
-  margin: 10px 0;
+	display: block;
+	margin: 10px 0;
 }
-.view {
-  padding: 10px;
+button {
+	color: white;
+	background-color: cornflowerblue;
+	border: none;
+	padding: 8px;
+	border-radius: 4px;
+	margin: 4px;
+}
+
+textarea {
+	border: solid 2px green;
+	box-sizing: border-box;
+	width: 100%;
+}
+.formRow {
+	text-align: center;
+	box-sizing: border-box;
+	padding: 10px;
 }

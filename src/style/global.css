@@ -10,5 +10,20 @@ label {
   display: block;
   margin: 10px 0; }
 
-.view {
+button {
+  color: white;
+  background-color: cornflowerblue;
+  border: none;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 4px; }
+
+textarea {
+  border: solid 2px green;
+  box-sizing: border-box;
+  width: 100%; }
+
+.formRow {
+  text-align: center;
+  box-sizing: border-box;
   padding: 10px; }

@@ -4,6 +4,7 @@ import Settings from './settings/Settings';
 import Add from './add/Add';
 import LocalizedComponent, { LocalizedComponentProps } from './generic/LocalizedComponent';
 import Language from '../enum/Language';
+import PageView from '../enum/PageView';
 
 export interface PageLayerProps extends LocalizedComponentProps {
 	inputLanguage: Language;
@@ -27,10 +28,52 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 					/> }
 				/>
 				<Route
+					exact={true}
 					path="/add"
 					render={ () => <Add
 						uiLanguage={this.props.uiLanguage}
 						inputLanguage={this.props.inputLanguage}
+						pageView={PageView.LEXEME}
+					/> }
+				/>
+				<Route
+					path="/add/lexeme"
+					render={ () => <Add
+						uiLanguage={this.props.uiLanguage}
+						inputLanguage={this.props.inputLanguage}
+						pageView={PageView.LEXEME}
+					/> }
+				/>
+				<Route
+					path="/add/metadata"
+					render={ () => <Add
+						uiLanguage={this.props.uiLanguage}
+						inputLanguage={this.props.inputLanguage}
+						pageView={PageView.METADATAENTRY}
+					/> }
+				/>
+				<Route
+					path="/add/translation"
+					render={ () => <Add
+						uiLanguage={this.props.uiLanguage}
+						inputLanguage={this.props.inputLanguage}
+						pageView={PageView.TRANSLATION}
+					/> }
+				/>
+				<Route
+					path="/add/confirmation"
+					render={ () => <Add
+						uiLanguage={this.props.uiLanguage}
+						inputLanguage={this.props.inputLanguage}
+						pageView={PageView.CONFIRMATION}
+					/> }
+				/>
+				<Route
+					path="/add/note"
+					render={ () => <Add
+						uiLanguage={this.props.uiLanguage}
+						inputLanguage={this.props.inputLanguage}
+						pageView={PageView.NOTE}
 					/> }
 				/>
 			</div>
