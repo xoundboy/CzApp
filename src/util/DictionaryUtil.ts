@@ -2,68 +2,69 @@ import WordType from '../enum/WordType';
 import PhraseType from '../enum/PhraseType';
 import CzVerbAspect from '../enum/CzVerbAspect';
 import CzGender from '../enum/CzGender';
+import Dictionary from '../api/Dictionary';
 
 export default class DictionaryUtil {
 
-	public static getWordTypeKey(value: WordType){
+	public static getWordTypeTranslation(value: WordType, dictionary: Dictionary): string {
 		switch (value) {
 			case WordType.ADJECTIVE:
-				return 'WORD_TYPE_OPTION_ADJECTIVE';
+				return dictionary.WORD_TYPE_OPTION_ADJECTIVE;
 			case WordType.ADVERB:
-				return 'WORD_TYPE_OPTION_ADVERB';
+				return dictionary.WORD_TYPE_OPTION_ADVERB;
 			case WordType.CONJUNCTION:
-				return 'WORD_TYPE_OPTION_CONJUNCTION';
+				return dictionary.WORD_TYPE_OPTION_CONJUNCTION;
 			case WordType.GERUND:
-				return 'WORD_TYPE_OPTION_GERUND';
+				return dictionary.WORD_TYPE_OPTION_GERUND;
 			case WordType.NOUN:
-				return 'WORD_TYPE_OPTION_NOUN';
+				return dictionary.WORD_TYPE_OPTION_NOUN;
 			case WordType.PREPOSITION:
-				return 'WORD_TYPE_OPTION_PREPOSITION';
+				return dictionary.WORD_TYPE_OPTION_PREPOSITION;
 			case WordType.PRONOUN:
-				return 'WORD_TYPE_OPTION_PRONOUN';
+				return dictionary.WORD_TYPE_OPTION_PRONOUN;
 			case WordType.VERB:
-				return 'WORD_TYPE_OPTION_VERB';
-				default:
-				return 'WORD_TYPE_OPTION_NONE';
+				return dictionary.WORD_TYPE_OPTION_VERB;
+			default:
+				return null;
 		}
 	}
 
-	public static getPhraseTypeKey(value: PhraseType) {
+	public static getPhraseTypeTranslation(value: PhraseType, dictionary: Dictionary): string {
 		switch (value) {
 			case PhraseType.COLLOQUIALISM:
-				return 'PHRASE_TYPE_OPTION_COLLOQUIALISM';
+				return dictionary.PHRASE_TYPE_OPTION_COLLOQUIALISM;
 			case PhraseType.IDIOM:
-				return 'PHRASE_TYPE_OPTION_IDIOM';
+				return dictionary.PHRASE_TYPE_OPTION_IDIOM;
 			case PhraseType.OTHER:
-				return 'PHRASE_TYPE_OPTION_OTHER';
+				return dictionary.PHRASE_TYPE_OPTION_OTHER;
 			case PhraseType.PROVERB:
-				return 'PHRASE_TYPE_OPTION_PROVERB';
+				return dictionary.PHRASE_TYPE_OPTION_PROVERB;
 			default:
-				return 'PHRASE_TYPE_OPTION_NONE';
+				return null;
 		}
 	}
 
-	public static getCzVerbAspectKey(value: CzVerbAspect) {
+	public static getCzVerbAspectTranslation(value: CzVerbAspect, dictionary: Dictionary): string {
 		switch (value) {
 			case CzVerbAspect.PERFECTIVE:
-				return 'CZ_VERB_ASPECT_OPTION_PERFECTIVE';
+				return dictionary.CZ_VERB_ASPECT_OPTION_PERFECTIVE;
 			case CzVerbAspect.IMPERFECTIVE:
-				return 'CZ_VERB_ASPECT_OPTION_IMPERFECTIVE';
+				return dictionary.CZ_VERB_ASPECT_OPTION_IMPERFECTIVE;
 			default:
-				return 'CZ_VERB_ASPECT_OPTION_UNKNOWN';
+				return null;
 		}
 	}
 
-	public static getCzVGenderKey(value: CzGender) {
+	public static getCzVGenderTranslation(value: CzGender, dictionary: Dictionary): string {
 		switch (value) {
 			case CzGender.FEMININE:
-				return 'CZ_GENDER_OPTION_FEMININE';
+				return dictionary.CZ_GENDER_OPTION_FEMININE;
 			case CzGender.MASCULINE:
-				return 'CZ_GENDER_OPTION_MASCULINE';
+				return dictionary.CZ_GENDER_OPTION_MASCULINE;
 			case CzGender.MASCULINE_ANIMATUM:
-				return 'CZ_GENDER_OPTION_MASCULINE_ANIMATUM';
+				return dictionary.CZ_GENDER_OPTION_MASCULINE_ANIMATUM;
 			default:
-				return 'CZ_GENDER_OPTION_NEUTER';
+				return dictionary.CZ_GENDER_OPTION_NEUTER;
 		}
 	}
 }

@@ -99,13 +99,29 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 		);
 	}
 
+	renderWordType() {
+		if (this.state.lexeme.wordType === WordType.NULL)
+			return null;
+
+		if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
+			const wordTypeLabel = this.props.dictionary.CONFIRMATION_WORD_TYPE;
+			const wordType = DictionaryUtil.getWordTypeTranslation(this.state.lexeme.wordType, this.props.dictionary);
+			return (
+				<div>{wordTypeLabel}: {wordType}</div>
+			);
+		}
+		return null;
+	}
+
 	renderPhraseType() {
 		if (this.state.lexeme.phraseType === PhraseType.NULL)
 			return null;
 
 		if (this.state.lexeme.language !== Language.NULL && this.state.lexeme.type === LexemeType.PHRASE) {
 			const phraseTypeLabel = this.props.dictionary.CONFIRMATION_PHRASE_TYPE;
-			const phraseType = this.getCopy(DictionaryUtil.getPhraseTypeKey(this.state.lexeme.phraseType));
+			const phraseType = DictionaryUtil.getPhraseTypeTranslation(
+				this.state.lexeme.phraseType,
+				this.props.dictionary);
 			return (
 				<div>{phraseTypeLabel}: {phraseType}</div>
 			);
@@ -116,7 +132,9 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 	renderCzVerbAspect() {
 		if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.VERB) {
 			const czVerbAspectLabel = this.props.dictionary.CONFIRMATION_CZ_VERB_ASPECT;
-			const czVerbAspect = this.getCopy(DictionaryUtil.getCzVerbAspectKey(this.state.lexeme.czVerbAspect));
+			const czVerbAspect = DictionaryUtil.getCzVerbAspectTranslation(
+				this.state.lexeme.czVerbAspect,
+				this.props.dictionary);
 			return (
 				<div>{czVerbAspectLabel}: {czVerbAspect}</div>
 			);
@@ -127,23 +145,9 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 	renderCzGender() {
 		if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.NOUN) {
 			const czGenderLabel = this.props.dictionary.CONFIRMATION_CZ_GENDER;
-			const czGender = this.getCopy(DictionaryUtil.getCzVGenderKey(this.state.lexeme.czGender));
+			const czGender = DictionaryUtil.getCzVGenderTranslation(this.state.lexeme.czGender, this.props.dictionary);
 			return (
 				<div>{czGenderLabel}: {czGender}</div>
-			);
-		}
-		return null;
-	}
-
-	renderWordType() {
-		if (this.state.lexeme.wordType === WordType.NULL)
-			return null;
-
-		if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
-			const wordTypeLabel = this.props.dictionary.CONFIRMATION_WORD_TYPE;
-			const wordType = this.getCopy(DictionaryUtil.getWordTypeKey(this.state.lexeme.wordType));
-			return (
-				<div>{wordTypeLabel}: {wordType}</div>
 			);
 		}
 		return null;
