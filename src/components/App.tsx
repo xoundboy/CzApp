@@ -4,6 +4,8 @@ import { Component } from 'react';
 import MenuLayer from './MenuLayer';
 import PageLayer from './PageLayer';
 import LocalStorage from 'model/LocalStorage';
+import En from '../valueobject/En';
+import Cz from '../valueobject/Cz';
 
 export interface AppState {
 	inputLanguage: Language;
@@ -34,6 +36,8 @@ export default class App extends Component<object, AppState> {
 	}
 
 	render() {
+		const languageDictionary = this.state.uiLanguage === Language.ENGLISH ? En : Cz;
+		console.log(languageDictionary.TAB_LEXEME_INPUT);
 		return (
 			<div className={this.constructor.name}>
 				<MenuLayer uiLanguage={this.state.uiLanguage}/>
@@ -46,4 +50,4 @@ export default class App extends Component<object, AppState> {
 			</div>
 		);
 	}
-} 
+}

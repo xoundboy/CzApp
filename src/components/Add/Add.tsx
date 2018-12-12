@@ -110,6 +110,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 	}
 
 	renderTabs() {
+		console.log(this.context.TAB_LEXEME_INPUT);
 		return (
 			<div className="tabs">
 				<Route
