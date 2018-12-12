@@ -2,8 +2,10 @@ import * as React from 'react';
 import Language from '../../enum/Language';
 import { ChangeEvent } from 'react';
 import LocalizedComponent from '../generic/LocalizedComponent';
+import Dictionary from '../../api/Dictionary';
 
 export interface SettingsProps {
+	dictionary: Dictionary;
 	inputLanguage: Language;
 	onInputLanguageChanged: (language: Language) => void;
 	uiLanguage: Language;
@@ -52,7 +54,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 		return (
 			<div className="settingsSection">
 				<div className="sectionTitle">
-					{this.getCopy('SETTINGS_SECTION_UI_LANGUAGE')}
+					{this.props.dictionary.SETTINGS_SECTION_UI_LANGUAGE}
 				</div>
 				<div className="radio">
 					<label>
@@ -62,7 +64,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							onChange={this.onUiLanguageChanged}
 							checked={this.state.uiLanguage === Language.ENGLISH}
 						/>
-						{this.getCopy('SETTINGS_LANGUAGE_OPTION_EN')}
+						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
 					</label>
 				</div>
 
@@ -74,7 +76,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							onChange={this.onUiLanguageChanged}
 							checked={this.state.uiLanguage === Language.CZECH}
 						/>
-						{this.getCopy('SETTINGS_LANGUAGE_OPTION_CZ')}
+						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 					</label>
 				</div>
 			</div>
@@ -85,7 +87,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 		return (
 			<div className="settingsSection">
 				<div className="sectionTitle">
-					{this.getCopy('SETTINGS_SECTION_DEFAULT_INPUT_LANG')}
+					{this.props.dictionary.SETTINGS_SECTION_DEFAULT_INPUT_LANG}
 				</div>
 
 				<div className="radio">
@@ -96,7 +98,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							onChange={this.onInputLanguageChanged}
 							checked={this.state.selectedInputLanguage === Language.ENGLISH}
 						/>
-						{this.getCopy('SETTINGS_LANGUAGE_OPTION_EN')}</label>
+						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
 				</div>
 
 				<div className="radio">
@@ -107,7 +109,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							onChange={this.onInputLanguageChanged}
 							checked={this.state.selectedInputLanguage === Language.CZECH}
 						/>
-						{this.getCopy('SETTINGS_LANGUAGE_OPTION_CZ')}
+						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 						</label>
 				</div>
 
@@ -119,7 +121,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							onChange={this.onInputLanguageChanged}
 							checked={this.state.selectedInputLanguage === Language.NULL}
 						/>
-					{this.getCopy('SETTINGS_LANGUAGE_OPTION_NONE')}
+					{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_NONE}
 					</label>
 				</div>
 			</div>

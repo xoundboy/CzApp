@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import App from './components/App';
 import { BrowserRouter } from 'react-router-dom';
+import './style/global.css';
 
 ReactDOM.render(
 	<BrowserRouter>

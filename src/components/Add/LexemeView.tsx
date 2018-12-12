@@ -50,11 +50,11 @@ export default class LexemeView extends LocalizedComponent<LexemeViewProps, Lexe
 	getPlaceHolderText() {
 		switch (this.props.lexeme.language) {
 			case Language.ENGLISH:
-				return this.getCopy('PLACEHOLDER_INPUT_IN_ENGLISH');
+				return this.props.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH;
 			case Language.CZECH:
-				return this.getCopy('PLACEHOLDER_INPUT_IN_CZECH');
+				return this.props.dictionary.PLACEHOLDER_INPUT_IN_CZECH;
 			default:
-				return this.getCopy('PLACEHOLDER_INPUT_NO_LANGUAGE');
+				return this.props.dictionary.PLACEHOLDER_INPUT_NO_LANGUAGE;
 		}
 	}
 
@@ -71,7 +71,7 @@ export default class LexemeView extends LocalizedComponent<LexemeViewProps, Lexe
 						/>
 					</div>
 					<div className="formRow">
-						<button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
+						<button onClick={this.onSubmit}>{this.props.dictionary.BUTTON_SUBMIT}</button>
 					</div>
 				</form>
 			</div>

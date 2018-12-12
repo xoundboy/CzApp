@@ -5,7 +5,7 @@ import CzGender from '../enum/CzGender';
 
 export default class DictionaryUtil {
 
-	public static getWordTypeKey(value: WordType) {
+	public static getWordTypeKey(value: WordType){
 		switch (value) {
 			case WordType.ADJECTIVE:
 				return 'WORD_TYPE_OPTION_ADJECTIVE';

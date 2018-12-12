@@ -41,8 +41,8 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
 
 	getPlaceholderText() {
 		return (this.props.lexeme.translationLang === Language.ENGLISH)
-			? this.getCopy('PLACEHOLDER_TRANSLATION_IN_ENGLISH')
-			: this.getCopy('PLACEHOLDER_TRANSLATION_IN_CZECH');
+			? this.props.dictionary.PLACEHOLDER_TRANSLATION_IN_ENGLISH
+			: this.props.dictionary.PLACEHOLDER_TRANSLATION_IN_CZECH;
 	}
 
 	render() {
@@ -57,7 +57,7 @@ export default class TranslationView extends LocalizedComponent<TranslationViewP
 						onValueChange={this.onValueChange}
 					/>
 				</div>
-				<button onClick={this.onSubmit}>{this.getCopy('BUTTON_SUBMIT')}</button>
+				<button onClick={this.onSubmit}>{this.props.dictionary.BUTTON_SUBMIT}</button>
 			</div>
 		);
 	}

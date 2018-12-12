@@ -58,7 +58,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 			<div className="view confirmationView">
 				<div className="input">
 					<span>{this.state.lexeme.text}</span>
-					<button onClick={this.onLexemeEdit}>{this.getCopy('BUTTON_EDIT')}</button>
+					<button onClick={this.onLexemeEdit}>{this.props.dictionary.BUTTON_EDIT}</button>
 					{this.renderWordType()}
 					{this.renderCzGender()}
 					{this.renderCzVerbAspect()}
@@ -66,22 +66,22 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 				</div>
 				<p className="translation">
 					<span>{this.state.lexeme.translation}</span>
-					{/*<button onClick={this.onTranslationEdit}>{this.getCopy('BUTTON_EDIT')}</button>*/}
+					<button onClick={this.onTranslationEdit}>{this.props.dictionary.BUTTON_EDIT}</button>
 					<Route
 						render={({history}) => (
 							<button
 								type="button"
 								onClick={() => { history.push('/add/translation'); }}
 							>
-								{this.getCopy('BUTTON_EDIT')}
+								{this.props.dictionary.BUTTON_EDIT}
 							</button>
 							)}
 					/>
 				</p>
 
-				<p><button onClick={this.onSave}>{this.getCopy('BUTTON_SAVE')}</button></p>
-				<p><button onClick={this.props.onCancel}>{this.getCopy('BUTTON_CANCEL')}</button></p>
-				{/*<p><button type="button" onClick={this.onNotesClicked}>{this.getCopy('BUTTON_ADD_NOTE')}</button>)</p>*/}
+				<p><button onClick={this.onSave}>{this.props.dictionary.BUTTON_SAVE}</button></p>
+				<p><button onClick={this.props.onCancel}>{this.props.dictionary.BUTTON_CANCEL}</button></p>
+				{/*<p><button type="button" onClick={this.onNotesClicked}>{this.props.dictionary.BUTTON_ADD_NOTE}</button>)</p>*/}
 				<p>{this.state.lexeme.note}</p>
 				<Route
 					render={({history}) => (
@@ -89,12 +89,12 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 							type="button"
 							onClick={() => { history.push('/add/note'); }}
 						>
-							{this.getCopy('BUTTON_ADD_NOTE')}
+							{this.props.dictionary.BUTTON_ADD_NOTE}
 						</button>
 					)}
 				/>
 
-				<p><button onClick={this.onSwitchLanguages}>{this.getCopy('BUTTON_SWITCH_LANGUAGES')}</button></p>
+				<p><button onClick={this.onSwitchLanguages}>{this.props.dictionary.BUTTON_SWITCH_LANGUAGES}</button></p>
 			</div>
 		);
 	}
@@ -104,7 +104,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 			return null;
 
 		if (this.state.lexeme.language !== Language.NULL && this.state.lexeme.type === LexemeType.PHRASE) {
-			const phraseTypeLabel = this.getCopy('CONFIRMATION_PHRASE_TYPE');
+			const phraseTypeLabel = this.props.dictionary.CONFIRMATION_PHRASE_TYPE;
 			const phraseType = this.getCopy(DictionaryUtil.getPhraseTypeKey(this.state.lexeme.phraseType));
 			return (
 				<div>{phraseTypeLabel}: {phraseType}</div>
@@ -115,7 +115,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 
 	renderCzVerbAspect() {
 		if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.VERB) {
-			const czVerbAspectLabel = this.getCopy('CONFIRMATION_CZ_VERB_ASPECT');
+			const czVerbAspectLabel = this.props.dictionary.CONFIRMATION_CZ_VERB_ASPECT;
 			const czVerbAspect = this.getCopy(DictionaryUtil.getCzVerbAspectKey(this.state.lexeme.czVerbAspect));
 			return (
 				<div>{czVerbAspectLabel}: {czVerbAspect}</div>
@@ -126,7 +126,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 
 	renderCzGender() {
 		if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.NOUN) {
-			const czGenderLabel = this.getCopy('CONFIRMATION_CZ_GENDER');
+			const czGenderLabel = this.props.dictionary.CONFIRMATION_CZ_GENDER;
 			const czGender = this.getCopy(DictionaryUtil.getCzVGenderKey(this.state.lexeme.czGender));
 			return (
 				<div>{czGenderLabel}: {czGender}</div>
@@ -140,7 +140,7 @@ export default class ConfirmationView extends LocalizedComponent<ConfirmationVie
 			return null;
 
 		if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
-			const wordTypeLabel = this.getCopy('CONFIRMATION_WORD_TYPE');
+			const wordTypeLabel = this.props.dictionary.CONFIRMATION_WORD_TYPE;
 			const wordType = this.getCopy(DictionaryUtil.getWordTypeKey(this.state.lexeme.wordType));
 			return (
 				<div>{wordTypeLabel}: {wordType}</div>

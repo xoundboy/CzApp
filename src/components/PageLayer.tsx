@@ -8,6 +8,7 @@ import PageView from '../enum/PageView';
 
 export interface PageLayerProps extends LocalizedComponentProps {
 	inputLanguage: Language;
+	uiLanguage: Language;
 	onUiLanguageChanged: (language: Language) => void;
 	onInputLanguageChanged: (language: Language) => void;
 }
@@ -21,6 +22,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 				<Route
 					path="/settings"
 					render={ () => <Settings
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						onInputLanguageChanged={this.props.onInputLanguageChanged}
 						uiLanguage={this.props.uiLanguage}
@@ -31,7 +33,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 					exact={true}
 					path="/add"
 					render={ () => <Add
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						pageView={PageView.LEXEME}
 					/> }
@@ -39,7 +41,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 				<Route
 					path="/add/lexeme"
 					render={ () => <Add
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						pageView={PageView.LEXEME}
 					/> }
@@ -47,7 +49,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 				<Route
 					path="/add/metadata"
 					render={ () => <Add
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						pageView={PageView.METADATAENTRY}
 					/> }
@@ -55,7 +57,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 				<Route
 					path="/add/translation"
 					render={ () => <Add
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						pageView={PageView.TRANSLATION}
 					/> }
@@ -63,7 +65,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 				<Route
 					path="/add/confirmation"
 					render={ () => <Add
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						pageView={PageView.CONFIRMATION}
 					/> }
@@ -71,7 +73,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 				<Route
 					path="/add/note"
 					render={ () => <Add
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
 						pageView={PageView.NOTE}
 					/> }

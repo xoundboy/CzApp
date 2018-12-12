@@ -35,13 +35,13 @@ export default class MenuLayer extends LocalizedComponent<LocalizedComponentProp
 				<div className="view">
 					<nav>
 						<Link to="/" onClick={this.onNavVisibilityChanged}>
-							{this.getCopy('MENULABEL_HOME')}
+							{this.props.dictionary.MENULABEL_HOME}
 						</Link>
 						<Link to="/settings" onClick={this.onNavVisibilityChanged} >
-							{this.getCopy('MENULABEL_SETTINGS')}
+							{this.props.dictionary.MENULABEL_SETTINGS}
 						</Link>
 						<Link to="/add" onClick={this.onNavVisibilityChanged} >
-							{this.getCopy('MENULABEL_ADD')}
+							{this.props.dictionary.MENULABEL_ADD}
 						</Link>
 					</nav>
 				</div>

@@ -9,11 +9,13 @@ import LexemeUtil from '../../util/LexemeUtil';
 import TranslationView from './TranslationView';
 import ConfirmationView from './ConfirmationView';
 import NoteView from './NoteView';
-import * as QueryString from 'query-string'; 
+import * as QueryString from 'query-string';
 import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 import { Route } from 'react-router';
+import Dictionary from '../../api/Dictionary';
 
 export interface AddProps extends LocalizedComponentProps {
+	dictionary: Dictionary;
 	inputLanguage: Language;
 	pageView: PageView;
 }
@@ -110,7 +112,6 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 	}
 
 	renderTabs() {
-		console.log(this.context.TAB_LEXEME_INPUT);
 		return (
 			<div className="tabs">
 				<Route
@@ -119,7 +120,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 							type="button"
 							onClick={() => { history.push('/add/note'); }}
 						>
-							{/*{this.getCopy(TAB_LEXEME_INPUT)}*/}
+							{this.props.dictionary.TAB_LEXEME_INPUT}
 						</button>
 					)}
 				/>
@@ -133,7 +134,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 			case PageView.LEXEME:
 				return (
 					<LexemeView
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						lexeme={this.state.lexeme}
 						onSubmit={this.onLexemeSubmitted}
 						onLanguagesSwitched={this.onLanguagesSwitched}
@@ -142,7 +143,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 			case PageView.METADATAENTRY:
 				return (
 					<MetadataEntryView
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						lexeme={this.state.lexeme}
 						onSubmit={this.onMetadataSubmitted}
 					/>
@@ -150,7 +151,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 			case PageView.TRANSLATION:
 				return (
 					<TranslationView
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						lexeme={this.state.lexeme}
 						onSubmit={this.onTranslationSubmit}
 					/>
@@ -158,7 +159,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 			case PageView.CONFIRMATION:
 				return (
 					<ConfirmationView
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						lexeme={this.state.lexeme}
 						onLexemeEdit={this.onLexemeEdit}
 						onTranslationEdit={this.onTranslationEdit}
@@ -169,7 +170,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 			case PageView.NOTE:
 				return (
 					<NoteView
-						uiLanguage={this.props.uiLanguage}
+						dictionary={this.props.dictionary}
 						lexeme={this.state.lexeme}
 						onSubmit={this.onNoteSubmitted}
 					/>

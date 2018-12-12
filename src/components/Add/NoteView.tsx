@@ -45,7 +45,7 @@ export default class NoteView extends LocalizedComponent<NoteViewProps, NoteView
 				</p>
 
 				<textarea onChange={this.onChange} value={this.state.note} />
-				<p><button onClick={this.onNoteSubmitted}>{this.getCopy('BUTTON_ADD_NOTE')}</button></p>
+				<p><button onClick={this.onNoteSubmitted}>{this.props.dictionary.BUTTON_ADD_NOTE}</button></p>
 			</div>
 		);
 	}

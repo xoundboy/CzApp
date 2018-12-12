@@ -6,6 +6,7 @@ import PageLayer from './PageLayer';
 import LocalStorage from 'model/LocalStorage';
 import En from '../valueobject/En';
 import Cz from '../valueobject/Cz';
+import Dictionary from '../api/Dictionary';
 
 export interface AppState {
 	inputLanguage: Language;
@@ -36,12 +37,14 @@ export default class App extends Component<object, AppState> {
 	}
 
 	render() {
-		const languageDictionary = this.state.uiLanguage === Language.ENGLISH ? En : Cz;
-		console.log(languageDictionary.TAB_LEXEME_INPUT);
+		const dictionary: Dictionary = this.state.uiLanguage === Language.ENGLISH ? En : Cz;
 		return (
 			<div className={this.constructor.name}>
-				<MenuLayer uiLanguage={this.state.uiLanguage}/>
+				<MenuLayer
+					dictionary={dictionary}
+				/>
 				<PageLayer
+					dictionary={dictionary}
 					uiLanguage={this.state.uiLanguage}
 					inputLanguage={this.state.inputLanguage}
 					onInputLanguageChanged={this.onInputLanguageChanged}
