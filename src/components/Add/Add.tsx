@@ -1,28 +1,38 @@
-import '../../style/App.css';
 import * as React from 'react';
-import LexemeView from './LexemeView';
-import PageView from '../../enum/PageView';
-import MetadataEntryView from './MetadataEntryView';
-import Lexeme from '../../valueobject/Lexeme';
+import AddEnglish from './AddEnglish';
+import AddCzech from './AddCzech';
+// import AddConfirm from './AddConfirm';
+import AddView from '../../enum/AddView';
+
 import Language from '../../enum/Language';
-import LexemeUtil from '../../util/LexemeUtil';
-import TranslationView from './TranslationView';
-import ConfirmationView from './ConfirmationView';
-import NoteView from './NoteView';
-import * as QueryString from 'query-string';
+// import LexemeUtil from '../../util/LexemeUtil';
+// import * as QueryString from 'query-string';
 import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 import { Route } from 'react-router';
 import Dictionary from '../../api/Dictionary';
+import LexemeType from '../../enum/LexemeType';
+import WordType from '../../enum/WordType';
+import PhraseType from '../../enum/PhraseType';
+import EnglishLexeme from '../../valueobject/EnglishLexeme';
+import CzechLexeme from '../../valueobject/CzechLexeme';
+import MetadataEntryView from './MetadataEntryView';
+import CzVerbAspect from '../../enum/CzVerbAspect';
+import CzGender from '../../enum/CzGender';
 
 export interface AddProps extends LocalizedComponentProps {
 	dictionary: Dictionary;
 	inputLanguage: Language;
-	pageView: PageView;
+	view: AddView;
 }
 
 export interface AddState {
-	currentView: PageView;
-	lexeme: Lexeme;
+	currentView: AddView;
+	englishLexeme: EnglishLexeme;
+	czechLexeme: CzechLexeme;
+	lexemeType: LexemeType;
+	wordType: WordType;
+	phraseType: PhraseType;
+	pairingNotes: string;
 }
 
 export default class Add extends LocalizedComponent<AddProps, AddState> {
@@ -32,151 +42,206 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 	constructor(props: AddProps) {
 		super(props);
 		this.state = {
-			currentView: PageView.LEXEME,
-			lexeme: new Lexeme(this.props.inputLanguage)
+			currentView: AddView.ENGLISH,
+			englishLexeme: new EnglishLexeme(''),
+			czechLexeme: new CzechLexeme(''),
+			lexemeType: null,
+			wordType: null,
+			phraseType: null,
+			pairingNotes: null
 		};
-		this.onCancel = this.onCancel.bind(this);
-		this.onLexemeEdit = this.onLexemeEdit.bind(this);
-		this.onLexemeSubmitted = this.onLexemeSubmitted.bind(this);
-		this.onMetadataSubmitted = this.onMetadataSubmitted.bind(this);
-		this.onNoteSubmitted = this.onNoteSubmitted.bind(this);
-		this.onNotesClicked = this.onNotesClicked.bind(this);
-		this.onSave = this.onSave.bind(this);
-		this.onTranslationEdit = this.onTranslationEdit.bind(this);
-		this.onTranslationSubmit = this.onTranslationSubmit.bind(this);
-		this.onLanguagesSwitched = this.onLanguagesSwitched.bind(this);
+
+		this.onEnglishLexemeTextChanged = this.onEnglishLexemeTextChanged.bind(this);
+		this.onEnglishLexemeNotesChanged = this.onEnglishLexemeNotesChanged.bind(this);
+		this.onCzechLexemeTextChanged = this.onCzechLexemeTextChanged.bind(this);
+		this.onCzechLexemeNotesChanged = this.onCzechLexemeNotesChanged.bind(this);
+		this.onCzechLexemeVerbAspectChanged = this.onCzechLexemeVerbAspectChanged.bind(this);
+		this.onCzechLexemeGenderChanged = this.onCzechLexemeGenderChanged.bind(this);
+		this.onLexemeTypeChanged = this.onLexemeTypeChanged.bind(this);
+		this.onWordTypeChanged = this.onWordTypeChanged.bind(this);
+		this.onPhraseTypeChanged = this.onPhraseTypeChanged.bind(this);
+		this.onPairingNotesChanged = this.onPairingNotesChanged.bind(this);
 	}
 
-	onLexemeSubmitted(lexeme: Lexeme) {
-		lexeme.type = LexemeUtil.getLexemeType(lexeme.text);
-		this.setState({lexeme: lexeme, currentView: PageView.METADATAENTRY});
+	// onCancel() {
+	// 	this.setState({
+	// 	lexeme: new Lexeme(this.props.inputLanguage),
+	// 	currentView: AddView.LEXEME
+	// 	});
+	// }
+	//
+	// onSave(lexeme: Lexeme) {
+	// 	this.oReq = new XMLHttpRequest();
+	// 	this.oReq.open('POST', 'http://localhost:3002/lexemes');
+	// 	this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	// 	this.oReq.addEventListener('load', this.onSaveCompleted);
+	// 	this.oReq.send(QueryString.stringify(this.state.lexeme));
+	// 	return false;
+	// }
+	//
+	// onSaveCompleted () {
+	// 	console.log('save completed');
+	// 	this.oReq = null;
+	// }
+	//
+	// onLanguagesSwitched() {
+	// 	console.log(this.state.lexeme);
+	// }
+
+	onEnglishLexemeTextChanged(value: string) {
+		const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
+		newEnglishLexeme.text = value;
+		this.setState({englishLexeme: newEnglishLexeme});
 	}
 
-	onMetadataSubmitted(lexeme: Lexeme) {
-		this.setState({lexeme: lexeme, currentView: PageView.TRANSLATION});
+	onEnglishLexemeNotesChanged(value: string) {
+		const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
+		newEnglishLexeme.notes = value;
+		this.setState({englishLexeme: newEnglishLexeme});
 	}
 
-	onTranslationSubmit(lexeme: Lexeme) {
-		this.setState({lexeme: lexeme, currentView: PageView.CONFIRMATION});
+	onCzechLexemeTextChanged(value: string) {
+		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+		newCzechLexeme.text = value;
+		this.setState({czechLexeme: newCzechLexeme});
 	}
 
-	onLexemeEdit(lexeme: Lexeme) {
-		this.setState({currentView: PageView.LEXEME});
+	onCzechLexemeNotesChanged(value: string) {
+		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+		newCzechLexeme.notes = value;
+		this.setState({czechLexeme: newCzechLexeme});
 	}
 
-	onTranslationEdit(lexeme: Lexeme) {
-		this.setState({currentView: PageView.TRANSLATION});
+	onCzechLexemeVerbAspectChanged(value: CzVerbAspect) {
+		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+		newCzechLexeme.text = value;
+		this.setState({czechLexeme: newCzechLexeme});
 	}
 
-	onNotesClicked(lexeme: Lexeme) {
-		this.setState({currentView: PageView.NOTE});
+	onCzechLexemeGenderChanged(value: CzGender) {
+		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+		newCzechLexeme.notes = value;
+		this.setState({czechLexeme: newCzechLexeme});
 	}
 
-	onNoteSubmitted(lexeme: Lexeme) {
-		this.setState({lexeme: lexeme, currentView: PageView.CONFIRMATION});
+	onLexemeTypeChanged(type: LexemeType) {
+		this.setState({lexemeType: type});
 	}
 
-	onCancel() {
-		this.setState({
-		lexeme: new Lexeme(this.props.inputLanguage),
-		currentView: PageView.LEXEME
-		});
+	onWordTypeChanged(wordType: WordType) {
+		this.setState({wordType: wordType});
 	}
 
-	onSave(lexeme: Lexeme) {
-		this.oReq = new XMLHttpRequest();
-		this.oReq.open('POST', 'http://localhost:3002/lexemes');
-		this.oReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		this.oReq.addEventListener('load', this.onSaveCompleted);
-		this.oReq.send(QueryString.stringify(this.state.lexeme));
-		return false;
+	onPhraseTypeChanged(phraseType: PhraseType) {
+		this.setState({phraseType: phraseType});
 	}
 
-	onSaveCompleted () {
-		console.log('save completed');
-		this.oReq = null;
-	}
-
-	onLanguagesSwitched() {
-		console.log(this.state.lexeme);
+	onPairingNotesChanged(pairingNotes: string) {
+		this.setState({pairingNotes: pairingNotes});
 	}
 
 	render() {
 		return (
-			<div>
-				<h1 className="formRow">Add Lexeme Pair</h1>
-				{this.renderTabs()}
-				{this.renderPanel()}
+			<div className="add">
+				{this.renderTabButtons()}
+				{this.renderCommonPanel()}
+				{this.renderLexemePanel()}
 			</div>
 		);
 	}
 
-	renderTabs() {
+	renderCommonPanel() {
 		return (
-			<div className="tabs">
+			<MetadataEntryView
+				dictionary={this.props.dictionary}
+				lexemeType={this.state.lexemeType}
+				wordType={this.state.wordType}
+				phraseType={this.state.phraseType}
+				pairingNotes={this.state.pairingNotes}
+				onLexemeTypeChanged={this.onLexemeTypeChanged}
+				onWordTypeChanged={this.onWordTypeChanged}
+				onPhraseTypeChanged={this.onPhraseTypeChanged}
+				onPairingNotesChanged={this.onPairingNotesChanged}
+			/>
+		);
+	}
+
+	renderLexemePanel() {
+		switch (this.props.view) {
+			case AddView.ENGLISH:
+				return (
+					<AddEnglish
+						dictionary={this.props.dictionary}
+						text={this.state.englishLexeme.text}
+						notes={this.state.englishLexeme.notes}
+						onTextChanged={this.onEnglishLexemeTextChanged}
+						onNotesChanged={this.onEnglishLexemeNotesChanged}
+					/>
+				);
+			case AddView.CZECH:
+				return (
+					<AddCzech
+						dictionary={this.props.dictionary}
+						text={this.state.czechLexeme.text}
+						notes={this.state.czechLexeme.notes}
+						onTextChanged={this.onCzechLexemeTextChanged}
+						onNotesChanged={this.onCzechLexemeNotesChanged}
+						wordType={this.state.wordType}
+						verbAspect={this.state.czechLexeme.verbAspect}
+						gender={this.state.czechLexeme.gender}
+						onVerbAspectChanged={this.onCzechLexemeVerbAspectChanged}
+						onGenderChanged={this.onCzechLexemeGenderChanged}
+					/>);
+			// case AddView.CONFIRM:
+			// 	return (
+			// 		<AddConfirm
+			// 			dictionary={this.props.dictionary}
+			// 			lexeme={this.state.lexeme}
+			// 			onLexemeEdit={this.onLexemeEdit}
+			// 			onTranslationEdit={this.onTranslationEdit}
+			// 			onCancel={this.onCancel}
+			// 			onSave={this.onSave}
+			// 		/>
+			// 	);
+			default:
+				return null;
+		}
+	}
+
+	renderTabButtons() {
+		return (
+			<div className="tabButtons">
 				<Route
 					render={({history}) => (
 						<button
 							type="button"
-							onClick={() => { history.push('/add/note'); }}
+							onClick={() => { history.push('/add/english'); }}
 						>
-							{this.props.dictionary.TAB_LEXEME_INPUT}
+							{this.props.dictionary.TAB_ENGLISH}
 						</button>
 					)}
 				/>
-
+				<Route
+					render={({history}) => (
+						<button
+							type="button"
+							onClick={() => { history.push('/add/czech'); }}
+						>
+							{this.props.dictionary.TAB_CZECH}
+						</button>
+					)}
+				/>
+				<Route
+					render={({history}) => (
+						<button
+							type="button"
+							onClick={() => { history.push('/add/confirm'); }}
+						>
+							{this.props.dictionary.TAB_CONFIRM}
+						</button>
+					)}
+				/>
 			</div>
 		);
-	}
-
-	renderPanel() {
-		switch (this.props.pageView) {
-			case PageView.LEXEME:
-				return (
-					<LexemeView
-						dictionary={this.props.dictionary}
-						lexeme={this.state.lexeme}
-						onSubmit={this.onLexemeSubmitted}
-						onLanguagesSwitched={this.onLanguagesSwitched}
-					/>
-				);
-			case PageView.METADATAENTRY:
-				return (
-					<MetadataEntryView
-						dictionary={this.props.dictionary}
-						lexeme={this.state.lexeme}
-						onSubmit={this.onMetadataSubmitted}
-					/>
-				);
-			case PageView.TRANSLATION:
-				return (
-					<TranslationView
-						dictionary={this.props.dictionary}
-						lexeme={this.state.lexeme}
-						onSubmit={this.onTranslationSubmit}
-					/>
-				);
-			case PageView.CONFIRMATION:
-				return (
-					<ConfirmationView
-						dictionary={this.props.dictionary}
-						lexeme={this.state.lexeme}
-						onLexemeEdit={this.onLexemeEdit}
-						onTranslationEdit={this.onTranslationEdit}
-						onCancel={this.onCancel}
-						onSave={this.onSave}
-					/>
-				);
-			case PageView.NOTE:
-				return (
-					<NoteView
-						dictionary={this.props.dictionary}
-						lexeme={this.state.lexeme}
-						onSubmit={this.onNoteSubmitted}
-					/>
-				);
-			default:
-				return null;
-		}
 	}
 }

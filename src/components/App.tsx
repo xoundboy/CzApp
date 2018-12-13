@@ -7,6 +7,7 @@ import LocalStorage from 'model/LocalStorage';
 import En from '../valueobject/En';
 import Cz from '../valueobject/Cz';
 import Dictionary from '../api/Dictionary';
+import '../style/App.css';
 
 export interface AppState {
 	inputLanguage: Language;

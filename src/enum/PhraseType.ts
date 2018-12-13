@@ -1,5 +1,4 @@
 enum PhraseType {
-	NULL = 'NULL',
 	COLLOQUIALISM = 'COLLOQUIALISM',
 	IDIOM = 'IDIOM',
 	OTHER = 'OTHER',

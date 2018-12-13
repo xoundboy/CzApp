@@ -13,34 +13,30 @@ export default class MenuLayer extends LocalizedComponent<LocalizedComponentProp
 		this.state = {
 			navIsOpen: false
 		};
-		this.onNavVisibilityChanged = this.onNavVisibilityChanged.bind(this);
+		this.onMenuVisibilityChanged = this.onMenuVisibilityChanged.bind(this);
 	}
 
-	onNavVisibilityChanged() {
+	onMenuVisibilityChanged() {
 		this.setState({navIsOpen: !this.state.navIsOpen});
 	}
 
 	render() {
-		return (
-			<div className="navLayer">
-				{this.state.navIsOpen ? this.renderNavOpen() : this.renderNavButton()}
-			</div>
-		);
+		return this.state.navIsOpen ? this.renderNavOpen() : this.renderNavButton();
 	}
 
 	renderNavOpen() {
 		return (
 			<div>
 				{this.renderNavButton()}
-				<div className="view">
+				<div className="menuLayer">
 					<nav>
-						<Link to="/" onClick={this.onNavVisibilityChanged}>
+						<Link to="/" onClick={this.onMenuVisibilityChanged}>
 							{this.props.dictionary.MENULABEL_HOME}
 						</Link>
-						<Link to="/settings" onClick={this.onNavVisibilityChanged} >
+						<Link to="/settings" onClick={this.onMenuVisibilityChanged} >
 							{this.props.dictionary.MENULABEL_SETTINGS}
 						</Link>
-						<Link to="/add" onClick={this.onNavVisibilityChanged} >
+						<Link to="/add" onClick={this.onMenuVisibilityChanged} >
 							{this.props.dictionary.MENULABEL_ADD}
 						</Link>
 					</nav>
@@ -50,6 +46,6 @@ export default class MenuLayer extends LocalizedComponent<LocalizedComponentProp
 	}
 
 	renderNavButton() {
-		return (<div className="navButton" onClick={this.onNavVisibilityChanged} />);
+		return (<div className="menuButton" onClick={this.onMenuVisibilityChanged} />);
 	}
 }

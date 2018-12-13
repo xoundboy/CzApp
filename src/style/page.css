@@ -1,9 +1,4 @@
-.PageLayer {
-  padding-top: 40px;
+.pageLayer {
   text-align: left;
-  align-items: stretch; }
-  .PageLayer div.view {
-    width: 100%; }
-    .PageLayer div.view input.invalid,
-    .PageLayer div.view select.invalid {
-      outline: 2px red solid; }
+  align-items: stretch;
+  padding-top: 40px; }

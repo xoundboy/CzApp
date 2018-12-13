@@ -4,7 +4,7 @@ import Settings from './settings/Settings';
 import Add from './add/Add';
 import LocalizedComponent, { LocalizedComponentProps } from './generic/LocalizedComponent';
 import Language from '../enum/Language';
-import PageView from '../enum/PageView';
+import AddView from '../enum/AddView';
 
 export interface PageLayerProps extends LocalizedComponentProps {
 	inputLanguage: Language;
@@ -17,8 +17,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 
 	render() {
 		return (
-			<div className="PageLayer">
-				<Route path="/" exact={true}><h1/></Route>
+			<div className="pageLayer">
 				<Route
 					path="/settings"
 					render={ () => <Settings
@@ -30,52 +29,27 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 					/> }
 				/>
 				<Route
-					exact={true}
-					path="/add"
+					path="/add/english"
 					render={ () => <Add
 						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
-						pageView={PageView.LEXEME}
+						view={AddView.ENGLISH}
 					/> }
 				/>
 				<Route
-					path="/add/lexeme"
+					path="/add/czech"
 					render={ () => <Add
 						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
-						pageView={PageView.LEXEME}
+						view={AddView.CZECH}
 					/> }
 				/>
 				<Route
-					path="/add/metadata"
+					path="/add/confirm"
 					render={ () => <Add
 						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
-						pageView={PageView.METADATAENTRY}
-					/> }
-				/>
-				<Route
-					path="/add/translation"
-					render={ () => <Add
-						dictionary={this.props.dictionary}
-						inputLanguage={this.props.inputLanguage}
-						pageView={PageView.TRANSLATION}
-					/> }
-				/>
-				<Route
-					path="/add/confirmation"
-					render={ () => <Add
-						dictionary={this.props.dictionary}
-						inputLanguage={this.props.inputLanguage}
-						pageView={PageView.CONFIRMATION}
-					/> }
-				/>
-				<Route
-					path="/add/note"
-					render={ () => <Add
-						dictionary={this.props.dictionary}
-						inputLanguage={this.props.inputLanguage}
-						pageView={PageView.NOTE}
+						view={AddView.CONFIRM}
 					/> }
 				/>
 			</div>

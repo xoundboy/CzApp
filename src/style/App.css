@@ -38,6 +38,16 @@ body {
   height: 100vh;
   box-sizing: border-box; }
 
+html,
+body,
+#root,
+.App,
+.pageLayer,
+.menuLayer,
+.add {
+  width: 100%;
+  height: 100%; }
+
 label {
   display: block;
   margin: 10px 0; }
@@ -60,33 +70,39 @@ textarea {
   box-sizing: border-box;
   padding: 10px; }
 
-.navLayer {
-  position: fixed;
-  background-color: white; }
-  .navLayer nav {
-    height: 100vh;
-    width: 100vw; }
-    .navLayer nav a {
+.menuButton {
+  position: absolute;
+  height: 30px;
+  width: 30px;
+  background-image: url(../image/button/hamburger.svg); }
+
+.menuLayer {
+  position: absolute;
+  background-color: white;
+  padding: 20px; }
+  .menuLayer nav {
+    height: 100%;
+    width: 100%; }
+    .menuLayer nav a {
       display: block;
       text-align: left;
       text-decoration: none;
       margin: 10px 0; }
-  .navLayer .navButton {
-    height: 30px;
-    width: 30px;
-    background-image: url(../image/button/hamburger.svg); }
 
-.PageLayer {
-  padding-top: 40px;
+.pageLayer {
   text-align: left;
-  align-items: stretch; }
-  .PageLayer div.view {
-    width: 100%; }
-    .PageLayer div.view input.invalid,
-    .PageLayer div.view select.invalid {
-      outline: 2px red solid; }
+  align-items: stretch;
+  padding-top: 40px; }
 
-.settingsSection {
-  margin: 20px; }
-  .settingsSection .sectionTitle {
-    font-weight: 800; }
+.settingsPage {
+  padding: 20px; }
+  .settingsPage .settingsSection {
+    margin-bottom: 20px; }
+    .settingsPage .settingsSection .sectionTitle {
+      font-weight: 800; }
+
+.add .tabButtons {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center; }

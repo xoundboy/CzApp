@@ -1,4 +1,6 @@
-.settingsSection {
-  margin: 20px; }
-  .settingsSection .sectionTitle {
-    font-weight: 800; }
+.settingsPage {
+  padding: 20px; }
+  .settingsPage .settingsSection {
+    margin-bottom: 20px; }
+    .settingsPage .settingsSection .sectionTitle {
+      font-weight: 800; }
