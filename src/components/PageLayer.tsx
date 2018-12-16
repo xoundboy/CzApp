@@ -29,7 +29,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 					/> }
 				/>
 				<Route
-					path="/add/english"
+					path="/add/en"
 					render={ () => <Add
 						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}
@@ -37,7 +37,7 @@ export default class PageLayer extends LocalizedComponent<PageLayerProps, object
 					/> }
 				/>
 				<Route
-					path="/add/czech"
+					path="/add/cz"
 					render={ () => <Add
 						dictionary={this.props.dictionary}
 						inputLanguage={this.props.inputLanguage}

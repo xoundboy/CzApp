@@ -215,7 +215,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 					render={({history}) => (
 						<button
 							type="button"
-							onClick={() => { history.push('/add/english'); }}
+							onClick={() => { history.push('/add/en'); }}
 						>
 							{this.props.dictionary.TAB_ENGLISH}
 						</button>
@@ -225,7 +225,7 @@ export default class Add extends LocalizedComponent<AddProps, AddState> {
 					render={({history}) => (
 						<button
 							type="button"
-							onClick={() => { history.push('/add/czech'); }}
+							onClick={() => { history.push('/add/cz'); }}
 						>
 							{this.props.dictionary.TAB_CZECH}
 						</button>

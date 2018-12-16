@@ -27,14 +27,18 @@ export default abstract class AddLexeme<TProps extends AddLexemeProps>
 		this.props.onNotesChanged(event.target.value as string);
 	}
 
+	abstract renderInputLabel(): React.ReactNode;
+
 	renderLexemeTextInput() {
 		return (
-			<ValidatedTextInput
-				value={this.props.text}
-				placeholderText={this.props.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH}
-				autofocus={true}
-				onValueChange={this.onTextChanged}
-			/>
+			<label>{this.renderInputLabel()}
+				<ValidatedTextInput
+					value={this.props.text}
+					placeholderText={this.props.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH}
+					autofocus={true}
+					onValueChange={this.onTextChanged}
+				/>
+			</label>
 		);
 	}
 

@@ -1,14 +1,19 @@
 import * as React from 'react';
 import LocalizedComponent, { LocalizedComponentProps } from './generic/LocalizedComponent';
 import { Link } from 'react-router-dom';
+import Language from '../enum/Language';
+
+export interface MenuLayerProps extends LocalizedComponentProps {
+	inputLanguage: Language;
+}
 
 export interface MenuLayerState {
 	navIsOpen: Boolean;
 }
 
-export default class MenuLayer extends LocalizedComponent<LocalizedComponentProps, MenuLayerState> {
+export default class MenuLayer extends LocalizedComponent<MenuLayerProps, MenuLayerState> {
 
-	constructor(props: LocalizedComponentProps) {
+	constructor(props: MenuLayerProps) {
 		super(props);
 		this.state = {
 			navIsOpen: false
@@ -25,6 +30,7 @@ export default class MenuLayer extends LocalizedComponent<LocalizedComponentProp
 	}
 
 	renderNavOpen() {
+		const addPageLink = `/add/${this.props.inputLanguage}`;
 		return (
 			<div>
 				{this.renderNavButton()}
@@ -36,7 +42,7 @@ export default class MenuLayer extends LocalizedComponent<LocalizedComponentProp
 						<Link to="/settings" onClick={this.onMenuVisibilityChanged} >
 							{this.props.dictionary.MENULABEL_SETTINGS}
 						</Link>
-						<Link to="/add" onClick={this.onMenuVisibilityChanged} >
+						<Link to={addPageLink} onClick={this.onMenuVisibilityChanged} >
 							{this.props.dictionary.MENULABEL_ADD}
 						</Link>
 					</nav>

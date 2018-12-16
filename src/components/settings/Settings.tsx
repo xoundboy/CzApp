@@ -12,33 +12,20 @@ export interface SettingsProps {
 	onUiLanguageChanged: (language: Language) => void;
 }
 
-export interface SettingsState {
-	selectedInputLanguage: Language;
-	uiLanguage: Language;
-}
-
-export default class Settings extends LocalizedComponent<SettingsProps, SettingsState> {
+export default class Settings extends LocalizedComponent<SettingsProps, object> {
 
 	constructor(props: SettingsProps) {
 		super(props);
-		this.state = {
-			selectedInputLanguage: this.props.inputLanguage,
-			uiLanguage: this.props.uiLanguage
-		};
 		this.onInputLanguageChanged = this.onInputLanguageChanged.bind(this);
 		this.onUiLanguageChanged = this.onUiLanguageChanged.bind(this);
 	}
 
 	onInputLanguageChanged(event: ChangeEvent<HTMLInputElement>) {
-		const language = event.target.value as Language;
-		this.setState({selectedInputLanguage: language});
-		this.props.onInputLanguageChanged(language);
+		this.props.onInputLanguageChanged(event.target.value as Language);
 	}
 
 	onUiLanguageChanged(event: ChangeEvent<HTMLInputElement>) {
-		const language = event.target.value as Language;
-		this.setState({uiLanguage: language});
-		this.props.onUiLanguageChanged(language);
+		this.props.onUiLanguageChanged(event.target.value as Language);
 	}
 
 	render() {
@@ -62,7 +49,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							type="radio"
 							value={Language.ENGLISH}
 							onChange={this.onUiLanguageChanged}
-							checked={this.state.uiLanguage === Language.ENGLISH}
+							checked={this.props.uiLanguage === Language.ENGLISH}
 						/>
 						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
 					</label>
@@ -74,7 +61,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							type="radio"
 							value={Language.CZECH}
 							onChange={this.onUiLanguageChanged}
-							checked={this.state.uiLanguage === Language.CZECH}
+							checked={this.props.uiLanguage === Language.CZECH}
 						/>
 						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 					</label>
@@ -96,7 +83,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							type="radio"
 							value={Language.ENGLISH}
 							onChange={this.onInputLanguageChanged}
-							checked={this.state.selectedInputLanguage === Language.ENGLISH}
+							checked={this.props.inputLanguage === Language.ENGLISH}
 						/>
 						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
 				</div>
@@ -107,7 +94,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							type="radio"
 							value={Language.CZECH}
 							onChange={this.onInputLanguageChanged}
-							checked={this.state.selectedInputLanguage === Language.CZECH}
+							checked={this.props.inputLanguage === Language.CZECH}
 						/>
 						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 						</label>
@@ -119,7 +106,7 @@ export default class Settings extends LocalizedComponent<SettingsProps, Settings
 							type="radio"
 							value={Language.NULL}
 							onChange={this.onInputLanguageChanged}
-							checked={this.state.selectedInputLanguage === Language.NULL}
+							checked={this.props.inputLanguage === Language.NULL}
 						/>
 					{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_NONE}
 					</label>

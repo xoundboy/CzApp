@@ -40,6 +40,14 @@ export default class AddCzech extends AddLexeme<AddCzechProps>  {
 		);
 	}
 
+	renderInputLabel() {
+		return (
+			<label>
+				{this.props.dictionary.INPUT_LABEL_CZECH_LEXEME}
+			</label>
+		);
+	}
+
 	renderCzVerbAspect() {
 		if (this.props.wordType === WordType.VERB)
 			return (

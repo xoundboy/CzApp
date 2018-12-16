@@ -13,6 +13,14 @@ export default class AddEnglish extends AddLexeme<AddLexemeProps> {
 		);
 	}
 
+	renderInputLabel() {
+		return (
+			<label>
+				{this.props.dictionary.INPUT_LABEL_ENGLISH_LEXEME}
+			</label>
+		);
+	}
+
 	constructor(props: AddLexemeProps) {
 		super(props);
 	}

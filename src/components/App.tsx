@@ -43,6 +43,7 @@ export default class App extends Component<object, AppState> {
 			<div className={this.constructor.name}>
 				<MenuLayer
 					dictionary={dictionary}
+					inputLanguage={this.state.inputLanguage}
 				/>
 				<PageLayer
 					dictionary={dictionary}
