@@ -1,57 +1,44 @@
 import * as React from 'react';
 import Language from '../../enum/Language';
-import { ChangeEvent } from 'react';
-import LocalizedComponent from '../generic/LocalizedComponent';
-import Dictionary from '../../api/Dictionary';
+import { Component } from 'react';
+import { AppContextConsumer, IAppContext } from 'AppContext';
 
-export interface SettingsProps {
-	dictionary: Dictionary;
-	inputLanguage: Language;
-	onInputLanguageChanged: (language: Language) => void;
-	uiLanguage: Language;
-	onUiLanguageChanged: (language: Language) => void;
-}
+export default class Settings extends Component {
 
-export default class Settings extends LocalizedComponent<SettingsProps, object> {
-
-	constructor(props: SettingsProps) {
+	constructor(props: object) {
 		super(props);
-		this.onInputLanguageChanged = this.onInputLanguageChanged.bind(this);
-		this.onUiLanguageChanged = this.onUiLanguageChanged.bind(this);
-	}
-
-	onInputLanguageChanged(event: ChangeEvent<HTMLInputElement>) {
-		this.props.onInputLanguageChanged(event.target.value as Language);
-	}
-
-	onUiLanguageChanged(event: ChangeEvent<HTMLInputElement>) {
-		this.props.onUiLanguageChanged(event.target.value as Language);
 	}
 
 	render() {
 		return (
-			<div className="page settingsPage">
-				{this.renderInputLanguage()}
-				{this.renderUiLanguage()}
-			</div>
+			<AppContextConsumer>
+				{(context) => {
+					return (
+						<div className="page settingsPage">
+							{this.renderInputLanguage(context)}
+							{this.renderUiLanguage(context)}
+						</div>
+					);
+				}}
+			</AppContextConsumer>
 		);
 	}
 
-	renderUiLanguage() {
+	renderUiLanguage(context: IAppContext) {
 		return (
 			<div className="settingsSection">
 				<div className="sectionTitle">
-					{this.props.dictionary.SETTINGS_SECTION_UI_LANGUAGE}
+					{context.dictionary.SETTINGS_SECTION_UI_LANGUAGE}
 				</div>
 				<div className="radio">
 					<label>
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={this.onUiLanguageChanged}
-							checked={this.props.uiLanguage === Language.ENGLISH}
+							onChange={context.onUiLanguageChanged}
+							checked={context.uiLanguage === Language.ENGLISH}
 						/>
-						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
+						{context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
 					</label>
 				</div>
 
@@ -60,21 +47,21 @@ export default class Settings extends LocalizedComponent<SettingsProps, object> 
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={this.onUiLanguageChanged}
-							checked={this.props.uiLanguage === Language.CZECH}
+							onChange={context.onUiLanguageChanged}
+							checked={context.uiLanguage === Language.CZECH}
 						/>
-						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
+						{context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 					</label>
 				</div>
 			</div>
 		);
 	}
 
-	renderInputLanguage() {
+	renderInputLanguage(context: IAppContext) {
 		return (
 			<div className="settingsSection">
 				<div className="sectionTitle">
-					{this.props.dictionary.SETTINGS_SECTION_DEFAULT_INPUT_LANG}
+					{context.dictionary.SETTINGS_SECTION_DEFAULT_INPUT_LANG}
 				</div>
 
 				<div className="radio">
@@ -82,10 +69,10 @@ export default class Settings extends LocalizedComponent<SettingsProps, object> 
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={this.onInputLanguageChanged}
-							checked={this.props.inputLanguage === Language.ENGLISH}
+							onChange={context.onInputLanguageChanged}
+							checked={context.inputLanguage === Language.ENGLISH}
 						/>
-						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
+						{context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
 				</div>
 
 				<div className="radio">
@@ -93,10 +80,10 @@ export default class Settings extends LocalizedComponent<SettingsProps, object> 
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={this.onInputLanguageChanged}
-							checked={this.props.inputLanguage === Language.CZECH}
+							onChange={context.onInputLanguageChanged}
+							checked={context.inputLanguage === Language.CZECH}
 						/>
-						{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
+						{context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 						</label>
 				</div>
 
@@ -105,10 +92,10 @@ export default class Settings extends LocalizedComponent<SettingsProps, object> 
 						<input
 							type="radio"
 							value={Language.NULL}
-							onChange={this.onInputLanguageChanged}
-							checked={this.props.inputLanguage === Language.NULL}
+							onChange={context.onInputLanguageChanged}
+							checked={context.inputLanguage === Language.NULL}
 						/>
-					{this.props.dictionary.SETTINGS_LANGUAGE_OPTION_NONE}
+					{context.dictionary.SETTINGS_LANGUAGE_OPTION_NONE}
 					</label>
 				</div>
 			</div>

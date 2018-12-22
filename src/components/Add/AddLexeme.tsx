@@ -1,52 +1,12 @@
 import * as React from 'react';
-import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
-import ValidatedTextInput from '../generic/ValidatedTextInput';
-import { ChangeEvent } from 'react';
+import { Component } from 'react';
+import { IAppContext } from '../../AppContext';
 
-export interface AddLexemeProps extends LocalizedComponentProps {
-	text: string;
-	notes: string;
-	onTextChanged: (text: string) => void;
-	onNotesChanged: (text: string) => void;
-}
+export default abstract class AddLexeme extends Component {
 
-export default abstract class AddLexeme<TProps extends AddLexemeProps>
-	extends LocalizedComponent<TProps, object> {
+	abstract renderInputLabel(context: IAppContext): React.ReactNode;
 
-	protected constructor(props: TProps) {
-		super(props);
-		this.onTextChanged = this.onTextChanged.bind(this);
-		this.onNotesChanged = this.onNotesChanged.bind(this);
-	}
+	abstract renderLexemeTextInput(context: IAppContext): React.ReactNode;
 
-	onTextChanged(value: string | null) {
-		this.props.onTextChanged(value);
-	}
-
-	onNotesChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		this.props.onNotesChanged(event.target.value as string);
-	}
-
-	abstract renderInputLabel(): React.ReactNode;
-
-	renderLexemeTextInput() {
-		return (
-			<label>{this.renderInputLabel()}
-				<ValidatedTextInput
-					value={this.props.text}
-					placeholderText={this.props.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH}
-					autofocus={true}
-					onValueChange={this.onTextChanged}
-				/>
-			</label>
-		);
-	}
-
-	renderNotes() {
-		return (
-			<label>{this.props.dictionary.SELECT_LABEL_LEXEME_NOTES}
-			<textarea onChange={this.onNotesChanged}>{this.props.notes}</textarea>
-		</label>
-		);
-	}
+	abstract renderNotes(context: IAppContext): React.ReactNode;
 }

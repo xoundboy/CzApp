@@ -1,7 +1,7 @@
 /* tslint:disable:max-line-length */
-import Dictionary from '../api/Dictionary';
+import IDictionary from '../api/IDictionary';
 
-const Cz: Dictionary = class {
+const Cz: IDictionary = class {
 	public static BUTTON_ADD_NOTE = 'Přidat poznámek';
 	public static BUTTON_CANCEL = 'Zrušit';
 	public static BUTTON_EDIT = 'Upravit';

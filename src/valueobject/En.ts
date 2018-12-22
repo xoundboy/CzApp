@@ -1,7 +1,7 @@
 /* tslint:disable:max-line-length */
-import Dictionary from '../api/Dictionary';
+import IDictionary from '../api/IDictionary';
 
-const En: Dictionary = class {
+const En: IDictionary = class {
 	public static BUTTON_NEXT = 'Next';
 	public static BUTTON_SUBMIT = 'Submit';
 	public static BUTTON_EDIT = 'Edit';

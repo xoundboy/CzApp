@@ -1,29 +1,21 @@
 import * as React from 'react';
-import { FormEvent } from 'react';
+import { ChangeEvent } from 'react';
 
-export interface ValidatedTextInputProps {
+export interface IValidatedTextInputProps {
 	value: string;
 	placeholderText: string;
 	autofocus: boolean;
-	onValueChange: ((value: string | null) => void);
+	onValueChange: ((event: ChangeEvent<HTMLTextAreaElement>) => void);
 }
 
-export interface ValidatedTextInputState {
+export interface IValidatedTextInputState {
 	valid: boolean;
 }
 
-export default class ValidatedTextInput extends React.Component<ValidatedTextInputProps, ValidatedTextInputState> {
+export default class ValidatedTextInput extends React.Component<IValidatedTextInputProps, IValidatedTextInputState> {
 
-	constructor(props: ValidatedTextInputProps) {
+	constructor(props: IValidatedTextInputProps) {
 		super(props);
-		this.handleInputChange = this.handleInputChange.bind(this);
-	}
-
-	handleInputChange(event: FormEvent<HTMLTextAreaElement>) {
-		let element = event.target as HTMLTextAreaElement;
-		const value = element.value;
-		const returnValue = this.isValid(value) ? value : null;
-		this.props.onValueChange(returnValue);
 	}
 
 	isValid(value: string) {
@@ -34,7 +26,7 @@ export default class ValidatedTextInput extends React.Component<ValidatedTextInp
 		return (
 			<textarea
 				value={this.props.value}
-				onChange={this.handleInputChange}
+				onChange={this.props.onValueChange}
 			/>
 		);
 	}

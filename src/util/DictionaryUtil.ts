@@ -2,11 +2,11 @@ import WordType from '../enum/WordType';
 import PhraseType from '../enum/PhraseType';
 import CzVerbAspect from '../enum/CzVerbAspect';
 import CzGender from '../enum/CzGender';
-import Dictionary from '../api/Dictionary';
+import IDictionary from '../api/IDictionary';
 
 export default class DictionaryUtil {
 
-	public static getWordTypeTranslation(value: WordType, dictionary: Dictionary): string {
+	public static getWordTypeTranslation(value: WordType, dictionary: IDictionary): string {
 		switch (value) {
 			case WordType.ADJECTIVE:
 				return dictionary.WORD_TYPE_OPTION_ADJECTIVE;
@@ -29,7 +29,7 @@ export default class DictionaryUtil {
 		}
 	}
 
-	public static getPhraseTypeTranslation(value: PhraseType, dictionary: Dictionary): string {
+	public static getPhraseTypeTranslation(value: PhraseType, dictionary: IDictionary): string {
 		switch (value) {
 			case PhraseType.COLLOQUIALISM:
 				return dictionary.PHRASE_TYPE_OPTION_COLLOQUIALISM;
@@ -44,7 +44,7 @@ export default class DictionaryUtil {
 		}
 	}
 
-	public static getCzVerbAspectTranslation(value: CzVerbAspect, dictionary: Dictionary): string {
+	public static getCzVerbAspectTranslation(value: CzVerbAspect, dictionary: IDictionary): string {
 		switch (value) {
 			case CzVerbAspect.PERFECTIVE:
 				return dictionary.CZ_VERB_ASPECT_OPTION_PERFECTIVE;
@@ -55,7 +55,7 @@ export default class DictionaryUtil {
 		}
 	}
 
-	public static getCzVGenderTranslation(value: CzGender, dictionary: Dictionary): string {
+	public static getCzVGenderTranslation(value: CzGender, dictionary: IDictionary): string {
 		switch (value) {
 			case CzGender.FEMININE:
 				return dictionary.CZ_GENDER_OPTION_FEMININE;

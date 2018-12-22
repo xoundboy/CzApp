@@ -1,4 +1,4 @@
-export default interface Dictionary {
+export default interface IDictionary {
 	BUTTON_NEXT: string;
 	BUTTON_SUBMIT:  string;
 	BUTTON_EDIT:  string;

@@ -1,19 +1,15 @@
 import * as React from 'react';
-import LocalizedComponent, { LocalizedComponentProps } from './generic/LocalizedComponent';
 import { Link } from 'react-router-dom';
-import Language from '../enum/Language';
+import { Component } from 'react';
+import { AppContextConsumer } from 'AppContext';
 
-export interface MenuLayerProps extends LocalizedComponentProps {
-	inputLanguage: Language;
-}
-
-export interface MenuLayerState {
+export interface IMenuLayerState {
 	navIsOpen: Boolean;
 }
 
-export default class MenuLayer extends LocalizedComponent<MenuLayerProps, MenuLayerState> {
+export default class MenuLayer extends Component<object, IMenuLayerState> {
 
-	constructor(props: MenuLayerProps) {
+	constructor(props: object) {
 		super(props);
 		this.state = {
 			navIsOpen: false
@@ -30,24 +26,32 @@ export default class MenuLayer extends LocalizedComponent<MenuLayerProps, MenuLa
 	}
 
 	renderNavOpen() {
-		const addPageLink = `/add/${this.props.inputLanguage}`;
+
 		return (
-			<div>
-				{this.renderNavButton()}
-				<div className="menuLayer">
-					<nav>
-						<Link to="/" onClick={this.onMenuVisibilityChanged}>
-							{this.props.dictionary.MENULABEL_HOME}
-						</Link>
-						<Link to="/settings" onClick={this.onMenuVisibilityChanged} >
-							{this.props.dictionary.MENULABEL_SETTINGS}
-						</Link>
-						<Link to={addPageLink} onClick={this.onMenuVisibilityChanged} >
-							{this.props.dictionary.MENULABEL_ADD}
-						</Link>
-					</nav>
-				</div>
-			</div>
+			<AppContextConsumer>
+				{(context) => {
+					return (
+						<div>
+							{this.renderNavButton()}
+							<div className="menuLayer">
+								<nav>
+									<Link to="/" onClick={this.onMenuVisibilityChanged}>
+										{context.dictionary.MENULABEL_HOME}
+									</Link>
+									<Link to="/settings" onClick={this.onMenuVisibilityChanged} >
+										{context.dictionary.MENULABEL_SETTINGS}
+									</Link>
+									<Link to={`/add/${context.inputLanguage}`} onClick={this.onMenuVisibilityChanged} >
+										{context.dictionary.MENULABEL_ADD}
+									</Link>
+								</nav>
+							</div>
+						</div>
+					);
+
+				}}
+
+			</AppContextConsumer>
 		);
 	}
 
