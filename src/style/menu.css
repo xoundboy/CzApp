@@ -1,8 +1,10 @@
 .menuButton {
-  position: absolute;
+  position: fixed;
   height: 30px;
-  width: 30px;
-  background-image: url(../image/button/hamburger.svg); }
+  width: 100%;
+  background-color: white;
+  background-image: url(../image/button/hamburger.svg);
+  background-repeat: no-repeat; }
 
 .menuLayer {
   position: absolute;

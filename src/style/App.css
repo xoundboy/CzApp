@@ -30,6 +30,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+* {
+  box-sizing: border-box; }
+
 html,
 body {
   padding: 0;
@@ -42,15 +45,12 @@ html,
 body,
 #root,
 .App,
-.pageLayer,
-.menuLayer,
-.add {
+.menuLayer {
   width: 100%;
   height: 100%; }
 
 label {
-  display: block;
-  margin: 10px 0; }
+  display: block; }
 
 button {
   color: white;
@@ -66,15 +66,16 @@ textarea {
   width: 100%; }
 
 .formRow {
-  text-align: center;
   box-sizing: border-box;
   padding: 10px; }
 
 .menuButton {
-  position: absolute;
+  position: fixed;
   height: 30px;
-  width: 30px;
-  background-image: url(../image/button/hamburger.svg); }
+  width: 100%;
+  background-color: white;
+  background-image: url(../image/button/hamburger.svg);
+  background-repeat: no-repeat; }
 
 .menuLayer {
   position: absolute;
@@ -92,7 +93,7 @@ textarea {
 .pageLayer {
   text-align: left;
   align-items: stretch;
-  padding-top: 40px; }
+  padding: 60px 20px; }
 
 .settingsPage {
   padding: 20px; }
@@ -101,8 +102,34 @@ textarea {
     .settingsPage .settingsSection .sectionTitle {
       font-weight: 800; }
 
-.add .tabButtons {
-  position: absolute;
+.add textarea,
+.add select {
+  margin: 5px;
+  font-size: 16px;
+  color: cornflowerblue;
+  border: 2px solid green;
+  border-radius: 0;
+  padding: 5px; }
+
+.add label,
+.add .label {
+  font-size: 10px;
+  display: block; }
+
+.add .summaryValue {
+  min-height: 40px;
+  padding: 15px; }
+
+.add .saveButtonContainer {
+  margin-bottom: 30px; }
+
+.tabButtons {
+  position: fixed;
   bottom: 10px;
+  margin: 0 auto;
+  padding-top: 20px;
+  background: white;
   width: 100%;
+  border-top: 1px solid grey;
+  left: 0;
   text-align: center; }

@@ -30,6 +30,7 @@ export interface IAppContext {
 	onWordTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
 	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
 	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+	onSaveButtonClicked: () => void;
 }
 
 const defaultContext = {
@@ -53,7 +54,8 @@ const defaultContext = {
 	onLexemeTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
 	onWordTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
 	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
-	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; }
+	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
+	onSaveButtonClicked: () => { return; }
 };
 
 const AppContext = createContext(defaultContext);

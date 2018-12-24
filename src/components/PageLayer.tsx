@@ -10,28 +10,10 @@ export default class PageLayer extends Component {
 	render() {
 		return (
 			<div className="pageLayer">
-				<Route
-					path="/settings"
-					render={() => <Settings/>}
-				/>
-				<Route
-					path="/add/en"
-					render={ () => <Add
-						view={AddView.ENGLISH}
-					/> }
-				/>
-				<Route
-					path="/add/cz"
-					render={ () => <Add
-						view={AddView.CZECH}
-					/> }
-				/>
-				<Route
-					path="/add/confirm"
-					render={ () => <Add
-						view={AddView.CONFIRM}
-					/> }
-				/>
+				<Route path="/settings" render={() => <Settings/>} />
+				<Route path="/add/en" render={() => <Add view={AddView.ENGLISH} />} />
+				<Route path="/add/cz" render={() => <Add view={AddView.CZECH} />} />
+				<Route path="/add/confirm" render={() => <Add view={AddView.CONFIRM} />} />
 			</div>
 		);
 	}

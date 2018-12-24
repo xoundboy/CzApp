@@ -21,38 +21,31 @@ router.post('/', function(req, res){
 	}
 
 	function getQuery() {
-		let wordType = formatEnum(req.body.wordType);
-		let phraseType = formatEnum(req.body.phraseType);
-		let type = formatEnum(req.body.type);
-		let gender = formatEnum(req.body.czGender);
-		let verbAspect = formatEnum(req.body.czVerbAspect);
-		let notes = req.body.notes || "";
-		let language = req.body.language;
+
+		const wordType = formatEnum(req.body.wordType);
+		const phraseType = formatEnum(req.body.phraseType);
+		const type = formatEnum(req.body.type);
+		const gender = formatEnum(req.body.czGender);
+		const verbAspect = formatEnum(req.body.czVerbAspect);
+		const notes = req.body.notes || "";
+		const czNotes = req.body.czNotes || "";
+		const enNotes = req.body.enNotes || "";
+
 		let czWord = '';
 		let czPhrase = '';
 		let enWord = '';
 		let enPhrase = '';
 
-		if (language === "cz"){
-			if (type === "WORD"){
-				czWord = req.body.text;
-				enWord = req.body.translation;
-			} else {
-				czPhrase = req.body.text;
-				enPhrase = req.body.translation;
-			}
+		if (type === "WORD"){
+			czWord = req.body.czText;
+			enWord = req.body.enText;
 		} else {
-			if (type === "WORD"){
-				enWord = req.body.text;
-				czWord = req.body.translation;
-			} else {
-				enPhrase = req.body.text;
-				czPhrase = req.body.translation;
-			}
+			czPhrase = req.body.czText;
+			enPhrase = req.body.enText;
 		}
 
 		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}
-			','${type}','${gender}','${verbAspect}','${notes}', @insert_id);`;
+			','${type}','${gender}','${verbAspect}','${notes}','${enNotes}','${czNotes}', @insert_id);`;
 	}
 
 	if (isValid(req)){

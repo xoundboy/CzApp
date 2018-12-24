@@ -8,31 +8,17 @@ export default class AddEnglish extends AddLexeme {
 	render() {
 		return (
 			<AppContextConsumer>
-				{
-					(context) => {
-						return (
-							<div className="view addEnglish">
-								{this.renderLexemeTextInput(context)}
-								{this.renderNotes(context)}
-							</div>
-						);
-					}
-				}
+				{(context) => <div className="view addEnglish">
+					{this.renderLexemeTextInput(context)}
+					{this.renderNotes(context)}
+				</div>}
 			</AppContextConsumer>
-		);
-	}
-
-	renderInputLabel(context: IAppContext) {
-		return (
-			<label>
-				{context.dictionary.INPUT_LABEL_ENGLISH_LEXEME}
-			</label>
 		);
 	}
 
 	renderLexemeTextInput(context: IAppContext) {
 		return (
-			<label>{this.renderInputLabel(context)}
+			<label>{context.dictionary.INPUT_LABEL_ENGLISH_LEXEME}
 				<ValidatedTextInput
 					value={context.englishLexeme.text}
 					placeholderText={context.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH}
@@ -45,7 +31,7 @@ export default class AddEnglish extends AddLexeme {
 
 	renderNotes(context: IAppContext) {
 		return (
-			<label>{context.dictionary.SELECT_LABEL_LEXEME_NOTES}
+			<label>{context.dictionary.SELECT_LABEL_LEXEME_NOTES_EN_VERSION}
 				<textarea
 					onChange={context.onEnglishLexemeNotesChanged}
 					value={context.englishLexeme.notes}

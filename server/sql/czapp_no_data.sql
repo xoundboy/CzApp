@@ -124,7 +124,7 @@ CREATE TABLE `words` (
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 CREATE DEFINER=`czapp`@`localhost` PROCEDURE `insertLexemePair`(
 	IN  czWord     VARCHAR(50),
@@ -137,6 +137,8 @@ CREATE DEFINER=`czapp`@`localhost` PROCEDURE `insertLexemePair`(
 	IN  gender     ENUM('NULL', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
 	IN  verbAspect ENUM('NULL', 'PERFECTIVE', 'IMPERFECTIVE'),
 	IN  notes      TEXT,
+    IN  enNotes	   TEXT,
+    IN  czNotes    TEXT,
 	OUT pair_insert_id  INT(10)
 )
 BEGIN
@@ -145,19 +147,38 @@ BEGIN
 	DECLARE pair_insert_id INT;
 
 	-- Insert the Czech version
-	INSERT INTO lexemes_cz (word, phrase, wordType, phraseType, type, gender, verbAspect)
-	VALUES (czWord, czPhrase, wordType, phraseType, type, gender, verbAspect);
+	INSERT INTO lexemes_cz (word, phrase, wordType, phraseType, type, gender, verbAspect, notes)
+	VALUES (czWord, czPhrase, wordType, phraseType, type, gender, verbAspect, czNotes);
 	SET cz_id = LAST_INSERT_ID();
 
 	-- Insert the English version
-	INSERT INTO lexemes_en (type, word, phrase, wordType, phraseType)
-	VALUES (type, enWord, enPhrase, wordType, phraseType);
+	INSERT INTO lexemes_en (type, word, phrase, wordType, phraseType, notes)
+	VALUES (type, enWord, enPhrase, wordType, phraseType, enNotes);
 	SET en_id = LAST_INSERT_ID();
 
 	-- Insert the mapping
 	INSERT INTO lexeme_map (en_id, cz_id, notes)
 	VALUES (en_id, cz_id, notes);
 	SET pair_insert_id = LAST_INSERT_ID();
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `searchDb` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchDb`()
+BEGIN
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -174,4 +195,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-02 12:32:45
+-- Dump completed on 2018-12-24 12:20:34

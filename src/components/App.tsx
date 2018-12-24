@@ -16,8 +16,12 @@ import PhraseType from '../enum/PhraseType';
 import CzGender from '../enum/CzGender';
 import CzVerbAspect from '../enum/CzVerbAspect';
 import IDictionary from '../api/IDictionary';
+import * as QueryString from 'querystring';
+import Payload from '../valueobject/Payload';
 
 export default class App extends Component<object, IAppContext> {
+
+	private payload: Payload;
 
 	constructor(props: object) {
 		super(props);
@@ -43,8 +47,11 @@ export default class App extends Component<object, IAppContext> {
 			onLexemeTypeChanged: this.onLexemeTypeChanged.bind(this),
 			onWordTypeChanged: this.onWordTypeChanged.bind(this),
 			onPhraseTypeChanged: this.onPhraseTypeChanged.bind(this),
-			onPairingNotesChanged: this.onPairingNotesChanged.bind(this)
+			onPairingNotesChanged: this.onPairingNotesChanged.bind(this),
+			onSaveButtonClicked: this.onSaveButtonClicked.bind(this)
 		};
+		this.initialiseFields();
+		this.payload = new Payload();
 	}
 
 	getDictionary(): IDictionary {
@@ -94,13 +101,13 @@ export default class App extends Component<object, IAppContext> {
 
 	onCzechLexemeVerbAspectChanged(event: ChangeEvent<HTMLSelectElement>) {
 		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-		newCzechLexeme.text = event.target.value as CzVerbAspect;
+		newCzechLexeme.verbAspect = event.target.value as CzVerbAspect;
 		this.setState({czechLexeme: newCzechLexeme});
 	}
 
 	onCzechLexemeGenderChanged(event: ChangeEvent<HTMLSelectElement>) {
 		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-		newCzechLexeme.notes = event.target.value as CzGender;
+		newCzechLexeme.gender = event.target.value as CzGender;
 		this.setState({czechLexeme: newCzechLexeme});
 	}
 
@@ -118,6 +125,59 @@ export default class App extends Component<object, IAppContext> {
 
 	onPairingNotesChanged(event: ChangeEvent<HTMLTextAreaElement>) {
 		this.setState({pairingNotes: event.target.value as string});
+	}
+
+	onSaveButtonClicked() {
+
+		this.preparePayload();
+
+		const request = new XMLHttpRequest();
+		request.open('POST', 'http://localhost:3002/lexemes');
+		request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		request.addEventListener('load', this.onSaveCompleted.bind(this));
+		request.send(QueryString.stringify(this.payload));
+	}
+
+	onSaveCompleted() {
+		alert('Save complete!');
+		this.initialiseFields();
+	}
+
+	initialiseFields() {
+		this.setState({
+			englishLexeme: new EnglishLexeme(''),
+			czechLexeme: new CzechLexeme(''),
+			lexemeType: LexemeType.WORD,
+			wordType: WordType.NOUN,
+			phraseType: PhraseType.IDIOM,
+			pairingNotes: ''
+		});
+	}
+
+	preparePayload() {
+		this.payload.wordType = this.state.wordType;
+		this.payload.phraseType = this.state.phraseType;
+		this.payload.type = this.state.lexemeType;
+		this.payload.czGender = this.state.czechLexeme.gender;
+		this.payload.czVerbAspect = this.state.czechLexeme.verbAspect;
+		this.payload.notes = this.state.pairingNotes;
+		this.payload.czText = this.state.czechLexeme.text;
+		this.payload.czNotes = this.state.czechLexeme.notes;
+		this.payload.enText = this.state.englishLexeme.text;
+		this.payload.enNotes = this.state.englishLexeme.notes;
+
+		this.normalisePayload();
+	}
+
+	normalisePayload() {
+		if (this.state.lexemeType === LexemeType.WORD) {
+			this.payload.phraseType = null;
+			if (this.state.wordType !== WordType.VERB)
+				this.payload.czVerbAspect = null;
+			if (this.state.wordType !== WordType.NOUN)
+				this.payload.czGender = null;
+		} else
+			this.payload.wordType = null;
 	}
 
 	render() {

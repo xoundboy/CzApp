@@ -1,155 +1,177 @@
-// import * as React from 'react';
-// import { Route } from 'react-router-dom';
-// import Lexeme from '../../valueobject/Lexeme';
-// import LexemeType from '../../enum/LexemeType';
-// import Language from '../../enum/Language';
-// import WordType from '../../enum/WordType';
-// import DictionaryUtil from '../../util/DictionaryUtil';
-// import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
-// import PhraseType from 'enum/PhraseType';
-//
-// export interface ConfirmationViewProps extends LocalizedComponentProps {
-// 	lexeme: Lexeme;
-// 	onCancel: () => void;
-// 	onLexemeEdit: (lexeme: Lexeme) => void;
-// 	onSave: (lexeme: Lexeme) => void;
-// 	onTranslationEdit: (lexeme: Lexeme) => void;
-// }
-//
-// export interface ConfirmationViewState {
-// 	lexeme: Lexeme;
-// }
-//
-// export default class AddConfirm extends LocalizedComponent<ConfirmationViewProps, ConfirmationViewState> {
-//
-// 	constructor(props: ConfirmationViewProps) {
-// 		super(props);
-// 		this.onSwitchLanguages = this.onSwitchLanguages.bind(this);
-// 		this.onLexemeEdit = this.onLexemeEdit.bind(this);
-// 		this.onTranslationEdit = this.onTranslationEdit.bind(this);
-// 		this.onSave = this.onSave.bind(this);
-// 	}
-//
-// 	componentWillMount() {
-// 		this.setState({lexeme: Object.assign({}, this.props.lexeme)});
-// 	}
-//
-// 	onSwitchLanguages() {
-// 		let lexeme = Object.assign({}, this.state.lexeme);
-// 		lexeme.language = this.state.lexeme.translationLang;
-// 		lexeme.translationLang = this.state.lexeme.language;
-// 		this.setState({lexeme: lexeme});
-// 	}
-//
-// 	onLexemeEdit() {
-// 		this.props.onLexemeEdit(this.state.lexeme);
-// 	}
-//
-// 	onTranslationEdit() {
-// 		this.props.onTranslationEdit(this.state.lexeme);
-// 	}
-//
-// 	onSave() {
-// 		this.props.onSave(this.state.lexeme);
-// 	}
-//
-// 	render() {
-// 		return (
-// 			<div className="view confirmationView">
-// 				<div className="input">
-// 					<span>{this.state.lexeme.text}</span>
-// 					<button onClick={this.onLexemeEdit}>{this.props.dictionary.BUTTON_EDIT}</button>
-// 					{this.renderWordType()}
-// 					{this.renderCzGender()}
-// 					{this.renderCzVerbAspect()}
-// 					{this.renderPhraseType()}
-// 				</div>
-// 				<p className="translation">
-// 					<span>{this.state.lexeme.translation}</span>
-// 					<button onClick={this.onTranslationEdit}>{this.props.dictionary.BUTTON_EDIT}</button>
-// 					<Route
-// 						render={({history}) => (
-// 							<button
-// 								type="button"
-// 								onClick={() => { history.push('/add/translation'); }}
-// 							>
-// 								{this.props.dictionary.BUTTON_EDIT}
-// 							</button>
-// 							)}
-// 					/>
-// 				</p>
-//
-// 				<p><button onClick={this.onSave}>{this.props.dictionary.BUTTON_SAVE}</button></p>
-// 				<p><button onClick={this.props.onCancel}>{this.props.dictionary.BUTTON_CANCEL}</button></p>
-// 				<p><button type="button" onClick={this.onNotesClicked}>{this.props.dictionary.BUTTON_ADD_NOTE}</button>)</p>
-// 				<p>{this.state.lexeme.note}</p>
-// 				<Route
-// 					render={({history}) => (
-// 						<button
-// 							type="button"
-// 							onClick={() => { history.push('/add/note'); }}
-// 						>
-// 							{this.props.dictionary.BUTTON_ADD_NOTE}
-// 						</button>
-// 					)}
-// 				/>
-//
-// 				<p><button onClick={this.onSwitchLanguages}>{this.props.dictionary.BUTTON_SWITCH_LANGUAGES}</button></p>
-// 			</div>
-// 		);
-// 	}
-//
-// 	renderWordType() {
-// 		if (!this.state.lexeme.wordType)
-// 			return null;
-//
-// 		if (this.state.lexeme.type === LexemeType.WORD && this.state.lexeme.language !== Language.NULL) {
-// 			const wordTypeLabel = this.props.dictionary.CONFIRMATION_WORD_TYPE;
-// 			const wordType = DictionaryUtil.getWordTypeTranslation(this.state.lexeme.wordType, this.props.dictionary);
-// 			return (
-// 				<div>{wordTypeLabel}: {wordType}</div>
-// 			);
-// 		}
-// 		return null;
-// 	}
-//
-// 	renderPhraseType() {
-// 		if (!this.state.lexeme.phraseType)
-// 			return null;
-//
-// 		if (this.state.lexeme.language !== Language.NULL && this.state.lexeme.type === LexemeType.PHRASE) {
-// 			const phraseTypeLabel = this.props.dictionary.CONFIRMATION_PHRASE_TYPE;
-// 			const phraseType = DictionaryUtil.getPhraseTypeTranslation(
-// 				this.state.lexeme.phraseType,
-// 				this.props.dictionary);
-// 			return (
-// 				<div>{phraseTypeLabel}: {phraseType}</div>
-// 			);
-// 		}
-// 		return null;
-// 	}
-//
-// 	renderCzVerbAspect() {
-// 		if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.VERB) {
-// 			const czVerbAspectLabel = this.props.dictionary.CONFIRMATION_CZ_VERB_ASPECT;
-// 			const czVerbAspect = DictionaryUtil.getCzVerbAspectTranslation(
-// 				this.state.lexeme.czVerbAspect,
-// 				this.props.dictionary);
-// 			return (
-// 				<div>{czVerbAspectLabel}: {czVerbAspect}</div>
-// 			);
-// 		}
-// 		return null;
-// 	}
-//
-// 	renderCzGender() {
-// 		if (this.state.lexeme.language === Language.CZECH && this.state.lexeme.wordType === WordType.NOUN) {
-// 			const czGenderLabel = this.props.dictionary.CONFIRMATION_CZ_GENDER;
-// 			const czGender = DictionaryUtil.getCzVGenderTranslation(this.state.lexeme.czGender, this.props.dictionary);
-// 			return (
-// 				<div>{czGenderLabel}: {czGender}</div>
-// 			);
-// 		}
-// 		return null;
-// 	}
-// }
+import * as React from 'react';
+import { Component, MouseEvent } from 'react';
+import { AppContextConsumer, IAppContext } from '../../AppContext';
+import CzVerbAspect from '../../enum/CzVerbAspect';
+import WordType from '../../enum/WordType';
+import CzGender from '../../enum/CzGender';
+import LexemeType from '../../enum/LexemeType';
+import PhraseType from '../../enum/PhraseType';
+
+export default class AddConfirm extends Component {
+
+	render() {
+		return (
+			<AppContextConsumer>
+				{(context) => <div>
+					{this.renderSummary(context)}
+					{this.renderMetaDataInput(context)}
+					{this.renderPairingNotes(context)}
+					{this.renderSaveButton(context)}
+				</div>}
+			</AppContextConsumer>
+		);
+	}
+
+	renderSummary(context: IAppContext) {
+		return (
+			<div className="summary">
+				<div className="englishText">
+					<div className="label">{context.dictionary.SUMMARY_LABEL_EN_TEXT}</div>
+					<div className="summaryValue">{context.englishLexeme.text}</div>
+				</div>
+				<div className="englishNotes">
+					<div className="label">{context.dictionary.SUMMARY_LABEL_EN_NOTES}</div>
+					<div className="summaryValue">{context.englishLexeme.notes}</div>
+				</div>
+				<div className="czechText">
+					<div className="label">{context.dictionary.SUMMARY_LABEL_CZ_TEXT}</div>
+					<div className="summaryValue">{context.czechLexeme.text}</div>
+				</div>
+				<div className="czechNotes">
+					<div className="label">{context.dictionary.SUMMARY_LABEL_CZ_NOTES}</div>
+					<div className="summaryValue">{context.czechLexeme.notes}</div>
+				</div>
+			</div>
+		);
+	}
+
+	renderSaveButton(context: IAppContext) {
+		return (
+			<div className="saveButtonContainer">
+				<button
+					onClick={(event: MouseEvent<HTMLButtonElement>) => {
+						if (context.czechLexeme.text === '' && context.englishLexeme.text === '')
+							return;
+						context.onSaveButtonClicked();
+					}}
+				>
+					{context.dictionary.BUTTON_SAVE}
+				</button>
+			</div>
+		);
+	}
+
+	renderMetaDataInput(context: IAppContext) {
+		return (
+			<div className="metaDataInput">
+				{this.renderLexemeType(context)}
+				{this.renderPhraseType(context)}
+				{this.renderWordType(context)}
+				{this.renderCzVerbAspect(context)}
+				{this.renderCzGender(context)}
+			</div>
+		);
+	}
+
+	renderCzVerbAspect(context: IAppContext) {
+		if (context.wordType === WordType.VERB)
+			return (
+				<div className="formRow">
+					<label>{context.dictionary.CZ_VERB_ASPECT_SELECT_LABEL}</label>
+					<select
+						className="czVerbAspect"
+						value={context.czechLexeme.verbAspect}
+						onChange={context.onCzechLexemeVerbAspectChanged}
+					>
+						<option value={CzVerbAspect.NULL}>-</option>
+						<option value={CzVerbAspect.PERFECTIVE}>{context.dictionary.CZ_VERB_ASPECT_OPTION_PERFECTIVE}</option>
+						<option value={CzVerbAspect.IMPERFECTIVE}>{context.dictionary.CZ_VERB_ASPECT_OPTION_IMPERFECTIVE}</option>
+					</select>
+				</div>
+			);
+
+		return null;
+	}
+
+	renderCzGender(context: IAppContext) {
+		if (context.lexemeType === LexemeType.WORD && context.wordType === WordType.NOUN)
+			return (
+				<div className="formRow">
+					<label>{context.dictionary.CZ_GENDER_SELECT_LABEL}</label>
+					<select className="gender" value={context.czechLexeme.gender} onChange={context.onCzechLexemeGenderChanged}>
+						<option value={CzGender.NULL}>-</option>
+						<option value={CzGender.NEUTER}>{context.dictionary.CZ_GENDER_OPTION_NEUTER}</option>
+						<option value={CzGender.FEMININE}>{context.dictionary.CZ_GENDER_OPTION_FEMININE}</option>
+						<option value={CzGender.MASCULINE}>{context.dictionary.CZ_GENDER_OPTION_MASCULINE}</option>
+						<option value={CzGender.MASCULINE_ANIMATUM}>{context.dictionary.CZ_GENDER_OPTION_MASCULINE_ANIMATUM}</option>
+					</select>
+				</div>
+			);
+
+		return null;
+	}
+
+	renderLexemeType(context: IAppContext) {
+		return (
+			<div className="formRow">
+				<label>{context.dictionary.SELECT_LABEL_LEXEME_TYPE}</label>
+				<select className="lexemeType" value={context.lexemeType} onChange={context.onLexemeTypeChanged}>
+					<option value={LexemeType.WORD}>{context.dictionary.LEXEME_TYPE_OPTION_WORD}</option>
+					<option value={LexemeType.PHRASE}>{context.dictionary.LEXEME_TYPE_OPTION_PHRASE}</option>
+				</select>
+			</div>
+		);
+	}
+
+	renderPhraseType(context: IAppContext) {
+		if (context.lexemeType === LexemeType.PHRASE)
+			return (
+				<div className="formRow">
+					<label>{context.dictionary.PHRASE_TYPE_SELECT_LABEL}</label>
+					<select className="phraseType" value={context.phraseType} onChange={context.onPhraseTypeChanged}>
+						<option value={null}>-</option>
+						<option value={PhraseType.COLLOQUIALISM}>{context.dictionary.PHRASE_TYPE_OPTION_COLLOQUIALISM}</option>
+						<option value={PhraseType.IDIOM}>{context.dictionary.PHRASE_TYPE_OPTION_IDIOM}</option>
+						<option value={PhraseType.OTHER}>{context.dictionary.PHRASE_TYPE_OPTION_OTHER}</option>
+						<option value={PhraseType.PROVERB}>{context.dictionary.PHRASE_TYPE_OPTION_PROVERB}</option>
+					</select>
+				</div>
+			);
+
+		return null;
+	}
+
+	renderWordType(context: IAppContext) {
+		if (context.lexemeType === LexemeType.WORD)
+			return (
+				<div className="formRow">
+					<label>{context.dictionary.WORD_TYPE_SELECT_LABEL}</label>
+					<select className="wordType" value={context.wordType} onChange={context.onWordTypeChanged}>
+						<option value={null}>-</option>
+						<option value={WordType.VERB}>{context.dictionary.WORD_TYPE_OPTION_VERB}</option>
+						<option value={WordType.NOUN}>{context.dictionary.WORD_TYPE_OPTION_NOUN}</option>
+						<option value={WordType.ADJECTIVE}>{context.dictionary.WORD_TYPE_OPTION_ADJECTIVE}</option>
+						<option value={WordType.ADVERB}>{context.dictionary.WORD_TYPE_OPTION_ADVERB}</option>
+						<option value={WordType.PRONOUN}>{context.dictionary.WORD_TYPE_OPTION_PRONOUN}</option>
+						<option value={WordType.PREPOSITION}>{context.dictionary.WORD_TYPE_OPTION_PREPOSITION}</option>
+						<option value={WordType.CONJUNCTION}>{context.dictionary.WORD_TYPE_OPTION_CONJUNCTION}</option>
+						<option value={WordType.GERUND}>{context.dictionary.WORD_TYPE_OPTION_GERUND}</option>
+					</select>
+				</div>
+			);
+
+		return null;
+	}
+
+	renderPairingNotes(context: IAppContext) {
+		return (
+			<div className="formRow">
+				<label className="label">{context.dictionary.SELECT_LABEL_PAIRING_NOTES}</label>
+				<textarea
+					onChange={context.onPairingNotesChanged}
+					value={context.pairingNotes}
+				/>
+			</div>
+		);
+	}
+}

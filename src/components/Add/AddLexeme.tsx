@@ -4,9 +4,8 @@ import { IAppContext } from '../../AppContext';
 
 export default abstract class AddLexeme extends Component {
 
-	abstract renderInputLabel(context: IAppContext): React.ReactNode;
-
 	abstract renderLexemeTextInput(context: IAppContext): React.ReactNode;
 
 	abstract renderNotes(context: IAppContext): React.ReactNode;
+
 }
