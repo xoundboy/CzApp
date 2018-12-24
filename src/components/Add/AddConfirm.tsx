@@ -6,20 +6,47 @@ import WordType from '../../enum/WordType';
 import CzGender from '../../enum/CzGender';
 import LexemeType from '../../enum/LexemeType';
 import PhraseType from '../../enum/PhraseType';
+import Payload from '../../valueobject/Payload';
+import * as QueryString from 'querystring';
+import { Redirect } from 'react-router';
 
-export default class AddConfirm extends Component {
+interface IAddConfirmState {
+	saveComplete: boolean;
+}
+
+export default class AddConfirm extends Component<object, IAddConfirmState> {
+
+	private payload: Payload;
+
+	public constructor(props: object) {
+		super(props);
+		this.state = {
+			saveComplete: false
+		};
+		this.payload = new Payload();
+	}
 
 	render() {
-		return (
-			<AppContextConsumer>
-				{(context) => <div>
-					{this.renderSummary(context)}
-					{this.renderMetaDataInput(context)}
-					{this.renderPairingNotes(context)}
-					{this.renderSaveButton(context)}
-				</div>}
-			</AppContextConsumer>
-		);
+
+			return (
+				<AppContextConsumer>
+					{(context) => {
+						if (this.state.saveComplete)
+							return(
+								<Redirect to={`/add/${context.inputLanguage}`} />
+							);
+						else
+							return (
+								<div>
+									{this.renderSummary(context)}
+									{this.renderMetaDataInput(context)}
+									{this.renderPairingNotes(context)}
+									{this.renderSaveButton(context)}
+								</div>
+							);
+					}}
+				</AppContextConsumer>
+			);
 	}
 
 	renderSummary(context: IAppContext) {
@@ -52,13 +79,44 @@ export default class AddConfirm extends Component {
 					onClick={(event: MouseEvent<HTMLButtonElement>) => {
 						if (context.czechLexeme.text === '' && context.englishLexeme.text === '')
 							return;
-						context.onSaveButtonClicked();
+						this.preparePayload(context);
+						const request = new XMLHttpRequest();
+						request.open('POST', 'http://localhost:3002/lexemes');
+						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+						request.addEventListener('load', () => {
+							alert('Save complete!');
+							context.onSaveCompleted();
+							this.setState({saveComplete: true});
+						});
+						request.send(QueryString.stringify(this.payload));
 					}}
 				>
 					{context.dictionary.BUTTON_SAVE}
 				</button>
 			</div>
 		);
+	}
+
+	preparePayload(context: IAppContext) {
+		this.payload.wordType = context.wordType;
+		this.payload.phraseType = context.phraseType;
+		this.payload.type = context.lexemeType;
+		this.payload.czGender = context.czechLexeme.gender;
+		this.payload.czVerbAspect = context.czechLexeme.verbAspect;
+		this.payload.notes = context.pairingNotes;
+		this.payload.czText = context.czechLexeme.text;
+		this.payload.czNotes = context.czechLexeme.notes;
+		this.payload.enText = context.englishLexeme.text;
+		this.payload.enNotes = context.englishLexeme.notes;
+
+		if (context.lexemeType === LexemeType.WORD) {
+			this.payload.phraseType = null;
+			if (context.wordType !== WordType.VERB)
+				this.payload.czVerbAspect = null;
+			if (context.wordType !== WordType.NOUN)
+				this.payload.czGender = null;
+		} else
+			this.payload.wordType = null;
 	}
 
 	renderMetaDataInput(context: IAppContext) {
