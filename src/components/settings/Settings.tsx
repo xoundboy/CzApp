@@ -5,10 +5,6 @@ import { AppContextConsumer, IAppContext } from 'AppContext';
 
 export default class Settings extends Component {
 
-	constructor(props: object) {
-		super(props);
-	}
-
 	render() {
 		return (
 			<AppContextConsumer>
@@ -17,6 +13,7 @@ export default class Settings extends Component {
 						<div className="page settingsPage">
 							{this.renderInputLanguage(context)}
 							{this.renderUiLanguage(context)}
+							{this.renderSignOutButton(context)}
 						</div>
 					);
 				}}
@@ -86,19 +83,13 @@ export default class Settings extends Component {
 						{context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 						</label>
 				</div>
-
-				<div className="radio">
-					<label>
-						<input
-							type="radio"
-							value={Language.NULL}
-							onChange={context.onInputLanguageChanged}
-							checked={context.inputLanguage === Language.NULL}
-						/>
-					{context.dictionary.SETTINGS_LANGUAGE_OPTION_NONE}
-					</label>
-				</div>
 			</div>
+		);
+	}
+
+	renderSignOutButton(context: IAppContext) {
+		return (
+			<a href="#" onClick={context.onSignOut}>{context.dictionary.LINK_SIGN_OUT}</a>
 		);
 	}
 }

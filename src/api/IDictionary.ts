@@ -22,6 +22,7 @@ export default interface IDictionary {
 	INPUT_LABEL_ENGLISH_LEXEME: string;
 	LEXEME_TYPE_OPTION_WORD: string;
 	LEXEME_TYPE_OPTION_PHRASE: string;
+	LINK_SIGN_OUT: string;
 	MENULABEL_ADD:  string;
 	MENULABEL_HOME:  string;
 	MENULABEL_SETTINGS:  string;

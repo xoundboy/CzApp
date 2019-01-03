@@ -1,5 +1,4 @@
 enum Language {
-	NULL = 'NULL',
 	CZECH = 'cz',
 	ENGLISH = 'en'
 }

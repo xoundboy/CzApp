@@ -16,10 +16,16 @@ import PhraseType from '../enum/PhraseType';
 import CzGender from '../enum/CzGender';
 import CzVerbAspect from '../enum/CzVerbAspect';
 import IDictionary from '../api/IDictionary';
+import SignInPage from './SignInPage';
 
-export default class App extends Component<object, IAppContext> {
+interface IAppProps {
+	isSignedIn: boolean;
+}
 
-	constructor(props: object) {
+export default class App extends Component<IAppProps, IAppContext> {
+
+	constructor(props: IAppProps) {
+
 		super(props);
 
 		this.state = {
@@ -32,6 +38,7 @@ export default class App extends Component<object, IAppContext> {
 			wordType: WordType.NOUN,
 			phraseType: PhraseType.IDIOM,
 			pairingNotes: '',
+			authToken: null,
 			onInputLanguageChanged: this.onInputLanguageChanged.bind(this),
 			onUiLanguageChanged: this.onUiLanguageChanged.bind(this),
 			onEnglishLexemeTextChanged: this.onEnglishLexemeTextChanged.bind(this),
@@ -44,8 +51,12 @@ export default class App extends Component<object, IAppContext> {
 			onWordTypeChanged: this.onWordTypeChanged.bind(this),
 			onPhraseTypeChanged: this.onPhraseTypeChanged.bind(this),
 			onPairingNotesChanged: this.onPairingNotesChanged.bind(this),
-			onSaveCompleted: this.onSaveCompleted.bind(this)
+			onSaveCompleted: this.onSaveCompleted.bind(this),
+			onSignOut: this.onSignOut.bind(this)
 		};
+
+		// can't be passed in context as sign in button is not rendered by React
+		this.onSignInSuccess =  this.onSignInSuccess.bind(this);
 	}
 
 	getDictionary(): IDictionary {
@@ -132,14 +143,32 @@ export default class App extends Component<object, IAppContext> {
 		});
 	}
 
+	onSignInSuccess(googleUser: gapi.auth2.GoogleUser) {
+		this.setState({
+			authToken: googleUser.getAuthResponse().id_token
+		});
+	}
+
+	onSignOut() {
+		const auth2 = gapi.auth2.getAuthInstance();
+		auth2.signOut();
+	}
+
 	render() {
-		return (
-			<AppContextProvider value={this.state}>
-				<div className={this.constructor.name}>
-					<MenuLayer />
-					<PageLayer />
-				</div>
-			</AppContextProvider>
-		);
+		if (this.props.isSignedIn)
+			return (
+				<AppContextProvider value={this.state}>
+					<div className={this.constructor.name}>
+						<MenuLayer />
+						<PageLayer />
+					</div>
+				</AppContextProvider>
+			);
+		else
+			return (
+				<AppContextProvider value={this.state}>
+					<SignInPage onSignInSuccess={this.onSignInSuccess} />
+				</AppContextProvider>
+			);
 	}
 }

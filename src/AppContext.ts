@@ -18,6 +18,7 @@ export interface IAppContext {
 	wordType: WordType;
 	phraseType: PhraseType;
 	pairingNotes: string;
+	authToken: string;
 	onInputLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => void;
 	onUiLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => void;
 	onEnglishLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
@@ -31,6 +32,7 @@ export interface IAppContext {
 	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
 	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 	onSaveCompleted: () => void;
+	onSignOut: () => void;
 }
 
 const defaultContext = {
@@ -43,6 +45,7 @@ const defaultContext = {
 	wordType: WordType.NOUN,
 	phraseType: PhraseType.IDIOM,
 	pairingNotes: '',
+	authToken: '',
 	onInputLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => { return; },
 	onUiLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => { return; },
 	onEnglishLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
@@ -55,7 +58,8 @@ const defaultContext = {
 	onWordTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
 	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
 	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
-	onSaveCompleted: () => { return; }
+	onSaveCompleted: () => { return; },
+	onSignOut: () => { return; }
 };
 
 const AppContext = createContext(defaultContext);

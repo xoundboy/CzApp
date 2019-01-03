@@ -14,7 +14,8 @@
 		"fs": "0.0.2",
 		"mysql": "^2.9.0",
 		"path": "^0.12.7",
-		"query-string": "^3.0.0"
+		"query-string": "^3.0.0",
+		"google-auth-library": "^2.0.2"
 	},
 	"devDependencies": {
 		"nodemon": "^1.14.12"
