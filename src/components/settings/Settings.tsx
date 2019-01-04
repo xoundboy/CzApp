@@ -5,10 +5,18 @@ import { AppContextConsumer, IAppContext } from 'AppContext';
 
 export default class Settings extends Component {
 
+	context: IAppContext;
+
+	constructor(props: object) {
+		super(props);
+		this.onSignOutClick = this.onSignOutClick.bind(this);
+	}
+
 	render() {
 		return (
 			<AppContextConsumer>
 				{(context) => {
+					this.context = context;
 					return (
 						<div className="page settingsPage">
 							{this.renderInputLanguage(context)}
@@ -89,7 +97,11 @@ export default class Settings extends Component {
 
 	renderSignOutButton(context: IAppContext) {
 		return (
-			<a href="#" onClick={context.onSignOut}>{context.dictionary.LINK_SIGN_OUT}</a>
+			<a href="#" onClick={this.onSignOutClick}>{context.dictionary.LINK_SIGN_OUT}</a>
 		);
+	}
+
+	onSignOutClick() {
+		this.context.googleAuth.signOut();
 	}
 }

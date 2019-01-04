@@ -19,7 +19,7 @@ import IDictionary from '../api/IDictionary';
 import SignInPage from './SignInPage';
 
 interface IAppProps {
-	isSignedIn: boolean;
+	googleAuth: gapi.auth2.GoogleAuth;
 }
 
 export default class App extends Component<IAppProps, IAppContext> {
@@ -29,6 +29,7 @@ export default class App extends Component<IAppProps, IAppContext> {
 		super(props);
 
 		this.state = {
+			googleAuth: this.props.googleAuth,
 			inputLanguage: LocalStorage.inputLanguage || Language.ENGLISH,
 			uiLanguage: LocalStorage.uiLanguage || Language.ENGLISH,
 			dictionary: this.getDictionary(),
@@ -51,12 +52,13 @@ export default class App extends Component<IAppProps, IAppContext> {
 			onWordTypeChanged: this.onWordTypeChanged.bind(this),
 			onPhraseTypeChanged: this.onPhraseTypeChanged.bind(this),
 			onPairingNotesChanged: this.onPairingNotesChanged.bind(this),
-			onSaveCompleted: this.onSaveCompleted.bind(this),
-			onSignOut: this.onSignOut.bind(this)
+			onSaveCompleted: this.onSaveCompleted.bind(this)
 		};
+	}
 
-		// can't be passed in context as sign in button is not rendered by React
-		this.onSignInSuccess =  this.onSignInSuccess.bind(this);
+	componentWillReceiveProps(nextProps: IAppProps) {
+		if (nextProps.googleAuth !== this.props.googleAuth)
+			this.setState({googleAuth: nextProps.googleAuth});
 	}
 
 	getDictionary(): IDictionary {
@@ -143,19 +145,8 @@ export default class App extends Component<IAppProps, IAppContext> {
 		});
 	}
 
-	onSignInSuccess(googleUser: gapi.auth2.GoogleUser) {
-		this.setState({
-			authToken: googleUser.getAuthResponse().id_token
-		});
-	}
-
-	onSignOut() {
-		const auth2 = gapi.auth2.getAuthInstance();
-		auth2.signOut();
-	}
-
 	render() {
-		if (this.props.isSignedIn)
+		if (this.props.googleAuth.isSignedIn.get())
 			return (
 				<AppContextProvider value={this.state}>
 					<div className={this.constructor.name}>
@@ -167,7 +158,7 @@ export default class App extends Component<IAppProps, IAppContext> {
 		else
 			return (
 				<AppContextProvider value={this.state}>
-					<SignInPage onSignInSuccess={this.onSignInSuccess} />
+					<SignInPage />
 				</AppContextProvider>
 			);
 	}

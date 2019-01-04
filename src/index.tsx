@@ -5,10 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import './style/global.css';
 import GoogleAuth from './model/GoogleAuth';
 
-function renderApp (isSignedIn: boolean) {
+function renderApp (googleAuth: gapi.auth2.GoogleAuth) {
 	ReactDOM.render(
 		<BrowserRouter>
-			<App isSignedIn={isSignedIn}/>
+			<App googleAuth={googleAuth}/>
 		</BrowserRouter>,
 		document.getElementById('root') as HTMLElement
 	);

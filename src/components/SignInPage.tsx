@@ -1,11 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 
-interface ISignInPageProps {
-	onSignInSuccess: (googleUser: gapi.auth2.GoogleUser) => void;
-}
-
-export default class SignInPage extends Component<ISignInPageProps> {
+export default class SignInPage extends Component {
 
 	componentDidMount() {
 		this.renderGoogleSignInButton();
@@ -17,8 +13,7 @@ export default class SignInPage extends Component<ISignInPageProps> {
 			'width': 200,
 			'height': 50,
 			'longtitle': true,
-			'theme': 'dark',
-			'onsuccess': this.props.onSignInSuccess
+			'theme': 'dark'
 		});
 	}
 

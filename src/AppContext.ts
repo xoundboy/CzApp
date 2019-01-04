@@ -1,6 +1,5 @@
 import { ChangeEvent, createContext } from 'react';
 import Language from './enum/Language';
-import En from './valueobject/En';
 import IDictionary from './api/IDictionary';
 import EnglishLexeme from './valueobject/EnglishLexeme';
 import LexemeType from './enum/LexemeType';
@@ -9,6 +8,7 @@ import WordType from './enum/WordType';
 import PhraseType from './enum/PhraseType';
 
 export interface IAppContext {
+	googleAuth: gapi.auth2.GoogleAuth;
 	inputLanguage: Language;
 	uiLanguage: Language;
 	dictionary: IDictionary;
@@ -32,20 +32,20 @@ export interface IAppContext {
 	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
 	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 	onSaveCompleted: () => void;
-	onSignOut: () => void;
 }
 
 const defaultContext = {
-	inputLanguage: Language.ENGLISH,
-	uiLanguage: Language.ENGLISH,
-	dictionary: En,
-	englishLexeme: new EnglishLexeme(''),
-	czechLexeme: new CzechLexeme(''),
-	lexemeType: LexemeType.WORD,
-	wordType: WordType.NOUN,
-	phraseType: PhraseType.IDIOM,
-	pairingNotes: '',
-	authToken: '',
+	googleAuth: null as gapi.auth2.GoogleAuth,
+	inputLanguage: null as Language,
+	uiLanguage: null as Language,
+	dictionary: null as IDictionary,
+	englishLexeme: null as EnglishLexeme,
+	czechLexeme: null as CzechLexeme,
+	lexemeType: null as LexemeType,
+	wordType: null as WordType,
+	phraseType: null as PhraseType,
+	pairingNotes: null as string,
+	authToken: null as string,
 	onInputLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => { return; },
 	onUiLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => { return; },
 	onEnglishLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
@@ -58,8 +58,7 @@ const defaultContext = {
 	onWordTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
 	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
 	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
-	onSaveCompleted: () => { return; },
-	onSignOut: () => { return; }
+	onSaveCompleted: () => { return; }
 };
 
 const AppContext = createContext(defaultContext);

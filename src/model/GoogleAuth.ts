@@ -1,9 +1,11 @@
 const GOOGLE_CLIENT_ID = '1076782358657-ek02t3rpa2e7e1kll0pntvl7li7jo827.apps.googleusercontent.com';
+const GOOGLE_API_LIBRARY_URL = 'https://apis.google.com/js/platform.js';
 
 export default class GoogleAuth {
 
-	authStatus: boolean = false;
-	onAuthChangedCallback: (isSignedIn: boolean) => void;
+	oldAuthStatus: boolean;
+	googleAuth: gapi.auth2.GoogleAuth;
+	onAuthChangedCallback: (googleAuth: gapi.auth2.GoogleAuth) => void;
 
 	constructor () {
 		this.onGapiScriptLoaded = this.onGapiScriptLoaded.bind(this);
@@ -15,13 +17,13 @@ export default class GoogleAuth {
 
 	public init() {
 		const gapiScript = document.createElement('script');
-		gapiScript.src = 'https://apis.google.com/js/platform.js';
+		gapiScript.src = GOOGLE_API_LIBRARY_URL;
 		gapiScript.async = true;
 		gapiScript.onload = this.onGapiScriptLoaded;
 		document.getElementsByTagName('head')[0].appendChild(gapiScript);
 	}
 
-	public addOnAuthChangedCallback(callback: (isSignedIn: boolean) => void) {
+	public addOnAuthChangedCallback(callback: (googleAuth: gapi.auth2.GoogleAuth) => void) {
 		this.onAuthChangedCallback = callback;
 	}
 
@@ -35,16 +37,16 @@ export default class GoogleAuth {
 	}
 
 	onAuthInitialised(googleAuth: gapi.auth2.GoogleAuth) {
-
-		this.authStatus = googleAuth.isSignedIn.get();
-		googleAuth.isSignedIn.listen(this.onIsSignedInChanged);
-		this.onAuthChangedCallback(this.authStatus);
+		this.googleAuth = googleAuth;
+		this.oldAuthStatus = googleAuth.isSignedIn.get();
+		this.googleAuth.isSignedIn.listen(this.onIsSignedInChanged);
+		this.onAuthChangedCallback(this.googleAuth);
 	}
 
 	onIsSignedInChanged(newAuthStatus: boolean) {
-		if (newAuthStatus !== this.authStatus) {
-			this.authStatus = newAuthStatus;
-			this.onAuthChangedCallback(newAuthStatus);
+		if (newAuthStatus !== this.oldAuthStatus) {
+			this.oldAuthStatus = newAuthStatus;
+			this.onAuthChangedCallback(this.googleAuth);
 		}
 	}
 }
