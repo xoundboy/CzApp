@@ -9,7 +9,8 @@ export default class Settings extends Component {
 
 	constructor(props: object) {
 		super(props);
-		this.onSignOutClick = this.onSignOutClick.bind(this);
+		this.onSignOutClicked = this.onSignOutClicked.bind(this);
+		this.onRevokeClicked = this.onRevokeClicked.bind(this);
 	}
 
 	render() {
@@ -19,9 +20,10 @@ export default class Settings extends Component {
 					this.context = context;
 					return (
 						<div className="page settingsPage">
-							{this.renderInputLanguage(context)}
-							{this.renderUiLanguage(context)}
-							{this.renderSignOutButton(context)}
+							{this.renderInputLanguage()}
+							{this.renderUiLanguage()}
+							{this.renderRevokeGoogleAccount()}
+							{this.renderSignOutButton()}
 						</div>
 					);
 				}}
@@ -29,21 +31,33 @@ export default class Settings extends Component {
 		);
 	}
 
-	renderUiLanguage(context: IAppContext) {
+	renderRevokeGoogleAccount() {
+		return (
+			<div className="settingsSection">
+				<a
+					href="#"
+					onClick={this.onRevokeClicked}
+				>Sign {this.context.googleAuth.currentUser.get().getBasicProfile().getEmail()} out permanently
+				</a>
+			</div>
+		);
+	}
+
+	renderUiLanguage() {
 		return (
 			<div className="settingsSection">
 				<div className="sectionTitle">
-					{context.dictionary.SETTINGS_SECTION_UI_LANGUAGE}
+					{this.context.dictionary.SETTINGS_SECTION_UI_LANGUAGE}
 				</div>
 				<div className="radio">
 					<label>
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={context.onUiLanguageChanged}
-							checked={context.uiLanguage === Language.ENGLISH}
+							onChange={this.context.onUiLanguageChanged}
+							checked={this.context.uiLanguage === Language.ENGLISH}
 						/>
-						{context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
+						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
 					</label>
 				</div>
 
@@ -52,21 +66,21 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={context.onUiLanguageChanged}
-							checked={context.uiLanguage === Language.CZECH}
+							onChange={this.context.onUiLanguageChanged}
+							checked={this.context.uiLanguage === Language.CZECH}
 						/>
-						{context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
+						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 					</label>
 				</div>
 			</div>
 		);
 	}
 
-	renderInputLanguage(context: IAppContext) {
+	renderInputLanguage() {
 		return (
 			<div className="settingsSection">
 				<div className="sectionTitle">
-					{context.dictionary.SETTINGS_SECTION_DEFAULT_INPUT_LANG}
+					{this.context.dictionary.SETTINGS_SECTION_DEFAULT_INPUT_LANG}
 				</div>
 
 				<div className="radio">
@@ -74,10 +88,10 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={context.onInputLanguageChanged}
-							checked={context.inputLanguage === Language.ENGLISH}
+							onChange={this.context.onInputLanguageChanged}
+							checked={this.context.inputLanguage === Language.ENGLISH}
 						/>
-						{context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
+						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
 				</div>
 
 				<div className="radio">
@@ -85,23 +99,27 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={context.onInputLanguageChanged}
-							checked={context.inputLanguage === Language.CZECH}
+							onChange={this.context.onInputLanguageChanged}
+							checked={this.context.inputLanguage === Language.CZECH}
 						/>
-						{context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
+						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 						</label>
 				</div>
 			</div>
 		);
 	}
 
-	renderSignOutButton(context: IAppContext) {
+	renderSignOutButton() {
 		return (
-			<a href="#" onClick={this.onSignOutClick}>{context.dictionary.LINK_SIGN_OUT}</a>
+			<a href="#" onClick={this.onSignOutClicked}>{this.context.dictionary.LINK_SIGN_OUT}</a>
 		);
 	}
 
-	onSignOutClick() {
+	onRevokeClicked() {
+		this.context.googleAuth.disconnect();
+	}
+
+	onSignOutClicked() {
 		this.context.googleAuth.signOut();
 	}
 }
