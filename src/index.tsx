@@ -12,13 +12,26 @@ gapiScript.onload = onGapiScriptLoaded;
 gapiScript.src = 'https://apis.google.com/js/platform.js';
 document.getElementsByTagName('head')[0].appendChild(gapiScript);
 
-function onAuthInitialised(googleAuth: GoogleAuth) {
+function renderApp (authStatus: boolean) {
 	ReactDOM.render(
 		<BrowserRouter>
-			<App isSignedIn={googleAuth.isSignedIn.get()}/>
+			<App isSignedIn={authStatus}/>
 		</BrowserRouter>,
 		document.getElementById('root') as HTMLElement
 	);
+}
+
+function onAuthInitialised(googleAuth: GoogleAuth) {
+
+	let authStatus = googleAuth.isSignedIn.get();
+	googleAuth.isSignedIn.listen(function(newAuthStatus: boolean) {
+		if (newAuthStatus !== authStatus) {
+			authStatus = newAuthStatus;
+			renderApp(newAuthStatus);
+		}
+	});
+
+	renderApp(authStatus);
 }
 
 function onGapiLoaded() {
