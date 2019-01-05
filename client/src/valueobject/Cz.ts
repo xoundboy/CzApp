@@ -26,6 +26,7 @@ const Cz: IDictionary = class {
 	public static LEXEME_TYPE_OPTION_WORD = 'slovo';
 	public static LEXEME_TYPE_OPTION_PHRASE = 'fráze';
 	public static LINK_SIGN_OUT = 'odhlásit se';
+	public static LINK_REVOKE_USER_PERMISSIONS = 'zrušit přístup pro uživatele';
 	public static MENULABEL_ADD = 'Přidat slovo nebo frázi';
 	public static MENULABEL_HOME = 'Domov';
 	public static MENULABEL_SETTINGS = 'Nastavení';

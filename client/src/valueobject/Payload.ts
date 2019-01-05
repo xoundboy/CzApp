@@ -5,6 +5,7 @@ import CzGender from '../enum/CzGender';
 import CzVerbAspect from '../enum/CzVerbAspect';
 
 export default class Payload {
+	public idToken: string;
 	public wordType: WordType;
 	public phraseType: PhraseType;
 	public type: LexemeType;

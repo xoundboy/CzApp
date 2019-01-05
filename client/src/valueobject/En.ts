@@ -26,6 +26,7 @@ const En: IDictionary = class {
 	public static LEXEME_TYPE_OPTION_WORD = 'word';
 	public static LEXEME_TYPE_OPTION_PHRASE = 'phrase';
 	public static LINK_SIGN_OUT = 'sign out';
+	public static LINK_REVOKE_USER_PERMISSIONS = 'Revoke permissions for user';
 	public static MENULABEL_ADD = 'Add word or phrase';
 	public static MENULABEL_HOME = 'Home';
 	public static MENULABEL_SETTINGS = 'Settings';

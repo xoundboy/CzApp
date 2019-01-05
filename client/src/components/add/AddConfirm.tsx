@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Component, MouseEvent } from 'react';
+import { Component } from 'react';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
 import CzVerbAspect from '../../enum/CzVerbAspect';
 import WordType from '../../enum/WordType';
@@ -27,7 +27,6 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 	}
 
 	render() {
-
 			return (
 				<AppContextConsumer>
 					{(context) => {
@@ -76,12 +75,14 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 		return (
 			<div className="saveButtonContainer">
 				<button
-					onClick={(event: MouseEvent<HTMLButtonElement>) => {
+					onClick={() => {
+						const idToken = context.googleAuth.currentUser.get().getAuthResponse().id_token;
 						if (context.czechLexeme.text === '' && context.englishLexeme.text === '')
 							return;
 						this.preparePayload(context);
 						const request = new XMLHttpRequest();
 						request.open('POST', 'http://localhost:3002/lexemes');
+						request.setRequestHeader('Authorization', 'Bearer ' + idToken);
 						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 						request.addEventListener('load', () => {
 							alert('Save complete!');
@@ -98,6 +99,7 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 	}
 
 	preparePayload(context: IAppContext) {
+		this.payload.idToken = context.googleAuth.currentUser.get().getAuthResponse().id_token;
 		this.payload.wordType = context.wordType;
 		this.payload.phraseType = context.phraseType;
 		this.payload.type = context.lexemeType;

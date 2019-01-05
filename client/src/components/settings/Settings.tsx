@@ -37,7 +37,8 @@ export default class Settings extends Component {
 				<a
 					href="#"
 					onClick={this.onRevokeClicked}
-				>Sign {this.context.googleAuth.currentUser.get().getBasicProfile().getEmail()} out permanently
+				>{this.context.dictionary.LINK_REVOKE_USER_PERMISSIONS}&nbsp;
+				{this.context.googleAuth.currentUser.get().getBasicProfile().getEmail()}
 				</a>
 			</div>
 		);
