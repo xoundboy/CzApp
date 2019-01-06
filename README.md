@@ -17,8 +17,7 @@ If working on SCSS then open another terminal and type `npm run watch-css` to au
 Server development
 ------------------
 
-# H3
-MySql setup
+### MySql setup
 
 1. Add the following environment variables to enable the Express server to connect to the mysql server:
 ```
@@ -32,8 +31,7 @@ CZAPP_SERVER_PORT=3002
 2. Create a new mysql database and grant privileges then populate it
 > npm run loadnodata
 
-# H3
-Run/debug
+### Run/debug
 
 In Webstorm (Intelli-j), to enable step debugging in the IDE, create a new run/debug configuration, choose Node.js and
 add the following fields:
@@ -51,8 +49,7 @@ the server is relaunched.
 
 Use the `Run` or `Debug` buttons with this new Run/Debug configuration to launch the dev server.
 
-Other stuff
------------
+### Other stuff
 
 1. Start the Mysql server (Mac)
 ```
