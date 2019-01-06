@@ -31,6 +31,14 @@ CZAPP_SERVER_PORT=3002
 2. Create a new mysql database and grant privileges then populate it
 > npm run loadnodata
 
+### Build Typescript 'dist' folder
+The Webstorm Typescript file watchers are a bit flaky so better to just open a new terminal and run a regular Typescript
+build command with the watch flag set.
+```
+cd /server
+tsc -w -p src
+```
+
 ### Run/debug
 
 In Webstorm (Intelli-j), to enable step debugging in the IDE, create a new run/debug configuration, choose Node.js and
@@ -42,10 +50,6 @@ Node interpreter | <point to the node binary version 7.6.0+>
 Node parameters | --inspect --require ts-node/register
 Working directory | path to /server
 Javascript file | src/index.ts
-
-Click the + below the "Before launch" panel and select the "Compile Typescript" option, then in the dialog enter
-`/server/src/tsconfig.json` as the config file. This will ensure that typescript compilation happens before each time
-the server is relaunched.
 
 Use the `Run` or `Debug` buttons with this new Run/Debug configuration to launch the dev server.
 
