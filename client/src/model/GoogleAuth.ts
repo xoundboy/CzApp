@@ -5,13 +5,15 @@ export default class GoogleAuth {
 
 	oldAuthStatus: boolean;
 	googleAuth: gapi.auth2.GoogleAuth;
-	onAuthChangedCallback: (googleAuth: gapi.auth2.GoogleAuth) => void;
+	onSuccess: (googleAuth: gapi.auth2.GoogleAuth) => void;
+	onError: () => void;
 
-	constructor () {
+	constructor (onSuccess: (googleAuth: gapi.auth2.GoogleAuth) => void, onError: () => void) {
+		this.onSuccess = onSuccess;
+		this.onError = onError;
 		this.onGapiScriptLoaded = this.onGapiScriptLoaded.bind(this);
 		this.onGapiLoaded = this.onGapiLoaded.bind(this);
 		this.onAuthInitialised = this.onAuthInitialised.bind(this);
-		this.addOnAuthChangedCallback = this.addOnAuthChangedCallback.bind(this);
 		this.onIsSignedInChanged = this.onIsSignedInChanged.bind(this);
 	}
 
@@ -20,11 +22,8 @@ export default class GoogleAuth {
 		gapiScript.src = GOOGLE_API_LIBRARY_URL;
 		gapiScript.async = true;
 		gapiScript.onload = this.onGapiScriptLoaded;
+		gapiScript.onerror = this.onError;
 		document.getElementsByTagName('head')[0].appendChild(gapiScript);
-	}
-
-	public addOnAuthChangedCallback(callback: (googleAuth: gapi.auth2.GoogleAuth) => void) {
-		this.onAuthChangedCallback = callback;
 	}
 
 	onGapiScriptLoaded() {
@@ -40,13 +39,13 @@ export default class GoogleAuth {
 		this.googleAuth = googleAuth;
 		this.oldAuthStatus = googleAuth.isSignedIn.get();
 		this.googleAuth.isSignedIn.listen(this.onIsSignedInChanged);
-		this.onAuthChangedCallback(this.googleAuth);
+		this.onSuccess(this.googleAuth);
 	}
 
 	onIsSignedInChanged(newAuthStatus: boolean) {
 		if (newAuthStatus !== this.oldAuthStatus) {
 			this.oldAuthStatus = newAuthStatus;
-			this.onAuthChangedCallback(this.googleAuth);
+			this.onSuccess(this.googleAuth);
 		}
 	}
 }

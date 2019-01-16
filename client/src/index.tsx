@@ -4,16 +4,18 @@ import App from './components/App';
 import { BrowserRouter } from 'react-router-dom';
 import './style/global.css';
 import GoogleAuth from './model/GoogleAuth';
+import AppLoadError from './components/AppLoadError';
 
-function renderApp (googleAuth: gapi.auth2.GoogleAuth) {
-	ReactDOM.render(
-		<BrowserRouter>
-			<App googleAuth={googleAuth}/>
-		</BrowserRouter>,
+new GoogleAuth(
+	(googleAuth: gapi.auth2.GoogleAuth) =>
+		ReactDOM.render(
+			<BrowserRouter>
+				<App googleAuth={googleAuth}/>
+			</BrowserRouter>,
+			document.getElementById('root') as HTMLElement
+		),
+	() =>
+		ReactDOM.render(
+		<AppLoadError />,
 		document.getElementById('root') as HTMLElement
-	);
-}
-
-const gAuth = new GoogleAuth();
-gAuth.addOnAuthChangedCallback(renderApp);
-gAuth.init();
+		)).init();
