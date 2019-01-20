@@ -1,70 +1,89 @@
-How to develop
+Dev Env Setup Guide
 ==============
 
-There are two projects in one here:
+This repo contains three projects, all of which you need to set up in order to develop the full stack.
 
-1) Client - React/Typescript FE client
-2) Server - Node/Express/Typescript REST server with MySql database
+1) Database - MySQL
+2) Server - Node/Express/Typescript
+3) Client - React/Typescript web client
 
-Clone the project and then run `npm install` in the client directory and then again in the server directory.
 
+Database - MySQL
+----------------
 
-Client development
-------------------
-To start the Client development it's easy, just open a terminal and type `npm run start` to compile and watch typescript
-If working on SCSS then open another terminal and type `npm run watch-css` to auto-compile css from scss
-
-Server development
-------------------
-
-### MySql setup
-
-1. Add the following environment variables to enable the Express server to connect to the mysql server:
+Install Mysql server on your local dev machine:
 ```
-CZAPP_DB_HOST=localhost;
-CZAPP_DB_NAME=<czapp_db_name>;
-CZAPP_DB_USER=<czapp_db_user>;
-CZAPP_DB_PASS=<czapp_db_password>;
-CZAPP_SERVER_PORT=3002
+$ sudo brew install mysql
+$ mysql.server start
 ```
 
-2. Create a new mysql database and grant privileges then populate it
-> npm run loadnodata
-
-### Build Typescript 'dist' folder
-The Webstorm Typescript file watchers are a bit flaky so better to just open a new terminal and run a regular Typescript
-build command with the watch flag set.
+Add the following environment variables to ~/.bash_profile:
 ```
-cd /server
-tsc -w -p src
+export CZAPP_DB_HOST=localhost;
+export CZAPP_DB_NAME=<czapp_db_name>;
+export CZAPP_DB_USER=<czapp_db_user>;
+export CZAPP_DB_PASS=<czapp_db_password>;
+export CZAPP_SERVER_PORT=3002
 ```
 
-### Run/debug
+Reload Bash profile:
+```
+$ . ~/.bash_profile
+```
 
-In Webstorm (Intelli-j), to enable step debugging in the IDE, create a new run/debug configuration, choose Node.js and
+Create a new mysql database and grant privileges:
+```
+$ mysql -uroot -p
+mysql> create database <czapp_db_name>;
+mysql> grant all privileges on <czapp_db_name>.* to <czapp_db_user>@localhost identified by '<czapp_db_password>';
+```
+
+Install the database schema:
+```
+$ cd ./database
+$ sh/db loadnodata
+```
+
+
+Server - Node/Express/Typescript
+--------------------------------
+The following instructions assume you are running node version 6.12.3
+
+Install dependencies:
+```
+$ cd ./server
+$ npm install
+```
+
+To run the server and watch for changes in .ts files:
+```
+npm run dev
+```
+
+To step-debug .ts in Webstorm, create a new run/debug configuration, choose Node.js and
 add the following fields:
 
 Field | Value
 --- | ---
-Node interpreter | <point to the node binary version 7.6.0+>
+Node interpreter | <point to the node binary version 6.12.3>
 Node parameters | --inspect --require ts-node/register
 Working directory | path to /server
-Javascript file | src/index.ts
+Javascript file | app/app.ts
 
-Use the `Run` or `Debug` buttons with this new Run/Debug configuration to launch the dev server.
+Ensure that any previous `npm run dev` process is killed, then use the `Run` or `Debug` buttons with this new Run/Debug
+configuration to launch the dev server.
 
-### Other stuff
 
-1. Start the Mysql server (Mac)
+Client
+------
+install dependencies:
 ```
-/usr/local/opt/mysql@5.5/bin/mysql.server start
+cd client
+npm install
 ```
 
-2. execute scripts for loading and dumping the database (including stored procedures)
+to compile and watch typescript
+```npm run start```
 
-```
-npm run loadnodata // no data
-npm run load // with data
-npm run dumpnodata // no data
-npm run dump // with data
-```
+If working on SCSS then to auto-compile css from scss, open another terminal:
+```npm run watch-css```
