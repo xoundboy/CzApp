@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -7,8 +17,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var OAuth2Client = require('google-auth-library').OAuth2Client;
 var mysql = __importStar(require("mysql"));
+var Controller_1 = require("./Controller");
 var config = {
     SERVER_PORT: process.env.CZAPP_SERVER_PORT,
     DB_HOST: process.env.CZAPP_DB_HOST,
@@ -16,82 +26,71 @@ var config = {
     DB_USER: process.env.CZAPP_DB_USER,
     DB_PASS: process.env.CZAPP_DB_PASS
 };
-var CLIENT_ID = '1076782358657-ek02t3rpa2e7e1kll0pntvl7li7jo827.apps.googleusercontent.com';
-var client = new OAuth2Client(CLIENT_ID);
 function formatEnum(str) {
     if (str !== null && str !== undefined)
         return str.toUpperCase();
     else
         return '';
 }
-var LexemeController = /** @class */ (function () {
-    function LexemeController() {
-        this.lexemes = this.lexemes.bind(this);
+function getQuery(req) {
+    var wordType = formatEnum(req.body.wordType);
+    var phraseType = formatEnum(req.body.phraseType);
+    var type = formatEnum(req.body.type);
+    var gender = formatEnum(req.body.czGender);
+    var verbAspect = formatEnum(req.body.czVerbAspect);
+    var notes = req.body.notes || '';
+    var czNotes = req.body.czNotes || '';
+    var enNotes = req.body.enNotes || '';
+    var czWord = '';
+    var czPhrase = '';
+    var enWord = '';
+    var enPhrase = '';
+    if (type === 'WORD') {
+        czWord = req.body.czText;
+        enWord = req.body.enText;
     }
-    LexemeController.prototype.lexemes = function (req, res, next) {
-        function isValid() {
-            client.verifyIdToken({
-                idToken: req.body.idToken,
-                audience: CLIENT_ID,
-            }, function (err, login) {
-                var sub = login.getPayload().sub;
-                if (!sub) {
-                    res
-                        .header('Access-Control-Allow-Origin', '*')
-                        .status(403).send('Invalid token');
-                    return;
-                }
-            });
-            return true;
+    else {
+        czPhrase = req.body.czText;
+        enPhrase = req.body.enText;
+    }
+    return "CALL insertLexemePair('" + czWord + "','" + enWord + "','" + czPhrase + "','" + enPhrase + "','" + wordType + "','" + phraseType + "\n\t\t','" + type + "','" + gender + "','" + verbAspect + "','" + notes + "','" + enNotes + "','" + czNotes + "', @insert_id);";
+}
+var InsertLexemePair = /** @class */ (function (_super) {
+    __extends(InsertLexemePair, _super);
+    function InsertLexemePair(req, res, next) {
+        var _this = _super.call(this) || this;
+        _this.req = req;
+        _this.res = res;
+        _this.checkToken(_this.onInsertPairAuthenticated);
+        return _this;
+    }
+    InsertLexemePair.prototype.onInsertPairAuthenticated = function (err, login) {
+        this.executeInsert();
+        var sub = login.getPayload().sub;
+        if (!sub) {
+            res
+                .header('Access-Control-Allow-Origin', '*')
+                .status(403).send('Invalid token');
+            return;
         }
-        function getQuery() {
-            var wordType = formatEnum(req.body.wordType);
-            var phraseType = formatEnum(req.body.phraseType);
-            var type = formatEnum(req.body.type);
-            var gender = formatEnum(req.body.czGender);
-            var verbAspect = formatEnum(req.body.czVerbAspect);
-            var notes = req.body.notes || '';
-            var czNotes = req.body.czNotes || '';
-            var enNotes = req.body.enNotes || '';
-            var czWord = '';
-            var czPhrase = '';
-            var enWord = '';
-            var enPhrase = '';
-            if (type === 'WORD') {
-                czWord = req.body.czText;
-                enWord = req.body.enText;
-            }
-            else {
-                czPhrase = req.body.czText;
-                enPhrase = req.body.enText;
-            }
-            return "CALL insertLexemePair('" + czWord + "','" + enWord + "','" + czPhrase + "','" + enPhrase + "','" + wordType + "','" + phraseType + "\n\t\t','" + type + "','" + gender + "','" + verbAspect + "','" + notes + "','" + enNotes + "','" + czNotes + "', @insert_id);";
-        }
-        if (isValid())
-            mysql.createConnection({
-                host: config.DB_HOST,
-                user: config.DB_USER,
-                password: config.DB_PASS,
-                database: config.DB_NAME,
-                multipleStatements: true
-            }).query(getQuery(), function (err, rows) {
-                if (err) {
-                    res.header('Access-Control-Allow-Origin', '*');
-                    res.status(500).send({ error: err });
-                    return;
-                }
+    };
+    InsertLexemePair.prototype.executeInsert = function () {
+        mysql.createConnection({
+            host: config.DB_HOST,
+            user: config.DB_USER,
+            password: config.DB_PASS,
+            database: config.DB_NAME,
+            multipleStatements: true
+        }).query(getQuery(req), function (err, rows) {
+            if (err) {
                 res.header('Access-Control-Allow-Origin', '*');
-                res.json(rows);
-            });
-        else
-            res.header('Access-Control-Allow-Origin', '*').status(400).send('invalid params');
+                res.status(500).send({ error: err });
+                return;
+            }
+            res.header('Access-Control-Allow-Origin', '*');
+            res.json(rows);
+        });
     };
-    LexemeController.prototype.index = function (req, res, next) {
-        res.json({ title: 'Express' });
-    };
-    LexemeController.prototype.msg = function (req, res) {
-        res.json({ msg: 'Hello!' });
-    };
-    return LexemeController;
-}());
-exports.default = LexemeController;
+    return InsertLexemePair;
+}(Controller_1.Controller));
+exports.default = InsertLexemePair;

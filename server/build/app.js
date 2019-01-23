@@ -15,7 +15,7 @@ var bodyParser = __importStar(require("body-parser"));
 var cookie_parser_1 = __importDefault(require("cookie-parser"));
 var express = require("express");
 var cors_1 = __importDefault(require("cors"));
-var lexeme_1 = __importDefault(require("./controllers/lexeme"));
+var InsertLexemePair_1 = __importDefault(require("./controllers/InsertLexemePair"));
 // Create a new express application instance
 var app = express();
 app.use(cors_1.default());
@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookie_parser_1.default());
 app.route('/lexemes')
-    .post(new lexeme_1.default().lexemes);
+    .post(new InsertLexemePair_1.default().execute);
 app.listen(3002, function () {
     console.log('Example app listening on port 3002!');
 });
