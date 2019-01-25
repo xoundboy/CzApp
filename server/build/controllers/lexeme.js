@@ -58,7 +58,7 @@ function getQuery(req) {
 var InsertLexemePair = /** @class */ (function (_super) {
     __extends(InsertLexemePair, _super);
     function InsertLexemePair(req, res, next) {
-        var _this = _super.call(this) || this;
+        const _this = _super.call(this) || this;
         _this.req = req;
         _this.res = res;
         _this.checkToken(_this.onInsertPairAuthenticated);
@@ -66,7 +66,7 @@ var InsertLexemePair = /** @class */ (function (_super) {
     }
     InsertLexemePair.prototype.onInsertPairAuthenticated = function (err, login) {
         this.executeInsert();
-        var sub = login.getPayload().sub;
+        const sub = login.getPayload().sub;
         if (!sub) {
             res
                 .header('Access-Control-Allow-Origin', '*')

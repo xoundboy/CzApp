@@ -9,6 +9,7 @@ export abstract class Controller {
 
 	protected req!: Request;
 	protected res!: Response;
+	protected userId: string = '';
 	private callback!: Function;
 
 	protected constructor() {
@@ -16,9 +17,7 @@ export abstract class Controller {
 	}
 
 	protected validateToken(callback: Function) {
-
 		this.callback = callback;
-
 		client.verifyIdToken(
 			{
 				idToken: this.req.body.idToken,
@@ -29,13 +28,12 @@ export abstract class Controller {
 	}
 
 	onTokenValidated(err: Error | null, login: LoginTicket) {
-
 		const payload = login.getPayload();
-
 		if (!payload || !payload.sub)
 			return this.fail(403, 'Invalid token');
-		else
-			this.callback();
+		if (payload && payload.sub)
+			this.userId = payload.sub;
+		this.callback();
 	}
 
 	fail(statusCode: number, message: string) {

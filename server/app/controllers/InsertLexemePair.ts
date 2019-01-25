@@ -42,6 +42,7 @@ export default class InsertLexemePair extends Controller {
 		const notes = req.body.notes || '';
 		const czNotes = req.body.czNotes || '';
 		const enNotes = req.body.enNotes || '';
+		const ip = req.ip;
 
 		let czWord = '';
 		let czPhrase = '';
@@ -57,7 +58,8 @@ export default class InsertLexemePair extends Controller {
 		}
 
 		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}
-		','${type}','${gender}','${verbAspect}','${notes}','${enNotes}','${czNotes}', @insert_id);`;
+		','${type}','${gender}','${verbAspect}','${notes}','${enNotes}','${czNotes}', '${ip}', '${this.userId}
+		', @insert_id);`;
 	}
 
 }

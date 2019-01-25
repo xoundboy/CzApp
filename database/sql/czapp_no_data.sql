@@ -26,6 +26,9 @@ CREATE TABLE `lexeme_map` (
   `en_id` int(11) NOT NULL,
   `cz_id` int(11) NOT NULL,
   `notes` tinytext,
+  `dateAdded` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ip` varchar(19) DEFAULT NULL,
+  `userId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`en_id`,`cz_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -48,6 +51,8 @@ CREATE TABLE `lexemes_cz` (
   `notes` text,
   `gender` enum('NULL','MASCULINE','MASCULINEANIMATUM','FEMININE','NEUTER') DEFAULT NULL,
   `verbAspect` enum('NULL','PERFECTIVE','IMPERFECTIVE') DEFAULT NULL,
+  `ip` varchar(45) DEFAULT NULL,
+  `userId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `lexemes_cz_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -69,6 +74,8 @@ CREATE TABLE `lexemes_en` (
   `wordType` enum('NULL','NOUN','VERB','ADJECTIVE','ADVERB','PREPOSITION','GERUND','CONJUNCTION','PRONOUN') DEFAULT NULL,
   `phraseType` enum('NULL','PROVERB','PHRASALVERB','MODALVERB','IDIOM','COLLOQUIALISM','OTHER') DEFAULT NULL,
   `notes` text,
+  `ip` varchar(45) DEFAULT NULL,
+  `userId` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `lexemes_en_id_uindex` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -139,6 +146,8 @@ CREATE DEFINER=`czapp`@`localhost` PROCEDURE `insertLexemePair`(
 	IN  notes      TEXT,
     IN  enNotes	   TEXT,
     IN  czNotes    TEXT,
+    IN  ip         TEXT,
+    IN  userId     TEXT,
 	OUT pair_insert_id  INT(10)
 )
 BEGIN
@@ -147,18 +156,18 @@ BEGIN
 	DECLARE pair_insert_id INT;
 
 	-- Insert the Czech version
-	INSERT INTO lexemes_cz (word, phrase, wordType, phraseType, type, gender, verbAspect, notes)
-	VALUES (czWord, czPhrase, wordType, phraseType, type, gender, verbAspect, czNotes);
+	INSERT INTO lexemes_cz (word, phrase, wordType, phraseType, type, gender, verbAspect, notes, ip, userId)
+	VALUES (czWord, czPhrase, wordType, phraseType, type, gender, verbAspect, czNotes, ip, userId);
 	SET cz_id = LAST_INSERT_ID();
 
 	-- Insert the English version
-	INSERT INTO lexemes_en (type, word, phrase, wordType, phraseType, notes)
-	VALUES (type, enWord, enPhrase, wordType, phraseType, enNotes);
+	INSERT INTO lexemes_en (type, word, phrase, wordType, phraseType, notes, ip, userId)
+	VALUES (type, enWord, enPhrase, wordType, phraseType, enNotes, ip, userId);
 	SET en_id = LAST_INSERT_ID();
 
 	-- Insert the mapping
-	INSERT INTO lexeme_map (en_id, cz_id, notes)
-	VALUES (en_id, cz_id, notes);
+	INSERT INTO lexeme_map (en_id, cz_id, notes, ip, userId)
+	VALUES (en_id, cz_id, notes, ip, userId);
 	SET pair_insert_id = LAST_INSERT_ID();
 END ;;
 DELIMITER ;
@@ -195,4 +204,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-24 12:20:34
+-- Dump completed on 2019-01-25 23:18:17
