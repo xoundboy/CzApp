@@ -44,7 +44,7 @@ export abstract class Controller {
 
 	abstract getQuery(): string;
 
-	onQueryExecuted(err: Error, rows: ) { // TODO can't use type any, must declare type for rows returned from query
+	onQueryExecuted(err: Error, rows: any) { // TODO can't use type any, must declare type for rows returned from query
 		if (err) {
 			this.res.header('Access-Control-Allow-Origin', '*');
 			this.res.status(500).send({ error: err });
