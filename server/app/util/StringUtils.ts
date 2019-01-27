@@ -3,6 +3,6 @@ export class StringUtils {
 		if (str !== null && str !== undefined)
 			return str.toUpperCase();
 		else
-			return '';
+			return 'NULL';
 	}
 }
