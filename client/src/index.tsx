@@ -7,15 +7,16 @@ import GoogleAuth from './model/GoogleAuth';
 import AppLoadError from './components/AppLoadError';
 
 new GoogleAuth(
-	(googleAuth: gapi.auth2.GoogleAuth) =>
-		ReactDOM.render(
-			<BrowserRouter>
-				<App googleAuth={googleAuth}/>
-			</BrowserRouter>,
-			document.getElementById('root') as HTMLElement
-		),
-	() =>
-		ReactDOM.render(
-		<AppLoadError />,
+(googleAuth: gapi.auth2.GoogleAuth) =>
+	ReactDOM.render(
+		<BrowserRouter>
+			<App googleAuth={googleAuth}/>
+		</BrowserRouter>,
 		document.getElementById('root') as HTMLElement
-		)).init();
+	),
+() =>
+	ReactDOM.render(
+	<AppLoadError />,
+	document.getElementById('root') as HTMLElement
+	)
+).init();

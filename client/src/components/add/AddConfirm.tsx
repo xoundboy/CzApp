@@ -81,7 +81,7 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 							return;
 						this.preparePayload(context);
 						const request = new XMLHttpRequest();
-						request.open('POST', 'http://localhost:3002/lexemes');
+						request.open('POST', '/api/lexemes');
 						request.setRequestHeader('Authorization', 'Bearer ' + idToken);
 						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 						request.addEventListener('load', () => {
