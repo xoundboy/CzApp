@@ -1,7 +1,6 @@
 import * as mysql from 'mysql';
 
 const config = {
-	SERVER_PORT: process.env.CZAPP_SERVER_PORT,
 	DB_HOST: process.env.CZAPP_DB_HOST,
 	DB_NAME: process.env.CZAPP_DB_NAME,
 	DB_USER: process.env.CZAPP_DB_USER,
@@ -13,7 +12,7 @@ export default class Mysql {
 	public static createConnection() {
 		return mysql.createConnection({
 			host     : config.DB_HOST,
-				user     : config.DB_USER,
+			user     : config.DB_USER,
 			password : config.DB_PASS,
 			database : config.DB_NAME,
 			multipleStatements: true

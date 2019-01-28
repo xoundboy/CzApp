@@ -17,7 +17,7 @@ $ sudo brew install mysql
 $ mysql.server start
 ```
 
-Add the following environment variables to ~/.bash_profile:
+For DEVELOPMENT, add the following environment variables to ~/.bash_profile:
 ```
 # env vars for local development server
 export CZAPP_DB_HOST=localhost
@@ -26,19 +26,30 @@ export CZAPP_DB_USER=<czapp_db_user>
 export CZAPP_DB_PASS=<czapp_db_password>
 export CZAPP_SERVER_PORT=3002
 export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:3002
-
-# env vars for local production server
-export CZAPP_PROD_DB_HOST=localhost
-export CZAPP_PROD_DB_NAME=<czapp_production_db_name
-export CZAPP_PROD_DB_PASS=<czapp_production_db_password>
-export CZAPP_PROD_DB_USER=<czapp_production_db_user>
-export CZAPP_PROD_SERVER_PORT=3002
-export REACT_APP_CZAPP_BACKEND_BASE_URL=https://<my.backend.com>/api
 ```
 
 Reload Bash profile:
 ```
 $ . ~/.bash_profile
+```
+
+For PRODUCTION, create a file called `ecosystem.config.js` in the home folder of the user on the production server used
+by the gulp deploy task and add the following contents (for use with pm2 node manager)
+```
+module.exports = {
+  apps : [{
+		name: 'api.czapp',
+		script: '/www/api.czapp.xoundesign.com/app.js',
+		watch: true,
+		env: {
+      			NODE_ENV: 'production',
+			CZAPP_DB_HOST:'localhost',
+			CZAPP_DB_NAME:'czapp',
+			CZAPP_DB_PASS:'czappDbUserP4ssword',
+			CZAPP_DB_USER:'czappDbUser'
+    		}
+	}]
+}
 ```
 
 Create a new mysql database and grant privileges:
@@ -65,7 +76,7 @@ $ cd ./server
 $ npm install
 ```
 
-To run the server and watch for changes in .ts files:
+To run the DEVELOPMENT server and watch for changes in .ts files:
 ```
 npm run dev
 ```
@@ -97,3 +108,19 @@ to compile and watch typescript
 
 If working on SCSS then to auto-compile css from scss, open another terminal:
 ```npm run watch-css```
+
+
+Deploy to Production
+--------------------
+
+In the root of the czapp project..
+
+- to see all gulp tasks
+```
+gulp --tasks
+```
+
+- to build FE client, BE Express server, export db schema, upload everything and restart the node service...
+```
+gulp upgradeProd
+```

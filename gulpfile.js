@@ -29,7 +29,8 @@ const gulpSSH = new GulpSSH({
   */
 
 gulp.task('buildProdClient', function(cb) {
-	exec('cd ./client && npm run build', function(err, stdout, stderr){
+	exec('cd ./client && REACT_APP_CZAPP_BACKEND_BASE_URL=https://czapp.xoundesign.com/api npm run build',
+		function(err, stdout, stderr) {
 		console.log(stdout);
 		console.log(stderr);
 		cb(err);
@@ -89,14 +90,14 @@ gulp.task('deployApi', function() {
 
 gulp.task('installDeps', function() {
 	return gulpSSH
-		.shell([`cd ${process.env.CZAPP_PROD_PATH_TO_API_ROOT} && npm install --only=prod && pm2`],
+		.shell([`cd ${process.env.CZAPP_PROD_PATH_TO_API_ROOT} && npm install --only=prod`],
 			{filePath: 'installDeps.log'})
 		.pipe(gulp.dest('logs'));
 });
 
 gulp.task('restartNodeServer', function(){
 	return 	gulpSSH
-		.shell([`cd ${process.env.CZAPP_PROD_PATH_TO_API_ROOT} && npm install --only=prod`],
+		.shell(['pm2 startOrReload ecosystem.config.js'],
 		{filePath: 'installDeps.log'})
 		.pipe(gulp.dest('logs'));
 });
