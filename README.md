@@ -25,6 +25,7 @@ export CZAPP_DB_NAME=<czapp_db_name>
 export CZAPP_DB_USER=<czapp_db_user>
 export CZAPP_DB_PASS=<czapp_db_password>
 export CZAPP_SERVER_PORT=3002
+export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:3002
 
 # env vars for local production server
 export CZAPP_PROD_DB_HOST=localhost
@@ -32,6 +33,7 @@ export CZAPP_PROD_DB_NAME=<czapp_production_db_name
 export CZAPP_PROD_DB_PASS=<czapp_production_db_password>
 export CZAPP_PROD_DB_USER=<czapp_production_db_user>
 export CZAPP_PROD_SERVER_PORT=3002
+export REACT_APP_CZAPP_BACKEND_BASE_URL=https://<my.backend.com>/api
 ```
 
 Reload Bash profile:

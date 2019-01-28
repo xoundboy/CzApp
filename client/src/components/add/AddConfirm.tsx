@@ -10,6 +10,8 @@ import Payload from '../../valueobject/Payload';
 import * as QueryString from 'querystring';
 import { Redirect } from 'react-router';
 
+const backendBaseUrl = process.env.REACT_APP_CZAPP_BACKEND_BASE_URL;
+
 interface IAddConfirmState {
 	saveComplete: boolean;
 }
@@ -81,7 +83,7 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 							return;
 						this.preparePayload(context);
 						const request = new XMLHttpRequest();
-						request.open('POST', '/api/lexemes');
+						request.open('POST', `${backendBaseUrl}/lexemes`);
 						request.setRequestHeader('Authorization', 'Bearer ' + idToken);
 						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 						request.addEventListener('load', () => {
