@@ -39,15 +39,15 @@ by the gulp deploy task and add the following contents (for use with pm2 node ma
 module.exports = {
   apps : [{
 		name: 'api.czapp',
-		script: '/www/api.czapp.xoundesign.com/app.js',
+		script: '<absolute path to app.js on server>',
 		watch: true,
 		env: {
-      			NODE_ENV: 'production',
+			NODE_ENV: 'production',
 			CZAPP_DB_HOST:'localhost',
-			CZAPP_DB_NAME:'czapp',
-			CZAPP_DB_PASS:'czappDbUserP4ssword',
-			CZAPP_DB_USER:'czappDbUser'
-    		}
+			CZAPP_DB_NAME:'<czapp db name>',
+			CZAPP_DB_PASS:'<czapp db pass>',
+			CZAPP_DB_USER:'<czapp db user>'
+		}
 	}]
 }
 ```
