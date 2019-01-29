@@ -133,7 +133,7 @@ CREATE TABLE `words` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`czapp`@`localhost` PROCEDURE `insertLexemePair`(
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `insertLexemePair`(
 	IN  czWord     VARCHAR(50),
 	IN  enWord     VARCHAR(50),
 	IN  czPhrase   VARCHAR(50),
@@ -204,4 +204,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-25 23:18:17
+-- Dump completed on 2019-01-29  9:59:51

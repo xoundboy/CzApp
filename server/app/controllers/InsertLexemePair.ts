@@ -27,9 +27,8 @@ export default class InsertLexemePair extends Controller {
 			enPhrase = this.req.body.enText;
 		}
 
-		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}
-			','${type}','${gender}','${verbAspect}','${notes}','${enNotes}','${czNotes}', '${ip}', '${this.userId}
-			', @insert_id);`;
+		return `CALL insertLexemePair('${czWord}','${enWord}','${czPhrase}','${enPhrase}','${wordType}','${phraseType}',
+			'${type}','${gender}','${verbAspect}','${notes}','${enNotes}','${czNotes}', '${ip}', '${this.userId}',
+			 @insert_id);`;
 	}
-
 }

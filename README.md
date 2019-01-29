@@ -19,7 +19,8 @@ $ mysql.server start
 
 For DEVELOPMENT, add the following environment variables to ~/.bash_profile:
 ```
-# env vars for local development server
+# env vars for local development server (TODO - fix so mysql root user can be regular mysql user)
+export MYSQL_USER=<mysql root password>
 export CZAPP_DB_HOST=localhost
 export CZAPP_DB_NAME=<czapp_db_name>
 export CZAPP_DB_USER=<czapp_db_user>

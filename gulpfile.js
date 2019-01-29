@@ -77,6 +77,14 @@ gulp.task('cleanRemoteApi', function() {
 		.pipe(gulp.dest('logs'));
 });
 
+gulp.task('dumpNoData', function(cb) {
+	return exec('./database/sh/db.sh dumpnodata', function(err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
+});
+
 gulp.task('deployApi', function() {
 	return gulp
 		.src([
@@ -105,6 +113,7 @@ gulp.task('restartNodeServer', function(){
 gulp.task('buildAndDeployProd', gulp.series([
 	'cleanBuildDir',
 	'compileTs',
+	'dumpNoData',
 	'cleanRemoteApi',
 	'deployApi',
 	'installDeps',

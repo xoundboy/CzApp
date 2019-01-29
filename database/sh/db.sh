@@ -25,7 +25,7 @@ if [ "$1" == "dump" ]; then
 
 # Dump without data
 elif [ "$1" == "dumpnodata" ]; then
-    mysqldump -uroot -p --host=${CZAPP_DB_HOST} --add-drop-table --no-data --routines ${CZAPP_DB_NAME} | \
+    mysqldump -uroot -p${MYSQL_PASSWORD} --host=${CZAPP_DB_HOST} --add-drop-table --no-data --routines ${CZAPP_DB_NAME} | \
     sed 's/ AUTO_INCREMENT=[0-9]*//g' >  ${DIR}/../sql/${DUMPFILENODATA}
 
 # Load database with data
