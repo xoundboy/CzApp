@@ -23,7 +23,7 @@ For DEVELOPMENT, add the following environment variables to ~/.bash_profile:
 export MYSQL_USER=<mysql root password>
 export CZAPP_DB_HOST=localhost
 export CZAPP_DB_NAME=<czapp_db_name>
-export CZAPP_DB_USER=<czapp_db_user>
+export CZAPP_DB_USER=<czapp_db_user> # <- this user needs to be the same on all envs
 export CZAPP_DB_PASS=<czapp_db_password>
 export CZAPP_SERVER_PORT=3002
 export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:3002
