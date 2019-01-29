@@ -14,7 +14,13 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// enable cli logging of requests (only really needed for dev)
 app.use(morgan('combined'));
+
+// enable collection of user's public IP address when Express
+// is behind a proxy (only really needed for prod)
+app.set('trust proxy', 'loopback');
 
 app.route('/lexemes')
 	.post(new InsertLexemePair().execute);
