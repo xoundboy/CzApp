@@ -126,7 +126,7 @@ gulp.task('buildAndDeployProd', gulp.series([
 Database related tasks
  */
 
-gulp.task('backupOldDatabase', function(){
+gulp.task('backupProdDatabase', function(){
 	return gulpSSH
 		.shell([
 			`mysqldump -u${process.env.CZAPP_PROD_DB_USER} -p${process.env.CZAPP_PROD_DB_PASS} ${process.env.CZAPP_DB_NAME} --host=${process.env.CZAPP_PROD_DB_HOST} --routines > ${process.env.CZAPP_PROD_PATH_TO_API_ROOT}/../dbBackup/czapp.sql.bak`],
@@ -134,7 +134,7 @@ gulp.task('backupOldDatabase', function(){
 		.pipe(gulp.dest('logs'));
 });
 
-gulp.task('loadNewSchema', function(){
+gulp.task('loadProdNewSchema', function(){
 	return gulpSSH
 		.shell([
 			`mysql -u${process.env.CZAPP_PROD_DB_USER} -p${process.env.CZAPP_PROD_DB_PASS} --host=${process.env.CZAPP_PROD_DB_HOST} ${process.env.CZAPP_DB_NAME} < ${process.env.CZAPP_PROD_PATH_TO_API_ROOT}/czapp_no_data.sql`],
@@ -142,12 +142,24 @@ gulp.task('loadNewSchema', function(){
 		.pipe(gulp.dest('logs'));
 });
 
-gulp.task('deploySchema', gulp.series([
-	'backupOldDatabase',
-	'loadNewSchema'
+gulp.task('replaceDatabase', gulp.series([
+	'backupProdDatabase',
+	'loadProdNewSchema'
 ]));
 
 
+// Migrate db
+gulp.task('uploadMigrationsFileToProd', function(){
+
+});
+
+gulp.task('applyMigrationsToProd', function(){
+
+});
+
+gulp.task('cleanMigrationsFile', function(){
+
+});
 
 
 /*
@@ -156,6 +168,5 @@ Upgrade Production
 
 gulp.task('upgradeProd', gulp.series([
 	'deployProdClient',
-	'buildAndDeployProd',
-	'deploySchema'
+	'buildAndDeployProd'
 ]));
