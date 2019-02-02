@@ -23,7 +23,7 @@ export default class AddCzech extends AddLexeme {
 					value={context.czechLexeme.text}
 					placeholderText={context.dictionary.PLACEHOLDER_INPUT_IN_CZECH}
 					autofocus={true}
-					onValueChange={context.onCzechLexemeTextChanged}
+					onValueChange={(event) => context.onCzechLexemeTextChanged(event.target.value as string)}
 				/>
 			</label>
 		);
@@ -33,7 +33,7 @@ export default class AddCzech extends AddLexeme {
 		return (
 			<label>{context.dictionary.SELECT_LABEL_LEXEME_NOTES_CZ_VERSION}
 				<textarea
-					onChange={context.onCzechLexemeNotesChanged}
+					onChange={(event) => context.onCzechLexemeNotesChanged(event.target.value as string)}
 					value={context.czechLexeme.notes}
 				/>
 			</label>

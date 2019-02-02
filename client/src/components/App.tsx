@@ -1,6 +1,6 @@
 import '../style/App.css';
 import * as React from 'react';
-import { Component, ChangeEvent } from 'react';
+import { Component } from 'react';
 import { AppContextProvider, IAppContext } from '../AppContext';
 import Language from '../enum/Language';
 import MenuLayer from './MenuLayer';
@@ -13,8 +13,6 @@ import LexemeType from '../enum/LexemeType';
 import CzechLexeme from '../valueobject/CzechLexeme';
 import WordType from '../enum/WordType';
 import PhraseType from '../enum/PhraseType';
-import CzGender from '../enum/CzGender';
-import CzVerbAspect from '../enum/CzVerbAspect';
 import IDictionary from '../api/IDictionary';
 import SignInPage from './SignInPage';
 
@@ -40,19 +38,82 @@ export default class App extends Component<IAppProps, IAppContext> {
 			phraseType: PhraseType.IDIOM,
 			pairingNotes: '',
 			authToken: null,
-			onInputLanguageChanged: this.onInputLanguageChanged.bind(this),
-			onUiLanguageChanged: this.onUiLanguageChanged.bind(this),
-			onEnglishLexemeTextChanged: this.onEnglishLexemeTextChanged.bind(this),
-			onEnglishLexemeNotesChanged: this.onEnglishLexemeNotesChanged.bind(this),
-			onCzechLexemeTextChanged: this.onCzechLexemeTextChanged.bind(this),
-			onCzechLexemeNotesChanged: this.onCzechLexemeNotesChanged.bind(this),
-			onCzechLexemeVerbAspectChanged: this.onCzechLexemeVerbAspectChanged.bind(this),
-			onCzechLexemeGenderChanged: this.onCzechLexemeGenderChanged.bind(this),
-			onLexemeTypeChanged: this.onLexemeTypeChanged.bind(this),
-			onWordTypeChanged: this.onWordTypeChanged.bind(this),
-			onPhraseTypeChanged: this.onPhraseTypeChanged.bind(this),
-			onPairingNotesChanged: this.onPairingNotesChanged.bind(this),
-			onSaveCompleted: this.onSaveCompleted.bind(this)
+
+			onInputLanguageChanged: (value) => {
+				LocalStorage.inputLanguage = value;
+				this.setState({inputLanguage: value});
+			},
+
+			onUiLanguageChanged: (value) => {
+				LocalStorage.uiLanguage = value;
+				this.setState({
+					uiLanguage: value,
+					dictionary: this.state.uiLanguage === Language.ENGLISH ? Cz : En
+				});
+			},
+
+			onEnglishLexemeTextChanged: (value) => {
+				const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
+				newEnglishLexeme.text = value;
+				this.setState({englishLexeme: newEnglishLexeme});
+			},
+
+			onEnglishLexemeNotesChanged: (value) => {
+				const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
+				newEnglishLexeme.notes = value;
+				this.setState({englishLexeme: newEnglishLexeme});
+			},
+
+			onCzechLexemeTextChanged: (value) => {
+				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+				newCzechLexeme.text = value;
+				this.setState({czechLexeme: newCzechLexeme});
+			},
+
+			onCzechLexemeNotesChanged: (value) => {
+				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+				newCzechLexeme.notes = value;
+				this.setState({czechLexeme: newCzechLexeme});
+			},
+
+			onCzechLexemeVerbAspectChanged: (value) => {
+				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+				newCzechLexeme.verbAspect = value;
+				this.setState({czechLexeme: newCzechLexeme});
+			},
+
+			onCzechLexemeGenderChanged: (value) => {
+				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
+				newCzechLexeme.gender = value;
+				this.setState({czechLexeme: newCzechLexeme});
+			},
+
+			onLexemeTypeChanged: (value) => {
+				this.setState({lexemeType: value});
+			},
+
+			onWordTypeChanged: (value) => {
+				this.setState({wordType: value});
+			},
+
+			onPhraseTypeChanged: (value) => {
+				this.setState({phraseType: value});
+			},
+
+			onPairingNotesChanged: 	(value) => {
+				this.setState({pairingNotes: value});
+			},
+
+			onSaveCompleted: () => {
+				this.setState({
+					englishLexeme: new EnglishLexeme(''),
+					czechLexeme: new CzechLexeme(''),
+					lexemeType: LexemeType.WORD,
+					wordType: WordType.NOUN,
+					phraseType: PhraseType.IDIOM,
+					pairingNotes: ''
+				});
+			}
 		};
 	}
 
@@ -64,85 +125,6 @@ export default class App extends Component<IAppProps, IAppContext> {
 	getDictionary(): IDictionary {
 		const uiLanguage = LocalStorage.uiLanguage as Language || Language.ENGLISH;
 		return uiLanguage === Language.ENGLISH ? En : Cz;
-	}
-
-	onInputLanguageChanged(event: ChangeEvent<HTMLInputElement>) {
-		const value = event.target.value as Language;
-		LocalStorage.inputLanguage = value;
-		this.setState({inputLanguage: value});
-	}
-
-	onUiLanguageChanged(event: ChangeEvent<HTMLInputElement>) {
-		const value = event.target.value as Language;
-		LocalStorage.uiLanguage = value;
-		const newDictionary = this.state.uiLanguage === Language.ENGLISH ? Cz : En;
-		this.setState({
-			uiLanguage: value,
-			dictionary: newDictionary
-		});
-	}
-
-	onEnglishLexemeTextChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
-		newEnglishLexeme.text = event.target.value as string;
-		this.setState({englishLexeme: newEnglishLexeme});
-	}
-
-	onEnglishLexemeNotesChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
-		newEnglishLexeme.notes = event.target.value as string;
-		this.setState({englishLexeme: newEnglishLexeme});
-	}
-
-	onCzechLexemeTextChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-		newCzechLexeme.text = event.target.value as string;
-		this.setState({czechLexeme: newCzechLexeme});
-	}
-
-	onCzechLexemeNotesChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-		newCzechLexeme.notes = event.target.value as string;
-		this.setState({czechLexeme: newCzechLexeme});
-	}
-
-	onCzechLexemeVerbAspectChanged(event: ChangeEvent<HTMLSelectElement>) {
-		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-		newCzechLexeme.verbAspect = event.target.value as CzVerbAspect;
-		this.setState({czechLexeme: newCzechLexeme});
-	}
-
-	onCzechLexemeGenderChanged(event: ChangeEvent<HTMLSelectElement>) {
-		const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-		newCzechLexeme.gender = event.target.value as CzGender;
-		this.setState({czechLexeme: newCzechLexeme});
-	}
-
-	onLexemeTypeChanged(event: ChangeEvent<HTMLSelectElement>) {
-		this.setState({lexemeType: event.target.value as LexemeType});
-	}
-
-	onWordTypeChanged(event: ChangeEvent<HTMLSelectElement>) {
-		this.setState({wordType: event.target.value as WordType});
-	}
-
-	onPhraseTypeChanged(event: ChangeEvent<HTMLSelectElement>) {
-		this.setState({phraseType: event.target.value as PhraseType});
-	}
-
-	onPairingNotesChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		this.setState({pairingNotes: event.target.value as string});
-	}
-
-	onSaveCompleted() {
-		this.setState({
-			englishLexeme: new EnglishLexeme(''),
-			czechLexeme: new CzechLexeme(''),
-			lexemeType: LexemeType.WORD,
-			wordType: WordType.NOUN,
-			phraseType: PhraseType.IDIOM,
-			pairingNotes: ''
-		});
 	}
 
 	render() {

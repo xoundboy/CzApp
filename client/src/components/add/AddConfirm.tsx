@@ -143,7 +143,8 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 					<select
 						className="czVerbAspect"
 						value={context.czechLexeme.verbAspect}
-						onChange={context.onCzechLexemeVerbAspectChanged}
+						onChange={(event) => context.onCzechLexemeVerbAspectChanged(
+							event.target.value as CzVerbAspect)}
 					>
 						<option value={CzVerbAspect.NULL}>-</option>
 						<option value={CzVerbAspect.PERFECTIVE}>{context.dictionary.CZ_VERB_ASPECT_OPTION_PERFECTIVE}</option>
@@ -160,7 +161,11 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 			return (
 				<div className="formRow">
 					<label>{context.dictionary.CZ_GENDER_SELECT_LABEL}</label>
-					<select className="gender" value={context.czechLexeme.gender} onChange={context.onCzechLexemeGenderChanged}>
+					<select
+						className="gender"
+						value={context.czechLexeme.gender}
+						onChange={(event) => context.onCzechLexemeGenderChanged(event.target.value as CzGender)}
+					>
 						<option value={CzGender.NULL}>-</option>
 						<option value={CzGender.NEUTER}>{context.dictionary.CZ_GENDER_OPTION_NEUTER}</option>
 						<option value={CzGender.FEMININE}>{context.dictionary.CZ_GENDER_OPTION_FEMININE}</option>
@@ -177,7 +182,11 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 		return (
 			<div className="formRow">
 				<label>{context.dictionary.SELECT_LABEL_LEXEME_TYPE}</label>
-				<select className="lexemeType" value={context.lexemeType} onChange={context.onLexemeTypeChanged}>
+				<select
+					className="lexemeType"
+					value={context.lexemeType}
+					onChange={(event) => context.onLexemeTypeChanged(event.target.value as LexemeType)}
+				>
 					<option value={LexemeType.WORD}>{context.dictionary.LEXEME_TYPE_OPTION_WORD}</option>
 					<option value={LexemeType.PHRASE}>{context.dictionary.LEXEME_TYPE_OPTION_PHRASE}</option>
 				</select>
@@ -190,7 +199,11 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 			return (
 				<div className="formRow">
 					<label>{context.dictionary.PHRASE_TYPE_SELECT_LABEL}</label>
-					<select className="phraseType" value={context.phraseType} onChange={context.onPhraseTypeChanged}>
+					<select
+						className="phraseType"
+						value={context.phraseType}
+						onChange={(event) => context.onPhraseTypeChanged(event.target.value as PhraseType)}
+					>
 						<option value={null}>-</option>
 						<option value={PhraseType.COLLOQUIALISM}>{context.dictionary.PHRASE_TYPE_OPTION_COLLOQUIALISM}</option>
 						<option value={PhraseType.IDIOM}>{context.dictionary.PHRASE_TYPE_OPTION_IDIOM}</option>
@@ -208,7 +221,11 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 			return (
 				<div className="formRow">
 					<label>{context.dictionary.WORD_TYPE_SELECT_LABEL}</label>
-					<select className="wordType" value={context.wordType} onChange={context.onWordTypeChanged}>
+					<select
+						className="wordType"
+						value={context.wordType}
+						onChange={(event) => context.onWordTypeChanged(event.target.value as WordType)}
+					>
 						<option value={null}>-</option>
 						<option value={WordType.VERB}>{context.dictionary.WORD_TYPE_OPTION_VERB}</option>
 						<option value={WordType.NOUN}>{context.dictionary.WORD_TYPE_OPTION_NOUN}</option>
@@ -230,7 +247,7 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 			<div className="formRow">
 				<label className="label">{context.dictionary.SELECT_LABEL_PAIRING_NOTES}</label>
 				<textarea
-					onChange={context.onPairingNotesChanged}
+					onChange={(event) => context.onPairingNotesChanged(event.target.value as string)}
 					value={context.pairingNotes}
 				/>
 			</div>

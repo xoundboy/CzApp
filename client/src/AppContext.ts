@@ -1,4 +1,3 @@
-import { ChangeEvent, createContext } from 'react';
 import Language from './enum/Language';
 import IDictionary from './api/IDictionary';
 import EnglishLexeme from './valueobject/EnglishLexeme';
@@ -6,6 +5,9 @@ import LexemeType from './enum/LexemeType';
 import CzechLexeme from './valueobject/CzechLexeme';
 import WordType from './enum/WordType';
 import PhraseType from './enum/PhraseType';
+import CzVerbAspect from './enum/CzVerbAspect';
+import CzGender from './enum/CzGender';
+import { createContext } from 'react';
 
 export interface IAppContext {
 	googleAuth: gapi.auth2.GoogleAuth;
@@ -19,18 +21,18 @@ export interface IAppContext {
 	phraseType: PhraseType;
 	pairingNotes: string;
 	authToken: string;
-	onInputLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => void;
-	onUiLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => void;
-	onEnglishLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-	onEnglishLexemeNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-	onCzechLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-	onCzechLexemeNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-	onCzechLexemeVerbAspectChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
-	onCzechLexemeGenderChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
-	onLexemeTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
-	onWordTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
-	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => void;
-	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+	onInputLanguageChanged: (language: Language) => void;
+	onUiLanguageChanged: (language: Language) => void;
+	onEnglishLexemeTextChanged: (value: string) => void;
+	onEnglishLexemeNotesChanged: (value: string) => void;
+	onCzechLexemeTextChanged: (value: string) => void;
+	onCzechLexemeNotesChanged: (value: string) => void;
+	onCzechLexemeVerbAspectChanged: (value: CzVerbAspect) => void;
+	onCzechLexemeGenderChanged: (value: CzGender) => void;
+	onLexemeTypeChanged: (value: LexemeType) => void;
+	onWordTypeChanged: (value: WordType) => void;
+	onPhraseTypeChanged: (value: PhraseType) => void;
+	onPairingNotesChanged: (value: string) => void;
 	onSaveCompleted: () => void;
 }
 
@@ -46,18 +48,18 @@ const defaultContext = {
 	phraseType: null as PhraseType,
 	pairingNotes: null as string,
 	authToken: null as string,
-	onInputLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => { return; },
-	onUiLanguageChanged: (event: ChangeEvent<HTMLInputElement>) => { return; },
-	onEnglishLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
-	onEnglishLexemeNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
-	onCzechLexemeTextChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
-	onCzechLexemeNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
-	onCzechLexemeVerbAspectChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
-	onCzechLexemeGenderChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
-	onLexemeTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
-	onWordTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
-	onPhraseTypeChanged: (event: ChangeEvent<HTMLSelectElement>) => { return; },
-	onPairingNotesChanged: (event: ChangeEvent<HTMLTextAreaElement>) => { return; },
+	onInputLanguageChanged: (language: Language) => { return; },
+	onUiLanguageChanged: (language: Language) => { return; },
+	onEnglishLexemeTextChanged: (value: string) => { return; },
+	onEnglishLexemeNotesChanged: (value: string) => { return; },
+	onCzechLexemeTextChanged: (value: string) => { return; },
+	onCzechLexemeNotesChanged: (value: string) => { return; },
+	onCzechLexemeVerbAspectChanged: (value: CzVerbAspect) => { return; },
+	onCzechLexemeGenderChanged: (value: CzGender) => { return; },
+	onLexemeTypeChanged: (value: LexemeType) => { return; },
+	onWordTypeChanged: (value: WordType) => { return; },
+	onPhraseTypeChanged: (value: PhraseType) => { return; },
+	onPairingNotesChanged: (value: string) => { return; },
 	onSaveCompleted: () => { return; }
 };
 

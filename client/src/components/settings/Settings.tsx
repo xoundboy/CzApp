@@ -7,12 +7,6 @@ export default class Settings extends Component {
 
 	context: IAppContext;
 
-	constructor(props: object) {
-		super(props);
-		this.onSignOutClicked = this.onSignOutClicked.bind(this);
-		this.onRevokeClicked = this.onRevokeClicked.bind(this);
-	}
-
 	render() {
 		return (
 			<AppContextConsumer>
@@ -34,11 +28,9 @@ export default class Settings extends Component {
 	renderRevokeGoogleAccount() {
 		return (
 			<div className="settingsSection">
-				<a
-					href="#"
-					onClick={this.onRevokeClicked}
-				>{this.context.dictionary.LINK_REVOKE_USER_PERMISSIONS}&nbsp;
-				{this.context.googleAuth.currentUser.get().getBasicProfile().getEmail()}
+				<a href="#" onClick={() => this.context.googleAuth.disconnect()}>
+					{this.context.dictionary.LINK_REVOKE_USER_PERMISSIONS}&nbsp;
+					{this.context.googleAuth.currentUser.get().getBasicProfile().getEmail()}
 				</a>
 			</div>
 		);
@@ -55,7 +47,7 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={this.context.onUiLanguageChanged}
+							onChange={(event) => this.context.onUiLanguageChanged(event.target.value as Language)}
 							checked={this.context.uiLanguage === Language.ENGLISH}
 						/>
 						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}
@@ -67,7 +59,7 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={this.context.onUiLanguageChanged}
+							onChange={(event) => this.context.onUiLanguageChanged(event.target.value as Language)}
 							checked={this.context.uiLanguage === Language.CZECH}
 						/>
 						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
@@ -89,7 +81,7 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={this.context.onInputLanguageChanged}
+							onChange={(event) => this.context.onInputLanguageChanged(event.target.value as Language)}
 							checked={this.context.inputLanguage === Language.ENGLISH}
 						/>
 						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
@@ -100,7 +92,7 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={this.context.onInputLanguageChanged}
+							onChange={(event) => this.context.onInputLanguageChanged(event.target.value as Language)}
 							checked={this.context.inputLanguage === Language.CZECH}
 						/>
 						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
@@ -111,16 +103,6 @@ export default class Settings extends Component {
 	}
 
 	renderSignOutButton() {
-		return (
-			<a href="#" onClick={this.onSignOutClicked}>{this.context.dictionary.LINK_SIGN_OUT}</a>
-		);
-	}
-
-	onRevokeClicked() {
-		this.context.googleAuth.disconnect();
-	}
-
-	onSignOutClicked() {
-		this.context.googleAuth.signOut();
+		return (<a href="#" onClick={() => this.context.googleAuth.signOut()}>{this.context.dictionary.LINK_SIGN_OUT}</a>);
 	}
 }

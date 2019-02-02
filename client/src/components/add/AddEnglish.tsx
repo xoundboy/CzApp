@@ -23,7 +23,8 @@ export default class AddEnglish extends AddLexeme {
 					value={context.englishLexeme.text}
 					placeholderText={context.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH}
 					autofocus={true}
-					onValueChange={context.onEnglishLexemeTextChanged}
+					onValueChange={(event) => context.onEnglishLexemeTextChanged(
+						event.target.value as string)}
 				/>
 			</label>
 		);
@@ -33,7 +34,8 @@ export default class AddEnglish extends AddLexeme {
 		return (
 			<label>{context.dictionary.SELECT_LABEL_LEXEME_NOTES_EN_VERSION}
 				<textarea
-					onChange={context.onEnglishLexemeNotesChanged}
+					onChange={(event) => context.onEnglishLexemeNotesChanged(
+						event.target.value as string)}
 					value={context.englishLexeme.notes}
 				/>
 			</label>
