@@ -1,20 +1,14 @@
+const GAPI_CLIENT_ID = process.env.CZAPP_GAPI_CLIENT_ID;
+const GAPI_PROJECT_ID = process.env.CZAPP_GAPI_PROJECT_ID;
+
 import { Request, Response } from 'express';
 import { LoginTicket } from 'google-auth-library/build/src/auth/loginticket';
+import { TranslateRequest } from '@google-cloud/translate';
 const { OAuth2Client } = require('google-auth-library');
-const CLIENT_ID = '1076782358657-ek02t3rpa2e7e1kll0pntvl7li7jo827.apps.googleusercontent.com';
-const client = new OAuth2Client(CLIENT_ID);
+const client = new OAuth2Client(GAPI_CLIENT_ID);
 const { Translate } = require('@google-cloud/translate');
-const projectId = 'b888c48bd1dd0fd0d46d7cd3001d7073e2035ffc';
-const translate = new Translate({
-	projectId: projectId,
-});
 
-// The text to translate
-const text = 'Hello, world!';
-// The target language
-const target = 'ru';
-
-export class Translate {
+export class Translation {
 
 	protected req!: Request;
 	protected res!: Response;
@@ -33,7 +27,7 @@ export class Translate {
 			client.verifyIdToken(
 				{
 					idToken: this.req.body.idToken,
-					audience: CLIENT_ID,
+					audience: GAPI_CLIENT_ID,
 				},
 				(err: Error | null, login: LoginTicket) => {
 					const payload = login.getPayload();
@@ -48,13 +42,28 @@ export class Translate {
 	}
 
 	private perform(): void {
-		translate
-			.translate(text, target)
-			.then((results: any) => {
-				const translation = results[0];
+		const translate = new Translate({
+			projectId: GAPI_PROJECT_ID
+		});
 
-				console.log(`Text: ${text}`);
-				console.log(`Translation: ${translation}`);
+		const options: TranslateRequest = {
+			format: this.req.body.format,
+			from: this.req.body.source,
+			model: '',
+			to: this.req.body.target,
+		};
+
+		translate
+			.translate(this.req.body.q, options)
+			.then((results: any) => {
+				this.res.header('Access-Control-Allow-Origin', '*')
+					.status(200).json({
+					data: {
+						translations: [{
+							translatedText: results[0]
+						}]
+					}
+				});
 			})
 			.catch((err: Error) => {
 				console.error('ERROR:', err);

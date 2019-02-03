@@ -6,6 +6,7 @@ export default interface IDictionary {
 	BUTTON_SAVE:  string;
 	BUTTON_ADD_NOTE:  string;
 	BUTTON_SWITCH_LANGUAGES:  string;
+	BUTTON_SUGGEST_TRANSLATION: string;
 	CONFIRMATION_PHRASE_TYPE:  string;
 	CONFIRMATION_CZ_VERB_ASPECT:  string;
 	CONFIRMATION_CZ_GENDER:  string;

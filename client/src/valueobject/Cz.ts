@@ -9,6 +9,7 @@ const Cz: IDictionary = class {
 	public static BUTTON_SAVE = 'Uložit';
 	public static BUTTON_SUBMIT = 'Předložit';
 	public static BUTTON_SWITCH_LANGUAGES = 'Přepínejte jazyky';
+	public static BUTTON_SUGGEST_TRANSLATION = 'Navrhnout překlad';
 	public static CONFIRMATION_CZ_GENDER = 'Rod';
 	public static CONFIRMATION_CZ_VERB_ASPECT = 'Slovesný aspekt';
 	public static CONFIRMATION_PHRASE_TYPE = 'Typ fráze';

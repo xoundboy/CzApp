@@ -1,7 +1,7 @@
-import { Controller } from './Controller';
+import { DbQueryController } from './DbQueryController';
 import { StringUtils } from '../util/StringUtils';
 
-export default class InsertLexemePair extends Controller {
+export default class InsertLexemePair extends DbQueryController {
 
 	getQuery(): string {
 		const wordType = StringUtils.formatEnum(this.req.body.wordType);

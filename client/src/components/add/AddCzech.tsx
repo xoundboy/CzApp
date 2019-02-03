@@ -2,6 +2,8 @@ import * as React from 'react';
 import { default as AddLexeme } from './AddLexeme';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
 import ValidatedTextInput from '../generic/ValidatedTextInput';
+import Language from '../../enum/Language';
+import SuggestButton from '../generic/SuggestButton';
 
 export default class AddCzech extends AddLexeme {
 
@@ -10,6 +12,7 @@ export default class AddCzech extends AddLexeme {
 			<AppContextConsumer>
 				{(context) => <div className="view addEnglish">
 					{this.renderLexemeTextInput(context)}
+					{this.renderSuggestButton(context)}
 					{this.renderNotes(context)}
 				</div>}
 			</AppContextConsumer>
@@ -27,6 +30,18 @@ export default class AddCzech extends AddLexeme {
 				/>
 			</label>
 		);
+	}
+
+	renderSuggestButton(context: IAppContext) {
+		return (context.englishLexeme.text) ? (
+			<SuggestButton
+				buttonLabel={context.dictionary.BUTTON_SUGGEST_TRANSLATION}
+				inputText={context.englishLexeme.text}
+				inputLanguage={Language.ENGLISH}
+				targetLanguage={Language.CZECH}
+				onTranslationFetched={context.onCzechLexemeTextChanged}
+			/>
+		) : null;
 	}
 
 	renderNotes(context: IAppContext) {

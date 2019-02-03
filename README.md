@@ -23,9 +23,20 @@ For DEVELOPMENT, add the following environment variables to ~/.bash_profile:
 export MYSQL_USER=<mysql root password>
 export CZAPP_DB_HOST=localhost
 export CZAPP_DB_NAME=<czapp_db_name>
-export CZAPP_DB_USER=<czapp_db_user> # <- this user needs to be the same on all envs
+export CZAPP_DB_USER=<czapp_db_user>                            # <- this user needs to be the same on all envs
 export CZAPP_DB_PASS=<czapp_db_password>
 export CZAPP_SERVER_PORT=3002
+export CZAPP_GAPI_CLIENT_ID=<Google auth api client ID>
+export CZAPP_GAPI_PROJECT_ID=<Google service account ID>
+export CZAPP_PROD_DB_HOST=<host of prod db>
+export CZAPP_PROD_DB_NAME=<db name>
+export CZAPP_PROD_DB_PASS=<czapp_db_prod_password>
+export CZAPP_PROD_DB_USER=<czapp_db_user>                       # <- this user needs to be the same on all envs
+export CZAPP_PROD_HOST=my.vps.com                               # <- public IP address of prod host for SSH connections
+export CZAPP_PROD_USER=myUser                                   # <- user for SSH connections
+export CZAPP_PROD_PATH_TO_API_ROOT=/www/api.my.website.com      # <- path to api root on server
+export CZAPP_PROD_PATH_TO_DOCUMENT_ROOT=/www/my.website.com     # <- path to document root on server
+export CZAPP_PROD_SERVER_PORT=3002 # <- Node server port
 export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:3002
 ```
 

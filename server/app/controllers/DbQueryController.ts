@@ -1,19 +1,19 @@
-import { LoginTicket } from 'google-auth-library/build/src/auth/loginticket';
+const GAPI_PROJECT_ID = process.env.CZAPP_GAPI_CLIENT_ID;
 
+import { LoginTicket } from 'google-auth-library/build/src/auth/loginticket';
 const { OAuth2Client } = require('google-auth-library');
-const CLIENT_ID = '1076782358657-ek02t3rpa2e7e1kll0pntvl7li7jo827.apps.googleusercontent.com';
-const client = new OAuth2Client(CLIENT_ID);
+const client = new OAuth2Client(GAPI_PROJECT_ID);
 import { Request, Response } from 'express';
 import Mysql from '../util/Mysql';
 
-export abstract class Controller {
+export abstract class DbQueryController {
 
 	protected req!: Request;
 	protected res!: Response;
 	protected userId: string = 'anonymous user';
 	private requireAuth: boolean;
 
-	protected constructor(requireAuth: boolean = true) {
+	public constructor(requireAuth: boolean = true) {
 		this.requireAuth = requireAuth;
 		this.execute = this.execute.bind(this);
 		this.executeQuery = this.executeQuery.bind(this);
@@ -29,7 +29,7 @@ export abstract class Controller {
 			client.verifyIdToken(
 				{
 					idToken: this.req.body.idToken,
-					audience: CLIENT_ID,
+					audience: GAPI_PROJECT_ID,
 				},
 				(err: Error | null, login: LoginTicket) => {
 					const payload = login.getPayload();

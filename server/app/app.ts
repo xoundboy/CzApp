@@ -4,8 +4,8 @@ import cookieParser from 'cookie-parser';
 import express = require('express');
 import cors from 'cors';
 import InsertLexemePair from './controllers/InsertLexemePair';
-import { Request, Response } from 'express';
 import morgan from 'morgan';
+import { Translation } from './controllers/Translation';
 
 // Create a new express application instance
 const app: express.Application = express();
@@ -23,12 +23,10 @@ app.use(morgan('combined'));
 app.set('trust proxy', 'loopback');
 
 app.route('/lexemes')
-	.post(new InsertLexemePair().execute);
+	.post(new InsertLexemePair(true).execute);
 
-app.route('/lexemes')
-	.get(function(req: Request, res: Response, next: Function){
-		res.send('hello from express');
-	});
+app.route('/translate')
+	.post(new Translation(false).execute);
 
 app.listen(3002, function () {
 	console.log('Example app listening on port 3002!');

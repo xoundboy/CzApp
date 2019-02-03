@@ -7,5 +7,4 @@ export default abstract class AddLexeme extends Component {
 	abstract renderLexemeTextInput(context: IAppContext): React.ReactNode;
 
 	abstract renderNotes(context: IAppContext): React.ReactNode;
-
 }

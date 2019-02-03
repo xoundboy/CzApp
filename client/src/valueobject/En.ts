@@ -9,6 +9,7 @@ const En: IDictionary = class {
 	public static BUTTON_SAVE = 'Save';
 	public static BUTTON_ADD_NOTE = 'Add note';
 	public static BUTTON_SWITCH_LANGUAGES = 'Switch languages';
+	public static BUTTON_SUGGEST_TRANSLATION = 'Suggest translation';
 	public static CONFIRMATION_PHRASE_TYPE = 'Phrase type';
 	public static CONFIRMATION_CZ_VERB_ASPECT = 'Verb aspect';
 	public static CONFIRMATION_CZ_GENDER = 'Gender';
