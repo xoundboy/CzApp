@@ -7,6 +7,8 @@ import InsertLexemePair from './controllers/InsertLexemePair';
 import morgan from 'morgan';
 import { Translation } from './controllers/Translation';
 
+const port = process.env.CZAPP_SERVER_PORT;
+
 // Create a new express application instance
 const app: express.Application = express();
 
@@ -28,6 +30,4 @@ app.route('/lexemes')
 app.route('/translate')
 	.post(new Translation(false).execute);
 
-app.listen(3002, function () {
-	console.log('Example app listening on port 3002!');
-});
+app.listen(port, () => console.log(`Example app listening on port ${port}!`));

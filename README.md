@@ -36,8 +36,7 @@ export CZAPP_PROD_HOST=my.vps.com                               # <- public IP a
 export CZAPP_PROD_USER=myUser                                   # <- user for SSH connections
 export CZAPP_PROD_PATH_TO_API_ROOT=/www/api.my.website.com      # <- path to api root on server
 export CZAPP_PROD_PATH_TO_DOCUMENT_ROOT=/www/my.website.com     # <- path to document root on server
-export CZAPP_PROD_SERVER_PORT=3002 # <- Node server port
-export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:3002
+export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:${CZAPP_SERVER_PORT}
 ```
 
 Reload Bash profile:
