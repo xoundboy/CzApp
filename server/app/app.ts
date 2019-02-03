@@ -15,11 +15,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// enable cli logging of requests (only needed for development)
+// Enable cli logging of requests (only needed for development)
 app.use(morgan('combined'));
 
-// enable collection of user's public IP address when Express
-// is behind a proxy (only needed for prod)
+// Enable the collecting of users' public IP addresses when Express
+// is behind a proxy. (Only needed for production)
 app.set('trust proxy', 'loopback');
 
 app.route('/lexemes')

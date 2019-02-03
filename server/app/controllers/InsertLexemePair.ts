@@ -3,6 +3,10 @@ import { StringUtils } from '../util/StringUtils';
 
 export default class InsertLexemePair extends DbQueryController {
 
+	public constructor(requireAuth: boolean = true) {
+		super(requireAuth);
+	}
+
 	getQuery(): string {
 		const wordType = StringUtils.formatEnum(this.req.body.wordType);
 		const phraseType = StringUtils.formatEnum(this.req.body.phraseType);
