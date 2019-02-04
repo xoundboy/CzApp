@@ -22,8 +22,6 @@ const gulpSSH = new GulpSSH({
 });
 
 
-
-
 /*
  Client related tasks
   */

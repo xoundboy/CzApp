@@ -29,6 +29,8 @@ CREATE TABLE `lexeme_map` (
   `dateAdded` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ip` varchar(19) DEFAULT NULL,
   `userId` varchar(45) DEFAULT NULL,
+  `testColumn2` varchar(14) NOT NULL DEFAULT 'this is a test',
+  `testColumn` varchar(14) NOT NULL DEFAULT 'this is a test',
   PRIMARY KEY (`en_id`,`cz_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -204,4 +206,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-29 10:20:34
+-- Dump completed on 2019-02-04 20:13:26

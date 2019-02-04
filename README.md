@@ -37,6 +37,7 @@ export CZAPP_PROD_USER=myUser                                   # <- user for SS
 export CZAPP_PROD_PATH_TO_API_ROOT=/www/api.my.website.com      # <- path to api root on server
 export CZAPP_PROD_PATH_TO_DOCUMENT_ROOT=/www/my.website.com     # <- path to document root on server
 export REACT_APP_CZAPP_BACKEND_BASE_URL=http://localhost:${CZAPP_SERVER_PORT}
+export GOOGLE_APPLICATION_CREDENTIALS='<path to home folder>/.GCP-credentials/czapp-xxxxxxxxxxx.json'
 ```
 
 Reload Bash profile:
@@ -44,6 +45,15 @@ Reload Bash profile:
 $ . ~/.bash_profile
 ```
 
+Google cloud Api
+----------------
+To use the Google Clout Translate API, first set up an account in Google Cloud Api console and download the credentials
+json file. Store it somewhere in each environment (don't commit to the repo to prevent quota theft) and ensure that the
+GOOGLE_APPLICATION_CREDENTIALS is set to point to the json file.
+
+
+PM2
+---
 For PRODUCTION, create a file called `ecosystem.config.js` in the home folder of the user on the production server used
 by the gulp deploy task and add the following contents (for use with pm2 node manager)
 ```
@@ -57,7 +67,8 @@ module.exports = {
 			CZAPP_DB_HOST:'localhost',
 			CZAPP_DB_NAME:'<czapp db name>',
 			CZAPP_DB_PASS:'<czapp db pass>',
-			CZAPP_DB_USER:'<czapp db user>'
+			CZAPP_DB_USER:'<czapp db user>',
+			GOOGLE_APPLICATION_CREDENTIALS:'<path to home folder>/.GCP-credentials/czapp-xxxxxxxxxxx.json'
 		}
 	}]
 }
