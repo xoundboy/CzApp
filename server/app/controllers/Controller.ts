@@ -27,7 +27,7 @@ export default abstract class Controller  {
 		if (this.requireAuth)
 			this.client.verifyIdToken(
 				{
-					idToken: this.req.body.idToken,
+					idToken: this.req.headers.authorization,
 					audience: GAPI_PROJECT_ID,
 				},
 				(err: Error | null, login: LoginTicket) => {

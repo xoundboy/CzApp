@@ -3,9 +3,11 @@ import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express = require('express');
 import cors from 'cors';
-import InsertLexemePair from './controllers/InsertLexemePair';
 import morgan from 'morgan';
 import { Translation } from './controllers/Translation';
+
+import InsertLexemePair from './controllers/InsertLexemePair';
+import SelectLexemes from './controllers/SelectLexemes';
 
 const port = process.env.CZAPP_SERVER_PORT;
 
@@ -26,6 +28,9 @@ app.set('trust proxy', 'loopback');
 
 app.route('/lexemes')
 	.post(new InsertLexemePair(true).execute);
+
+app.route('/lexemes')
+	.get(new SelectLexemes(true).execute);
 
 app.route('/translate')
 	.post(new Translation(false).execute);
