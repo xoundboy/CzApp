@@ -35,14 +35,40 @@ export default class MenuLayer extends Component<object, IMenuLayerState> {
 							{this.renderNavButton()}
 							<div className="menuLayer">
 								<nav>
-									<Link to="/" onClick={this.onMenuVisibilityChanged}>
-										{context.dictionary.MENULABEL_HOME}
+									<Link
+										to="/"
+										onClick={this.onMenuVisibilityChanged}
+									>{context.dictionary.MENULABEL_HOME}
 									</Link>
-									<Link to="/settings" onClick={this.onMenuVisibilityChanged} >
-										{context.dictionary.MENULABEL_SETTINGS}
+
+									<Link
+										to="/settings"
+										onClick={this.onMenuVisibilityChanged}
+									>{context.dictionary.MENULABEL_SETTINGS}
 									</Link>
-									<Link to={`/add/${context.inputLanguage}`} onClick={this.onMenuVisibilityChanged} >
-										{context.dictionary.MENULABEL_ADD}
+
+									<Link
+										to={`/add/${context.inputLanguage}`}
+										onClick={this.onMenuVisibilityChanged}
+									>{context.dictionary.MENULABEL_ADD}
+									</Link>
+
+									<Link
+										to="/tests"
+										onClick={this.onMenuVisibilityChanged}
+									>{context.dictionary.MENULABEL_TESTS}
+									</Link>
+
+									<Link
+										to="/search"
+										onClick={this.onMenuVisibilityChanged}
+									>{context.dictionary.MENULABEL_SEARCH}
+									</Link>
+
+									<Link
+										to="/recent"
+										onClick={this.onMenuVisibilityChanged}
+									>{context.dictionary.MENULABEL_RECENT}
 									</Link>
 								</nav>
 							</div>

@@ -4,6 +4,9 @@ import Settings from './settings/Settings';
 import Add from './add/Add';
 import AddView from '../enum/AddView';
 import { Component } from 'react';
+import Tests from './tests/Tests';
+import Search from './search/Search';
+import Recent from './recent/Recents';
 
 export default class PageLayer extends Component {
 
@@ -14,6 +17,9 @@ export default class PageLayer extends Component {
 				<Route path="/add/en" render={() => <Add view={AddView.ENGLISH} />} />
 				<Route path="/add/cz" render={() => <Add view={AddView.CZECH} />} />
 				<Route path="/add/confirm" render={() => <Add view={AddView.CONFIRM} />} />
+				<Route path="/tests" render={() => <Tests/>} />
+				<Route path="/search" render={() => <Search/>} />
+				<Route path="/recent" render={() => <Recent/>} />
 			</div>
 		);
 	}

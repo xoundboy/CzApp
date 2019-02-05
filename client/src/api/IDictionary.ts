@@ -28,6 +28,9 @@ export default interface IDictionary {
 	MENULABEL_ADD:  string;
 	MENULABEL_HOME:  string;
 	MENULABEL_SETTINGS:  string;
+	MENULABEL_TESTS:  string;
+	MENULABEL_SEARCH:  string;
+	MENULABEL_RECENT:  string;
 	PHRASE_TYPE_OPTION_COLLOQUIALISM:  string;
 	PHRASE_TYPE_OPTION_IDIOM:  string;
 	PHRASE_TYPE_OPTION_OTHER:  string;
