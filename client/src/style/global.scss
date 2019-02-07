@@ -7,6 +7,7 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: Arial, Helvetica, sans-serif;
+	font-size: 24px;
 	height: 100vh;
 	box-sizing: border-box;
 }
@@ -40,4 +41,31 @@ textarea {
 .formRow {
 	box-sizing: border-box;
 	padding: 10px;
+}
+
+h1 {
+	margin: 15px 0;
+}
+
+table {
+	thead {
+		th {
+			color: white;
+			background: cornflowerblue;
+			padding: 6px;
+			border: 1px solid white;
+			text-align: center;
+		}
+	}
+	tbody {
+		tr {
+			&:nth-child(even) {
+				background: lavender;
+			}
+
+			td {
+				padding: 6px;
+			}
+		}
+	}
 }

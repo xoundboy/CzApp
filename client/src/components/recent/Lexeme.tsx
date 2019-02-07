@@ -10,7 +10,10 @@ export default class Lexeme extends Component<ILexemeProps> {
 
 	render() {
 		return (
-			<div>{this.props.data.word}</div>
+			<tr>
+				<td>{this.props.data.en_word}</td>
+				<td>{this.props.data.cz_word}</td>
+			</tr>
 		);
 	}
 

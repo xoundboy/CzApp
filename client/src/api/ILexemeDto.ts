@@ -1,3 +1,4 @@
 export default interface ILexemeDto {
-	word: string;
+	en_word: string;
+	cz_word: string;
 }

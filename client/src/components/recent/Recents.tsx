@@ -34,9 +34,22 @@ export default class Recents extends Component<object, IRecentsState> {
 					if (!this.state.data)
 						return null;
 
-					return (<div>
-						{this.state.data.map((recent, index) => <Lexeme data={recent} key={index} />)}
-					</div>);
+					return (
+						<div>
+							<h1>Recent Lexemes</h1>
+							<table>
+								<thead>
+									<tr>
+										<th>English</th>
+										<th>Czech</th>
+									</tr>
+								</thead>
+								<tbody>
+									{this.state.data.map((recent, index) => <Lexeme data={recent} key={index} />)}
+								</tbody>
+							</table>
+						</div>
+					);
 				}}
 			</AppContextConsumer>
 		);
