@@ -73,18 +73,29 @@ textarea {
 h1 {
   margin: 15px 0; }
 
-table thead th {
-  color: white;
-  background: cornflowerblue;
-  padding: 6px;
-  border: 1px solid white;
-  text-align: center; }
+table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed; }
+  table thead th {
+    color: white;
+    background: cornflowerblue;
+    padding: 6px;
+    border: 1px solid white;
+    text-align: center; }
 
-table tbody tr:nth-child(even) {
-  background: lavender; }
-
-table tbody tr td {
-  padding: 6px; }
+table tbody {
+  display: block;
+  height: calc(100vh - 182px);
+  overflow-y: scroll; }
+  table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed; }
+    table tbody tr:nth-child(even) {
+      background: lavender; }
+    table tbody tr td {
+      padding: 6px; }
 
 .menuButton {
   position: fixed;

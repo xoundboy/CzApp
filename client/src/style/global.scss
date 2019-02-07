@@ -49,6 +49,9 @@ h1 {
 
 table {
 	thead {
+		display: table;
+		width: 100%;
+		table-layout: fixed;
 		th {
 			color: white;
 			background: cornflowerblue;
@@ -58,7 +61,13 @@ table {
 		}
 	}
 	tbody {
+		display: block;
+		height: calc(100vh - 182px);
+		overflow-y: scroll;
 		tr {
+			display: table;
+			width: 100%;
+			table-layout: fixed;
 			&:nth-child(even) {
 				background: lavender;
 			}
