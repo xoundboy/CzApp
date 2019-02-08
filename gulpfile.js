@@ -8,6 +8,7 @@ const os = require('os');
 const ts = require("gulp-typescript");
 const tsProject = ts.createProject("tsconfig.json");
 const del = require('del');
+const git = require('gulp-git');
 
 const config = {
 	host: process.env.CZAPP_PROD_HOST,
@@ -181,12 +182,17 @@ gulp.task('createEmptyMigrationsFile', function(cb){
 	});
 });
 
-gulp.task('commitSqlFilesToGit', function(cb){
-	return exec(`git commit -am "Committing migrations file backup and schema dump after upgrade of production"`, function(err, stdout, stderr) {
-		console.log(stdout);
-		console.log(stderr);
-		cb(err);
-	});
+gulp.task('addSqlFilesToGit', function(){
+	return gulp.src([
+		'./database/oldMigrations/*',
+		'./database/sql/czapp_no_data.sql'
+	]).pipe(git.add());
+});
+
+gulp.task('commitSqlFilesToGit', function(){
+	return gulp.src([
+		'./database/*',
+	]).pipe(git.commit('Committing migrations file backup and schema dump after upgrade of production'));
 });
 
 gulp.task('migrateProdDb', gulp.series([

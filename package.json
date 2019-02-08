@@ -22,5 +22,8 @@
     "rollup-stream": "^1.24.1",
     "typescript": "^3.2.4",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "gulp-git": "^2.9.0"
   }
 }
