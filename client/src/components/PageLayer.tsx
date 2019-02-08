@@ -7,6 +7,7 @@ import { Component } from 'react';
 import Tests from './tests/Tests';
 import Search from './search/Search';
 import Recent from './recent/Recents';
+import Edit from './edit/Edit';
 
 export default class PageLayer extends Component {
 
@@ -20,6 +21,7 @@ export default class PageLayer extends Component {
 				<Route path="/tests" render={() => <Tests/>} />
 				<Route path="/search" render={() => <Search/>} />
 				<Route path="/recent" render={() => <Recent/>} />
+				<Route path="/show/:id" render={(props) => <Edit {...props}/>} />
 			</div>
 		);
 	}

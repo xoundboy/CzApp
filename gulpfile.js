@@ -87,9 +87,7 @@ gulp.task('deployApi', function() {
 	return gulp
 		.src([
 			'server/build/**/*',
-			'server/package.json',
-			'database/sql/czapp.sql',
-			'database/sql/czapp_no_data.sql'
+			'server/package.json'
 		])
 		.pipe(gulpSSH.dest(process.env.CZAPP_PROD_PATH_TO_API_ROOT), {filePath: 'deployApi.log'});
 });
@@ -111,7 +109,6 @@ gulp.task('restartNodeServer', function(){
 gulp.task('buildAndDeployProd', gulp.series([
 	'cleanBuildDir',
 	'compileTs',
-	'dumpNoData',
 	'cleanRemoteApi',
 	'deployApi',
 	'installDeps',
@@ -123,6 +120,13 @@ gulp.task('buildAndDeployProd', gulp.series([
 /*
 Database related tasks
  */
+gulp.task('dumpNoData', function(cb) {
+	return exec('./database/sh/db.sh dumpnodata', function(err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
+});
 
 gulp.task('backupProdDatabase', function(){
 	return gulpSSH
@@ -148,16 +152,51 @@ gulp.task('replaceDatabase', gulp.series([
 
 // Migrate db
 gulp.task('uploadMigrationsFileToProd', function(){
-
+	return gulp
+		.src(['database/migrations.sql'])
+		.pipe(gulpSSH.dest(process.env.CZAPP_PROD_PATH_TO_API_ROOT), {filePath: 'uploadMigrationsFileToProd.log'});
 });
 
-gulp.task('applyMigrationsToProd', function(){
-
+gulp.task('applyMigrations', function(){
+	return gulpSSH
+		.shell([`mysql -u${process.env.CZAPP_PROD_DB_USER} -p${process.env.CZAPP_PROD_DB_PASS} --host=${process.env.CZAPP_PROD_DB_HOST} ${process.env.CZAPP_DB_NAME} < ${process.env.CZAPP_PROD_PATH_TO_API_ROOT}/migrations.sql`],
+			{filePath: 'migrations.log'})
+		.pipe(gulp.dest('logs'));
 });
 
-gulp.task('cleanMigrationsFile', function(){
-
+gulp.task('cleanMigrations', function(cb){
+	const backupFileName = 'migration_' + Date.now() + '.sql';
+	return exec(`mv ./database/migrations.sql ./database/oldMigrations/${backupFileName}`, function(err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
 });
+
+gulp.task('createEmptyMigrationsFile', function(cb){
+	return exec(`touch ./database/migrations.sql`, function(err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
+});
+
+gulp.task('commitSqlFilesToGit', function(cb){
+	return exec(`git commit -am "Committing migrations file backup and schema dump after upgrade of production"`, function(err, stdout, stderr) {
+		console.log(stdout);
+		console.log(stderr);
+		cb(err);
+	});
+});
+
+gulp.task('migrateProdDb', gulp.series([
+	'uploadMigrationsFileToProd',
+	'applyMigrations',
+	'cleanMigrations',
+	'createEmptyMigrationsFile',
+	'dumpNoData'
+
+]));
 
 
 /*
@@ -166,5 +205,6 @@ Upgrade Production
 
 gulp.task('upgradeProd', gulp.series([
 	'deployProdClient',
-	'buildAndDeployProd'
+	'buildAndDeployProd',
+	'migrateProdDb'
 ]));
