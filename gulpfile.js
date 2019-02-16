@@ -201,7 +201,6 @@ gulp.task('migrateProdDb', gulp.series([
 	'cleanMigrations',
 	'createEmptyMigrationsFile',
 	'dumpNoData'
-
 ]));
 
 

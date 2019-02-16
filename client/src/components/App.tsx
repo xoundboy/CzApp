@@ -132,8 +132,8 @@ export default class App extends Component<IAppProps, IAppContext> {
 			return (
 				<AppContextProvider value={this.state}>
 					<div className={this.constructor.name}>
-						<MenuLayer />
 						<PageLayer />
+						<MenuLayer />
 					</div>
 				</AppContextProvider>
 			);

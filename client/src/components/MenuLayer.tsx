@@ -17,12 +17,21 @@ export default class MenuLayer extends Component<object, IMenuLayerState> {
 		this.onMenuVisibilityChanged = this.onMenuVisibilityChanged.bind(this);
 	}
 
+	getClassName() {
+		return 'menuLayer' + (this.state.navIsOpen ? ' open' : ' closed');
+	}
+
 	onMenuVisibilityChanged() {
 		this.setState({navIsOpen: !this.state.navIsOpen});
 	}
 
 	render() {
-		return this.state.navIsOpen ? this.renderNavOpen() : this.renderNavButton();
+		return (
+			<div className={this.getClassName()}>
+				{this.renderNavButton()}
+				{this.state.navIsOpen ? this.renderNavOpen() : null}
+			</div>
+		);
 	}
 
 	renderNavOpen() {
@@ -31,50 +40,44 @@ export default class MenuLayer extends Component<object, IMenuLayerState> {
 			<AppContextConsumer>
 				{(context) => {
 					return (
-						<div>
-							{this.renderNavButton()}
-							<div className="menuLayer">
-								<nav>
-									<Link
-										to="/"
-										onClick={this.onMenuVisibilityChanged}
-									>{context.dictionary.MENULABEL_HOME}
-									</Link>
+						<nav className="menuItems">
+							<Link
+								to="/"
+								onClick={this.onMenuVisibilityChanged}
+							>{context.dictionary.MENULABEL_HOME}
+							</Link>
 
-									<Link
-										to="/settings"
-										onClick={this.onMenuVisibilityChanged}
-									>{context.dictionary.MENULABEL_SETTINGS}
-									</Link>
+							<Link
+								to="/settings"
+								onClick={this.onMenuVisibilityChanged}
+							>{context.dictionary.MENULABEL_SETTINGS}
+							</Link>
 
-									<Link
-										to={`/add/${context.inputLanguage}`}
-										onClick={this.onMenuVisibilityChanged}
-									>{context.dictionary.MENULABEL_ADD}
-									</Link>
+							<Link
+								to={`/add/${context.inputLanguage}`}
+								onClick={this.onMenuVisibilityChanged}
+							>{context.dictionary.MENULABEL_ADD}
+							</Link>
 
-									<Link
-										to="/tests"
-										onClick={this.onMenuVisibilityChanged}
-									>{context.dictionary.MENULABEL_TESTS}
-									</Link>
+							<Link
+								to="/tests"
+								onClick={this.onMenuVisibilityChanged}
+							>{context.dictionary.MENULABEL_TESTS}
+							</Link>
 
-									<Link
-										to="/search"
-										onClick={this.onMenuVisibilityChanged}
-									>{context.dictionary.MENULABEL_SEARCH}
-									</Link>
+							<Link
+								to="/search"
+								onClick={this.onMenuVisibilityChanged}
+							>{context.dictionary.MENULABEL_SEARCH}
+							</Link>
 
-									<Link
-										to="/recent"
-										onClick={this.onMenuVisibilityChanged}
-									>{context.dictionary.MENULABEL_RECENT}
-									</Link>
-								</nav>
-							</div>
-						</div>
+							<Link
+								to="/recent"
+								onClick={this.onMenuVisibilityChanged}
+							>{context.dictionary.MENULABEL_RECENT}
+							</Link>
+						</nav>
 					);
-
 				}}
 
 			</AppContextConsumer>

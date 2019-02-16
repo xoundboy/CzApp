@@ -1,4 +1,7 @@
 .pageLayer {
   text-align: left;
   align-items: stretch;
-  padding: 60px 20px; }
+  padding: 60px 20px;
+  position: absolute;
+  width: 100%;
+  height: 100%; }
