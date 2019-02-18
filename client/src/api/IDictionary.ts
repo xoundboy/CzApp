@@ -7,6 +7,8 @@ export default interface IDictionary {
 	BUTTON_ADD_NOTE:  string;
 	BUTTON_SWITCH_LANGUAGES:  string;
 	BUTTON_SUGGEST_TRANSLATION: string;
+	COLUMN_HEADING_CZECH: string;
+	COLUMN_HEADING_ENGLISH: string;
 	CONFIRMATION_PHRASE_TYPE:  string;
 	CONFIRMATION_CZ_VERB_ASPECT:  string;
 	CONFIRMATION_CZ_GENDER:  string;
@@ -31,6 +33,7 @@ export default interface IDictionary {
 	MENULABEL_TESTS:  string;
 	MENULABEL_SEARCH:  string;
 	MENULABEL_RECENT:  string;
+	PAGETITLE_RECENT: string;
 	PHRASE_TYPE_OPTION_COLLOQUIALISM:  string;
 	PHRASE_TYPE_OPTION_IDIOM:  string;
 	PHRASE_TYPE_OPTION_OTHER:  string;

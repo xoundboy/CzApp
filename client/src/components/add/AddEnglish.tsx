@@ -1,59 +1,48 @@
 import * as React from 'react';
 import { default as AddLexeme } from './AddLexeme';
-import { AppContextConsumer, IAppContext } from '../../AppContext';
-import ValidatedTextInput from '../generic/ValidatedTextInput';
-import SuggestButton from '../generic/SuggestButton';
+import { AppContextConsumer } from '../../AppContext';
+import { ChangeEvent } from 'react';
 import Language from '../../enum/Language';
 
 export default class AddEnglish extends AddLexeme {
 
+	constructor(props: object) {
+		super(props);
+		this.className = 'addEnglish';
+	}
+
 	render() {
 		return (
 			<AppContextConsumer>
-				{(context) => <div className="view addEnglish">
-					{this.renderLexemeTextInput(context)}
-					{this.renderSuggestButton(context)}
-					{this.renderNotes(context)}
-				</div>}
+				{(context) => {
+					this.context = context;
+					this.text = context.englishLexeme.text;
+					this.notes = context.englishLexeme.notes;
+					this.textPlaceholder = context.dictionary.INPUT_LABEL_ENGLISH_LEXEME;
+					this.notesPlaceholder = context.dictionary.SELECT_LABEL_LEXEME_NOTES_EN_VERSION;
+					this.altText = context.czechLexeme.text;
+					this.translationSuggestionInputLanguage = Language.CZECH;
+					this.translationSuggestionTargetLanguage = Language.ENGLISH;
+					return this.renderForm();
+				}}
 			</AppContextConsumer>
 		);
 	}
 
-	renderLexemeTextInput(context: IAppContext) {
-		return (
-			<label>{context.dictionary.INPUT_LABEL_ENGLISH_LEXEME}
-				<ValidatedTextInput
-					value={context.englishLexeme.text}
-					placeholderText={context.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH}
-					autofocus={true}
-					onValueChange={(event) => context.onEnglishLexemeTextChanged(
-						event.target.value as string)}
-				/>
-			</label>
-		);
+	onLexemeInputChanged(event: ChangeEvent<HTMLTextAreaElement>) {
+		super.onLexemeInputChanged(event);
+		this.context.onEnglishLexemeTextChanged(event.target.value as string);
 	}
 
-	renderSuggestButton(context: IAppContext) {
-		return (context.czechLexeme.text) ? (
-			<SuggestButton
-				buttonLabel={context.dictionary.BUTTON_SUGGEST_TRANSLATION}
-				inputText={context.czechLexeme.text}
-				inputLanguage={Language.CZECH}
-				targetLanguage={Language.ENGLISH}
-				onTranslationFetched={context.onEnglishLexemeTextChanged}
-			/>
-		) : null;
+	shouldRenderSuggestButton(): boolean {
+		return !!(this.context.czechLexeme.text);
 	}
 
-	renderNotes(context: IAppContext) {
-		return (
-			<label>{context.dictionary.SELECT_LABEL_LEXEME_NOTES_EN_VERSION}
-				<textarea
-					onChange={(event) => context.onEnglishLexemeNotesChanged(
-						event.target.value as string)}
-					value={context.englishLexeme.notes}
-				/>
-			</label>
-		);
+	onTranslationFetched(value: string) {
+		this.context.onEnglishLexemeTextChanged(value);
+	}
+
+	onNotesInputChanged(event: ChangeEvent<HTMLTextAreaElement>) {
+		this.context.onEnglishLexemeNotesChanged(event.target.value as string);
 	}
 }

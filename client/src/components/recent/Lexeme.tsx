@@ -1,20 +1,38 @@
 import * as React from 'react';
 import { Component } from 'react';
-import ILexemeDto from '../../api/ILexemeDto';
+import { AppContextConsumer, IAppContext } from '../../AppContext';
+import ILexemePair from '../../api/ILexemePair';
 
 interface ILexemeProps {
-	data: ILexemeDto;
+	data: ILexemePair;
 }
 
 export default class Lexeme extends Component<ILexemeProps> {
 
+	context: IAppContext;
+
 	render() {
 		return (
-			<tr>
-				<td>{this.props.data.en_word}</td>
-				<td>{this.props.data.cz_word}</td>
-			</tr>
+			<AppContextConsumer>
+				{(context) => {
+					this.context = context;
+
+					return (
+						<tr>
+							<td onClick={this.onEnglishLexemeEdited}>{this.props.data.englishLexeme.text}</td>
+							<td onClick={this.onCzechLexemeEdited}>{this.props.data.czechLexeme.text}</td>
+						</tr>
+					);
+				}}
+			</AppContextConsumer>
 		);
 	}
 
+	onEnglishLexemeEdited() {
+		this.context.onEnglishLexemeEdited(this.context.englishLexeme.id);
+	}
+
+	onCzechLexemeEdited() {
+		this.context.onCzechLexemeEdited(this.context.czechLexeme.id);
+	}
 }

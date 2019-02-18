@@ -41,47 +41,21 @@ export default class MenuLayer extends Component<object, IMenuLayerState> {
 				{(context) => {
 					return (
 						<nav className="menuItems">
-							<Link
-								to="/"
-								onClick={this.onMenuVisibilityChanged}
-							>{context.dictionary.MENULABEL_HOME}
-							</Link>
-
-							<Link
-								to="/settings"
-								onClick={this.onMenuVisibilityChanged}
-							>{context.dictionary.MENULABEL_SETTINGS}
-							</Link>
-
-							<Link
-								to={`/add/${context.inputLanguage}`}
-								onClick={this.onMenuVisibilityChanged}
-							>{context.dictionary.MENULABEL_ADD}
-							</Link>
-
-							<Link
-								to="/tests"
-								onClick={this.onMenuVisibilityChanged}
-							>{context.dictionary.MENULABEL_TESTS}
-							</Link>
-
-							<Link
-								to="/search"
-								onClick={this.onMenuVisibilityChanged}
-							>{context.dictionary.MENULABEL_SEARCH}
-							</Link>
-
-							<Link
-								to="/recent"
-								onClick={this.onMenuVisibilityChanged}
-							>{context.dictionary.MENULABEL_RECENT}
-							</Link>
+							{this.renderItem('/recent', context.dictionary.MENULABEL_RECENT)}
+							{this.renderItem(`/add/${context.inputLanguage}`, context.dictionary.MENULABEL_ADD)}
+							{this.renderItem('/search', context.dictionary.MENULABEL_SEARCH)}
+							{this.renderItem('/tests', context.dictionary.MENULABEL_TESTS)}
+							{this.renderItem('/settings', context.dictionary.MENULABEL_SETTINGS)}
 						</nav>
 					);
 				}}
 
 			</AppContextConsumer>
 		);
+	}
+
+	renderItem(path: string, label: string) {
+		return (<Link to={path} onClick={this.onMenuVisibilityChanged}>{label}</Link>);
 	}
 
 	renderNavButton() {

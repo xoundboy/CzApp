@@ -2,11 +2,11 @@ import * as React from 'react';
 import { Component } from 'react';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
 import Lexeme from './Lexeme';
-import ILexemeDto from '../../api/ILexemeDto';
+import ILexemePair from '../../api/ILexemePair';
 const backendBaseUrl = process.env.REACT_APP_CZAPP_BACKEND_BASE_URL;
 
 interface IRecentsState {
-	data: Array<ILexemeDto>;
+	data: Array<ILexemePair>;
 }
 
 export default class Recents extends Component<object, IRecentsState> {
@@ -36,12 +36,12 @@ export default class Recents extends Component<object, IRecentsState> {
 
 					return (
 						<div>
-							<h1>Recent Lexemes</h1>
+							<h1>{context.dictionary.PAGETITLE_RECENT}</h1>
 							<table>
 								<thead>
 									<tr>
-										<th>English</th>
-										<th>Czech</th>
+										<th>{context.dictionary.COLUMN_HEADING_ENGLISH}</th>
+										<th>{context.dictionary.COLUMN_HEADING_CZECH}</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -74,7 +74,12 @@ export default class Recents extends Component<object, IRecentsState> {
 			.then((response) => response.json())
 			.then((myJson) => {
 				if (myJson[0].length > 0)
-					this.setState({data: myJson[0]});
+					this.setState({data: this.parseResponse(myJson[0])});
 			});
+	}
+
+	/* tslint:disable no-any */
+	parseResponse(data: any): Array<ILexemePair> | null {
+		return null;
 	}
 }

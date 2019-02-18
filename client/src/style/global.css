@@ -6,7 +6,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
+  font-size: 32px;
   height: 100vh;
   box-sizing: border-box; }
 
@@ -26,7 +26,22 @@ button {
   border: none;
   padding: 8px;
   border-radius: 4px;
-  margin: 4px; }
+  margin: 4px;
+  font-size: 16px; }
+
+textarea,
+select {
+  margin: 5px;
+  font-size: 24px;
+  color: cornflowerblue;
+  border: 2px solid green;
+  border-radius: 0;
+  padding: 5px; }
+
+label,
+.label {
+  font-size: 16px;
+  display: block; }
 
 textarea {
   border: solid 2px green;
@@ -38,7 +53,9 @@ textarea {
   padding: 10px; }
 
 h1 {
-  margin: 15px 0; }
+  font-size: 32px;
+  margin: 15px 0;
+  font-weight: bold; }
 
 table thead {
   display: table;

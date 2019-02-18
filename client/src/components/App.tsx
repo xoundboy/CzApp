@@ -64,6 +64,10 @@ export default class App extends Component<IAppProps, IAppContext> {
 				this.setState({englishLexeme: newEnglishLexeme});
 			},
 
+			onEnglishLexemeEdited: (id) => {
+				// todo
+			},
+
 			onCzechLexemeTextChanged: (value) => {
 				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
 				newCzechLexeme.text = value;
@@ -86,6 +90,10 @@ export default class App extends Component<IAppProps, IAppContext> {
 				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
 				newCzechLexeme.gender = value;
 				this.setState({czechLexeme: newCzechLexeme});
+			},
+
+			onCzechLexemeEdited: (id) => {
+				// todo
 			},
 
 			onLexemeTypeChanged: (value) => {

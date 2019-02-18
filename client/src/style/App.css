@@ -38,7 +38,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 24px;
+  font-size: 32px;
   height: 100vh;
   box-sizing: border-box; }
 
@@ -58,7 +58,22 @@ button {
   border: none;
   padding: 8px;
   border-radius: 4px;
-  margin: 4px; }
+  margin: 4px;
+  font-size: 16px; }
+
+textarea,
+select {
+  margin: 5px;
+  font-size: 24px;
+  color: cornflowerblue;
+  border: 2px solid green;
+  border-radius: 0;
+  padding: 5px; }
+
+label,
+.label {
+  font-size: 16px;
+  display: block; }
 
 textarea {
   border: solid 2px green;
@@ -70,7 +85,9 @@ textarea {
   padding: 10px; }
 
 h1 {
-  margin: 15px 0; }
+  font-size: 32px;
+  margin: 15px 0;
+  font-weight: bold; }
 
 table thead {
   display: table;
@@ -143,27 +160,17 @@ table tbody {
     .settingsPage .settingsSection .sectionTitle {
       font-weight: 800; }
 
-.add textarea,
-.add select {
-  margin: 5px;
-  font-size: 16px;
-  color: cornflowerblue;
-  border: 2px solid green;
-  border-radius: 0;
-  padding: 5px; }
-
-.add label,
-.add .label {
-  font-size: 10px;
-  display: block; }
-
-.add .summaryValue {
+.add .text,
+.add .notes {
   min-height: 40px;
   padding: 15px;
   color: cornflowerblue; }
 
 .add .saveButtonContainer {
-  margin-bottom: 30px; }
+  margin-bottom: 100px; }
+
+.add .notes {
+  font-size: 18px; }
 
 .tabButtons {
   position: fixed;
@@ -175,3 +182,10 @@ table tbody {
   border-top: 1px solid grey;
   left: 0;
   text-align: center; }
+  .tabButtons button.empty, .tabButtons button.confirm {
+    background: orange; }
+    .tabButtons button.empty:disabled, .tabButtons button.confirm:disabled {
+      background: lightgray;
+      color: white; }
+  .tabButtons button.filled {
+    background: green; }

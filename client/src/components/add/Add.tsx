@@ -6,7 +6,7 @@ import { Route } from 'react-router';
 import EnglishLexeme from '../../valueobject/EnglishLexeme';
 import CzechLexeme from '../../valueobject/CzechLexeme';
 import { Component } from 'react';
-import { AppContextConsumer } from '../../AppContext';
+import { AppContextConsumer, IAppContext } from '../../AppContext';
 import AddConfirm from './AddConfirm';
 
 interface IAddProps {
@@ -15,7 +15,7 @@ interface IAddProps {
 
 export default class Add extends Component<IAddProps> {
 
-	oReq: XMLHttpRequest;
+	context: IAppContext;
 
 	constructor(props: IAddProps) {
 		super(props);
@@ -54,6 +54,10 @@ export default class Add extends Component<IAddProps> {
 		}
 	}
 
+	getLanguageButtonClassName(textPopulated: boolean) {
+		return textPopulated ? 'filled' : 'empty';
+	}
+
 	renderTabButtons() {
 		// TODO - create NavButton component for these buttons
 		return (
@@ -63,6 +67,7 @@ export default class Add extends Component<IAddProps> {
 						render={({history}) => (
 							<button
 								type="button"
+								className={this.getLanguageButtonClassName(!!context.englishLexeme.text)}
 								onClick={() => {
 									history.push('/add/en');
 								}}
@@ -75,6 +80,7 @@ export default class Add extends Component<IAddProps> {
 						render={({history}) => (
 							<button
 								type="button"
+								className={this.getLanguageButtonClassName(!!context.czechLexeme.text)}
 								onClick={() => {
 									history.push('/add/cz');
 								}}
@@ -87,9 +93,11 @@ export default class Add extends Component<IAddProps> {
 						render={({history}) => (
 							<button
 								type="button"
+								className="confirm"
 								onClick={() => {
 									history.push('/add/confirm');
 								}}
+								disabled={!context.czechLexeme.text || !context.englishLexeme.text}
 							>
 								{context.dictionary.TAB_CONFIRM}
 							</button>

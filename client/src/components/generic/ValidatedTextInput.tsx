@@ -3,9 +3,10 @@ import { ChangeEvent } from 'react';
 
 export interface IValidatedTextInputProps {
 	value: string;
-	placeholderText: string;
-	autofocus: boolean;
+	autofocus?: boolean;
 	onValueChange: ((event: ChangeEvent<HTMLTextAreaElement>) => void);
+	placeholder: string;
+	additionalClasses?: string;
 }
 
 export interface IValidatedTextInputState {
@@ -18,8 +19,8 @@ export default class ValidatedTextInput extends React.Component<IValidatedTextIn
 		super(props);
 	}
 
-	isValid(value: string) {
-		return value.length > 0;
+	getClassName() {
+		return '' + this.props.additionalClasses;
 	}
 
 	render() {
@@ -27,6 +28,8 @@ export default class ValidatedTextInput extends React.Component<IValidatedTextIn
 			<textarea
 				value={this.props.value}
 				onChange={this.props.onValueChange}
+				placeholder={this.props.placeholder}
+				className={this.getClassName()}
 			/>
 		);
 	}

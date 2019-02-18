@@ -1,28 +1,17 @@
 .add {
-
-	textarea,
-	select {
-		margin: 5px;
-		font-size: 16px;
-		color: cornflowerblue;
-		border: 2px solid green;
-		border-radius: 0;
-		padding: 5px;
-	}
-
-	label,
-	.label {
-		font-size: 10px;
-		display: block;
-	}
-
-	.summaryValue {
+	.text,
+	.notes {
 		min-height: 40px;
 		padding: 15px;
 		color: cornflowerblue;
 	}
+
 	.saveButtonContainer {
-		margin-bottom: 30px;
+		margin-bottom: 100px;
+	}
+
+	.notes {
+		font-size: 18px;
 	}
 }
 
@@ -36,4 +25,19 @@
 	border-top: 1px solid grey;
 	left: 0;
 	text-align: center;
+
+	button {
+		&.empty,
+		&.confirm {
+			background: orange;
+
+			&:disabled {
+				background: lightgray;
+				color: white;
+			}
+		}
+		&.filled {
+			background: green;
+		}
+	}
 }
