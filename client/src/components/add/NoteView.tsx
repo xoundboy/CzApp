@@ -1,11 +1,11 @@
 // import * as React from 'react';
 // import { ChangeEvent } from 'react';
-// import Lexeme from '../../valueobject/Lexeme';
+// import LexemePair from '../../valueobject/LexemePair';
 // import LocalizedComponent, { LocalizedComponentProps } from '../generic/LocalizedComponent';
 //
 // export interface NoteViewProps extends LocalizedComponentProps {
-// 	lexeme: Lexeme;
-// 	onSubmit: (lexeme: Lexeme) => void;
+// 	lexeme: LexemePair;
+// 	onSubmit: (lexeme: LexemePair) => void;
 // }
 //
 // export interface NoteViewState {

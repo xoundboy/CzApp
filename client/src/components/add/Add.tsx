@@ -9,15 +9,15 @@ import { Component } from 'react';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
 import AddConfirm from './AddConfirm';
 
-interface IAddProps {
+export interface IAddProps {
 	view: AddView;
 }
 
-export default class Add extends Component<IAddProps> {
+export default class Add<TProps extends IAddProps> extends Component<TProps> {
 
 	context: IAppContext;
 
-	constructor(props: IAddProps) {
+	constructor(props: TProps) {
 		super(props);
 		this.state = {
 			currentView: AddView.ENGLISH,

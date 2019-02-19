@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
-import Lexeme from './Lexeme';
+import LexemePair from './LexemePair';
 import ILexemePair from '../../api/ILexemePair';
 const backendBaseUrl = process.env.REACT_APP_CZAPP_BACKEND_BASE_URL;
 
@@ -45,7 +45,7 @@ export default class Recents extends Component<object, IRecentsState> {
 									</tr>
 								</thead>
 								<tbody>
-									{this.state.data.map((recent, index) => <Lexeme data={recent} key={index} />)}
+									{this.state.data.map((recent, index) => <LexemePair data={recent} key={index} />)}
 								</tbody>
 							</table>
 						</div>

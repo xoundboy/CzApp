@@ -1,15 +1,18 @@
-import * as React from 'react';
-import { Component } from 'react';
+import Add, { IAddProps } from '../add/Add';
 
-interface IEditProps {
-
+interface IEditProps extends IAddProps {
+	czId: number;
+	enId: number;
 }
 
-export default class Edit extends Component<IEditProps> {
+export default class Edit extends Add<IEditProps> {
 
-	render() {
-		console.log(this.props);
-		return(<p>Edit page</p>);
+	constructor(props: IEditProps) {
+		super(props);
 	}
 
+	componentDidMount() {
+		console.log(this.props);
+		// Todo - fetch the lexeme pair and populate the add forms to turn them into edit forms
+	}
 }
