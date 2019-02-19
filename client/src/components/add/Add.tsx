@@ -32,7 +32,7 @@ export default class Add extends Component<IAddProps> {
 
 	render() {
 		return (
-			<div>
+			<div className="addPageContainer">
 				<div className="add">
 					{this.renderLexemePanel()}
 				</div>

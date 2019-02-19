@@ -9,10 +9,7 @@ import LocalStorage from 'model/LocalStorage';
 import En from '../valueobject/En';
 import Cz from '../valueobject/Cz';
 import EnglishLexeme from '../valueobject/EnglishLexeme';
-import LexemeType from '../enum/LexemeType';
 import CzechLexeme from '../valueobject/CzechLexeme';
-import WordType from '../enum/WordType';
-import PhraseType from '../enum/PhraseType';
 import IDictionary from '../api/IDictionary';
 import SignInPage from './SignInPage';
 
@@ -33,9 +30,6 @@ export default class App extends Component<IAppProps, IAppContext> {
 			dictionary: this.getDictionary(),
 			englishLexeme: new EnglishLexeme(''),
 			czechLexeme: new CzechLexeme(''),
-			lexemeType: LexemeType.WORD,
-			wordType: WordType.NOUN,
-			phraseType: PhraseType.IDIOM,
 			pairingNotes: '',
 			authToken: null,
 
@@ -52,61 +46,21 @@ export default class App extends Component<IAppProps, IAppContext> {
 				});
 			},
 
-			onEnglishLexemeTextChanged: (value) => {
-				const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
-				newEnglishLexeme.text = value;
-				this.setState({englishLexeme: newEnglishLexeme});
+			onEnglishLexemeChanged: (value: EnglishLexeme) => {
+				this.setState({englishLexeme: value});
 			},
 
-			onEnglishLexemeNotesChanged: (value) => {
-				const newEnglishLexeme = Object.assign({}, this.state.englishLexeme);
-				newEnglishLexeme.notes = value;
-				this.setState({englishLexeme: newEnglishLexeme});
+			onCzechLexemeChanged: (value: CzechLexeme) => {
+				this.setState({czechLexeme: value});
 			},
 
-			onEnglishLexemeEdited: (id) => {
-				// todo
-			},
-
-			onCzechLexemeTextChanged: (value) => {
-				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-				newCzechLexeme.text = value;
-				this.setState({czechLexeme: newCzechLexeme});
-			},
-
-			onCzechLexemeNotesChanged: (value) => {
-				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-				newCzechLexeme.notes = value;
-				this.setState({czechLexeme: newCzechLexeme});
-			},
-
-			onCzechLexemeVerbAspectChanged: (value) => {
-				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-				newCzechLexeme.verbAspect = value;
-				this.setState({czechLexeme: newCzechLexeme});
-			},
-
-			onCzechLexemeGenderChanged: (value) => {
-				const newCzechLexeme = Object.assign({}, this.state.czechLexeme);
-				newCzechLexeme.gender = value;
-				this.setState({czechLexeme: newCzechLexeme});
-			},
-
-			onCzechLexemeEdited: (id) => {
-				// todo
-			},
-
-			onLexemeTypeChanged: (value) => {
-				this.setState({lexemeType: value});
-			},
-
-			onWordTypeChanged: (value) => {
-				this.setState({wordType: value});
-			},
-
-			onPhraseTypeChanged: (value) => {
-				this.setState({phraseType: value});
-			},
+			// onEnglishLexemeEdited: (id) => {
+			// 	// todo
+			// },
+			//
+			// onCzechLexemeEdited: (id) => {
+			// 	// todo
+			// },
 
 			onPairingNotesChanged: 	(value) => {
 				this.setState({pairingNotes: value});
@@ -116,9 +70,6 @@ export default class App extends Component<IAppProps, IAppContext> {
 				this.setState({
 					englishLexeme: new EnglishLexeme(''),
 					czechLexeme: new CzechLexeme(''),
-					lexemeType: LexemeType.WORD,
-					wordType: WordType.NOUN,
-					phraseType: PhraseType.IDIOM,
 					pairingNotes: ''
 				});
 			}
@@ -140,6 +91,9 @@ export default class App extends Component<IAppProps, IAppContext> {
 			return (
 				<AppContextProvider value={this.state}>
 					<div className={this.constructor.name}>
+						{/*<Header />*/}
+						{/*<Content />*/}
+						{/*<Footer />*/}
 						<PageLayer />
 						<MenuLayer />
 					</div>

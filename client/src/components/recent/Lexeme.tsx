@@ -29,10 +29,10 @@ export default class Lexeme extends Component<ILexemeProps> {
 	}
 
 	onEnglishLexemeEdited() {
-		this.context.onEnglishLexemeEdited(this.context.englishLexeme.id);
+		// this.context.onEnglishLexemeEdited(this.context.englishLexeme.id);
 	}
 
 	onCzechLexemeEdited() {
-		this.context.onCzechLexemeEdited(this.context.czechLexeme.id);
+		// this.context.onCzechLexemeEdited(this.context.czechLexeme.id);
 	}
 }

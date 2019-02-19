@@ -6,6 +6,10 @@
 
 .add .saveButtonContainer {
   margin-bottom: 100px; }
+  .add .saveButtonContainer button {
+    width: 100%;
+    padding: 20px;
+    background: orange; }
 
 .add .notes {
   font-size: 18px; }

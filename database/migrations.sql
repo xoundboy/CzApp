@@ -145,8 +145,8 @@ BEGIN
             czGender,
             czVerbAspect,
             czNotes,
-            czIp,
-            czUserId);
+            mapIp,
+            mapUserId);
 
         SET cz_id = LAST_INSERT_ID();
 	END IF;
@@ -171,8 +171,8 @@ BEGIN
             enPhraseType,
 			enType,
             enNotes,
-            enIp,
-            enUserId);
+            mapIp,
+            mapUserId);
 
         SET en_id = LAST_INSERT_ID();
 	END IF;
