@@ -74,12 +74,15 @@ export default class Recents extends Component<object, IRecentsState> {
 			.then((response) => response.json())
 			.then((myJson) => {
 				if (myJson[0].length > 0)
-					this.setState({data: this.parseResponse(myJson[0])});
+					this.setState({data: myJson[0]});
+				else
+					throw new Error('no records found');
 			});
 	}
 
 	/* tslint:disable no-any */
-	parseResponse(data: any): Array<ILexemePair> | null {
-		return null;
-	}
+	// parseResponse(data: any): Array<ILexemePair> | null {
+	//
+	// 	return null;
+	// }
 }

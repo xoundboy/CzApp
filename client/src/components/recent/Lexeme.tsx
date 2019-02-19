@@ -19,8 +19,8 @@ export default class Lexeme extends Component<ILexemeProps> {
 
 					return (
 						<tr>
-							<td onClick={this.onEnglishLexemeEdited}>{this.props.data.englishLexeme.text}</td>
-							<td onClick={this.onCzechLexemeEdited}>{this.props.data.czechLexeme.text}</td>
+							<td onClick={this.onEnglishLexemeEdited}>{this.props.data.en_text}</td>
+							<td onClick={this.onCzechLexemeEdited}>{this.props.data.cz_text}</td>
 						</tr>
 					);
 				}}
