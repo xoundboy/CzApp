@@ -52,7 +52,33 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	}
 
 	abstract render(): ReactElement<object>;
-	abstract renderForm(): ReactElement<object>;
+
+	renderForm() {
+		return(
+			<div className={`view ${this.className}`} >
+				{this.renderLanguageInputIdentifier()}
+				{this.renderLexemeTextInput()}
+				{this.shouldRenderSuggestButton() && this.renderSuggestButton()}
+				{this.state.textFieldPopulated && this.renderAddNoteButton()}
+				{this.state.showMetadata && this.renderMetaData()}
+			</div>);
+	}
+
+	abstract renderLanguageInputIdentifier(): ReactElement<object>;
+
+	renderMetaData() {
+		return (
+			<div className="metaData">
+				{this.renderNotes()}
+				{this.renderLexemeType()}
+				{(this.lexemeType === LexemeType.WORD)
+					? this.renderWordMetaData()
+					: this.renderPhraseMetaData()}
+			</div>);
+	}
+
+	abstract renderWordMetaData(): ReactElement<object>;
+	abstract renderPhraseMetaData(): ReactElement<object>;
 
 	renderLexemeTextInput() {
 		return (

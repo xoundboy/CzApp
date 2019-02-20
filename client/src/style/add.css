@@ -1,7 +1,6 @@
 .add .text,
 .add .notes {
   min-height: 40px;
-  padding: 15px;
   color: cornflowerblue; }
 
 .add .saveButtonContainer {

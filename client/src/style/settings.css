@@ -1,5 +1,6 @@
 .settingsPage {
-  padding: 20px; }
+  padding: 20px;
+  font-size: 22px; }
   .settingsPage .settingsSection {
     margin-bottom: 20px; }
     .settingsPage .settingsSection .sectionTitle {

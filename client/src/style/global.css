@@ -31,7 +31,6 @@ button {
 
 textarea,
 select {
-  margin: 5px;
   font-size: 24px;
   color: cornflowerblue;
   border: 2px solid green;
@@ -40,7 +39,7 @@ select {
 
 label,
 .label {
-  font-size: 16px;
+  font-size: 18px;
   display: block; }
 
 textarea {
@@ -81,3 +80,12 @@ table {
         background: lavender; }
       table tbody tr td {
         padding: 6px; }
+
+.languageIdentifier {
+  height: 40px;
+  width: 81px;
+  border: 1px solid grey; }
+  .languageIdentifier.en {
+    background-image: url(../image/icon/flag_uk.jpg); }
+  .languageIdentifier.cz {
+    background-image: url(../image/icon/flag_cz.jpg); }

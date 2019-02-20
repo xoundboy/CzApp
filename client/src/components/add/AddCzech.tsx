@@ -25,7 +25,7 @@ export default class AddCzech extends AddLexeme {
 					this.context = context;
 					this.text = context.czechLexeme.text;
 					this.notes = context.czechLexeme.notes;
-					this.textPlaceholder = context.dictionary.INPUT_LABEL_CZECH_LEXEME;
+					this.textPlaceholder = context.dictionary.PLACEHOLDER_INPUT_IN_CZECH;
 					this.notesPlaceholder = context.dictionary.SELECT_LABEL_LEXEME_NOTES_CZ_VERSION;
 					this.lexemeType = context.czechLexeme.type;
 					this.wordType = context.czechLexeme.wordType;
@@ -39,25 +39,8 @@ export default class AddCzech extends AddLexeme {
 		);
 	}
 
-	renderForm() {
-		return(
-			<div className={`view ${this.className}`} >
-				{this.renderLexemeTextInput()}
-				{this.shouldRenderSuggestButton() && this.renderSuggestButton()}
-				{this.state.textFieldPopulated && this.renderAddNoteButton()}
-				{this.state.showMetadata && this.renderMetaData()}
-			</div>);
-	}
-
-	renderMetaData() {
-		return (
-			<div className="metaData">
-				{this.renderNotes()}
-				{this.renderLexemeType()}
-				{(this.context.czechLexeme.type === LexemeType.WORD)
-					? this.renderWordMetaData()
-					: this.renderPhraseMetaData()}
-			</div>);
+	renderLanguageInputIdentifier() {
+		return <div className="languageIdentifier cz" />;
 	}
 
 	renderWordMetaData() {

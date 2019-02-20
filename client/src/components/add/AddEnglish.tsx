@@ -21,7 +21,7 @@ export default class AddEnglish extends AddLexeme {
 					this.context = context;
 					this.text = context.englishLexeme.text;
 					this.notes = context.englishLexeme.notes;
-					this.textPlaceholder = context.dictionary.INPUT_LABEL_ENGLISH_LEXEME;
+					this.textPlaceholder = context.dictionary.PLACEHOLDER_INPUT_IN_ENGLISH;
 					this.notesPlaceholder = context.dictionary.SELECT_LABEL_LEXEME_NOTES_EN_VERSION;
 					this.lexemeType = context.englishLexeme.type;
 					this.wordType = context.englishLexeme.wordType;
@@ -34,25 +34,8 @@ export default class AddEnglish extends AddLexeme {
 			</AppContextConsumer>);
 	}
 
-	renderForm() {
-		return(
-			<div className={`view ${this.className}`} >
-				{this.renderLexemeTextInput()}
-				{this.shouldRenderSuggestButton() && this.renderSuggestButton()}
-				{this.state.textFieldPopulated && this.renderAddNoteButton()}
-				{this.state.showMetadata && this.renderMetaData()}
-			</div>);
-	}
-
-	renderMetaData() {
-		return (
-			<div className="metaData">
-				{this.renderNotes()}
-				{this.renderLexemeType()}
-				{(this.context.englishLexeme.type === LexemeType.WORD)
-					? this.renderWordMetaData()
-					: this.renderPhraseMetaData()}
-			</div>);
+	renderLanguageInputIdentifier() {
+		return <div className="languageIdentifier en" />;
 	}
 
 	renderWordMetaData() {

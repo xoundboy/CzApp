@@ -35,4 +35,4 @@ app.route('/lexemes')
 app.route('/translate')
 	.post(new Translation(false).execute);
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Czapp API services listening on port ${port}!`));
