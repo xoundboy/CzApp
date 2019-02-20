@@ -21,6 +21,7 @@ export interface IAppContext {
 	// onCzechLexemeEdited: (id: number) => void;
 	onPairingNotesChanged: (value: string) => void;
 	onSaveCompleted: () => void;
+	onClearDataButtonClicked: () => void;
 }
 
 const defaultContext = {
@@ -39,7 +40,8 @@ const defaultContext = {
 	onCzechLexemeChanged: (value: CzechLexeme) => { return; },
 	// onCzechLexemeEdited: (id: number) => {return; },
 	onPairingNotesChanged: (value: string) => { return; },
-	onSaveCompleted: () => { return; }
+	onSaveCompleted: () => { return; },
+	onClearDataButtonClicked: () => { return; }
 };
 
 const AppContext = createContext(defaultContext);

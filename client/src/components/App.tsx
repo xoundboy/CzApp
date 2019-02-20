@@ -67,13 +67,21 @@ export default class App extends Component<IAppProps, IAppContext> {
 			},
 
 			onSaveCompleted: () => {
-				this.setState({
-					englishLexeme: new EnglishLexeme(''),
-					czechLexeme: new CzechLexeme(''),
-					pairingNotes: ''
-				});
+				this.clearForm();
+			},
+
+			onClearDataButtonClicked: () => {
+				this.clearForm();
 			}
 		};
+	}
+
+	clearForm() {
+		this.setState({
+			englishLexeme: new EnglishLexeme(''),
+			czechLexeme: new CzechLexeme(''),
+			pairingNotes: ''
+		});
 	}
 
 	componentWillReceiveProps(nextProps: IAppProps) {

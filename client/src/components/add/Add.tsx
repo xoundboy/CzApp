@@ -81,6 +81,8 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 						label={context.dictionary.TAB_CONFIRM}
 						disabled={!context.czechLexeme.text || !context.englishLexeme.text}
 					/>
+
+					<button onClick={context.onClearDataButtonClicked}>Clear</button>
 				</div>}
 			</AppContextConsumer>
 		);
