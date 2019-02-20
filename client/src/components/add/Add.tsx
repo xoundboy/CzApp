@@ -2,12 +2,12 @@ import * as React from 'react';
 import AddEnglish from './AddEnglish';
 import AddCzech from './AddCzech';
 import AddView from '../../enum/AddView';
-import { Route } from 'react-router';
 import EnglishLexeme from '../../valueobject/EnglishLexeme';
 import CzechLexeme from '../../valueobject/CzechLexeme';
 import { Component } from 'react';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
 import AddConfirm from './AddConfirm';
+import NavButton from '../NavButton';
 
 export interface IAddProps {
 	view: AddView;
@@ -59,49 +59,27 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 	}
 
 	renderTabButtons() {
-		// TODO - create NavButton component for these buttons
 		return (
 			<AppContextConsumer>
 				{(context) => <div className="tabButtons">
-					<Route
-						render={({history}) => (
-							<button
-								type="button"
-								className={this.getLanguageButtonClassName(!!context.englishLexeme.text)}
-								onClick={() => {
-									history.push('/add/en');
-								}}
-							>
-								{context.dictionary.TAB_ENGLISH}
-							</button>
-						)}
+
+					<NavButton
+						additionalClasses={this.getLanguageButtonClassName(!!context.englishLexeme.text)}
+						targetPath="/add/en"
+						label={context.dictionary.TAB_ENGLISH}
 					/>
-					<Route
-						render={({history}) => (
-							<button
-								type="button"
-								className={this.getLanguageButtonClassName(!!context.czechLexeme.text)}
-								onClick={() => {
-									history.push('/add/cz');
-								}}
-							>
-								{context.dictionary.TAB_CZECH}
-							</button>
-						)}
+
+					<NavButton
+						additionalClasses={this.getLanguageButtonClassName(!!context.czechLexeme.text)}
+						targetPath="/add/cz"
+						label={context.dictionary.TAB_CZECH}
 					/>
-					<Route
-						render={({history}) => (
-							<button
-								type="button"
-								className="confirm"
-								onClick={() => {
-									history.push('/add/confirm');
-								}}
-								disabled={!context.czechLexeme.text || !context.englishLexeme.text}
-							>
-								{context.dictionary.TAB_CONFIRM}
-							</button>
-						)}
+
+					<NavButton
+						additionalClasses="confirm"
+						targetPath="/add/confirm"
+						label={context.dictionary.TAB_CONFIRM}
+						disabled={!context.czechLexeme.text || !context.englishLexeme.text}
 					/>
 				</div>}
 			</AppContextConsumer>
