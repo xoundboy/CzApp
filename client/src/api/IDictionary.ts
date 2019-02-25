@@ -3,6 +3,7 @@ export default interface IDictionary {
 	BUTTON_SUBMIT:  string;
 	BUTTON_EDIT:  string;
 	BUTTON_CANCEL:  string;
+	BUTTON_CLEAR: string;
 	BUTTON_SAVE:  string;
 	BUTTON_ADD_NOTE:  string;
 	BUTTON_SWITCH_LANGUAGES:  string;

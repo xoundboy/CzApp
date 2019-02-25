@@ -6,6 +6,7 @@ const En: IDictionary = class {
 	public static BUTTON_SUBMIT = 'Submit';
 	public static BUTTON_EDIT = 'Edit';
 	public static BUTTON_CANCEL = 'Cancel';
+	public static BUTTON_CLEAR = 'Clear';
 	public static BUTTON_SAVE = 'Save';
 	public static BUTTON_ADD_NOTE = 'Add note';
 	public static BUTTON_SWITCH_LANGUAGES = 'Switch languages';

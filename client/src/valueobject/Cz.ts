@@ -4,6 +4,7 @@ import IDictionary from '../api/IDictionary';
 const Cz: IDictionary = class {
 	public static BUTTON_ADD_NOTE = 'Přidat poznámek';
 	public static BUTTON_CANCEL = 'Zrušit';
+	public static BUTTON_CLEAR = 'Vymazat';
 	public static BUTTON_EDIT = 'Upravit';
 	public static BUTTON_NEXT = 'Další';
 	public static BUTTON_SAVE = 'Uložit';

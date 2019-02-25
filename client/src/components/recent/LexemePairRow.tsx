@@ -12,7 +12,7 @@ interface ILexemePairState {
 	selectedIdPair: Array<number>;
 }
 
-export default class LexemePair extends Component<ILexemePairProps, ILexemePairState> {
+export default class LexemePairRow extends Component<ILexemePairProps, ILexemePairState> {
 
 	context: IAppContext;
 
@@ -38,14 +38,14 @@ export default class LexemePair extends Component<ILexemePairProps, ILexemePairS
 						return (
 							<tr
 								onClick={this.onLexemePairClicked}
-								data-en_id={this.props.data.en_id}
-								data-cz_id={this.props.data.cz_id}
+								data-en_id={this.props.data.englishLexeme.id}
+								data-cz_id={this.props.data.czechLexeme.id}
 							>
 								<td>
-									{this.props.data.en_text}
+									{this.props.data.englishLexeme.text}
 								</td>
 								<td>
-									{this.props.data.cz_text}
+									{this.props.data.czechLexeme.text}
 								</td>
 							</tr>
 						);
