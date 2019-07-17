@@ -1,15 +1,20 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { Component } from 'react';
-import { AppContextConsumer } from 'AppContext';
+import { AppContextConsumer } from '../AppContext';
+import Store from '../stores/Store';
+
+export interface IMenuLayerProps {
+	store: typeof Store.Type;
+}
 
 export interface IMenuLayerState {
 	navIsOpen: Boolean;
 }
 
-export default class MenuLayer extends Component<object, IMenuLayerState> {
+export default class MenuLayer extends Component<IMenuLayerProps, IMenuLayerState> {
 
-	constructor(props: object) {
+	constructor(props: IMenuLayerProps) {
 		super(props);
 		this.state = {
 			navIsOpen: false

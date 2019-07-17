@@ -8,13 +8,18 @@ import Tests from './tests/Tests';
 import Search from './search/Search';
 import Recent from './recent/Recents';
 import Edit from './edit/Edit';
+import Store from '../stores/Store';
 
-export default class PageLayer extends Component {
+interface IPageLayerProps {
+	store: typeof Store.Type;
+}
+
+export default class PageLayer extends Component<IPageLayerProps> {
 
 	render() {
 		return (
 			<div className="pageLayer">
-				<Route path="/settings" render={() => <Settings/>} />
+				<Route path="/settings" render={() => <Settings store={this.props.store}/>} />
 				<Route path="/add/en" render={() => <Add view={AddView.ENGLISH} />} />
 				<Route path="/add/cz" render={() => <Add view={AddView.CZECH} />} />
 				<Route path="/add/confirm" render={() => <Add view={AddView.CONFIRM} />} />

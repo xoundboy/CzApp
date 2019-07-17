@@ -5,18 +5,22 @@ import { AppContextProvider, IAppContext } from '../AppContext';
 import Language from '../enum/Language';
 import MenuLayer from './MenuLayer';
 import PageLayer from './PageLayer';
-import LocalStorage from 'model/LocalStorage';
 import En from '../valueobject/En';
 import Cz from '../valueobject/Cz';
 import EnglishLexeme from '../valueobject/EnglishLexeme';
 import CzechLexeme from '../valueobject/CzechLexeme';
 import IDictionary from '../api/IDictionary';
 import SignInPage from './SignInPage';
+import Store from '../stores/Store';
+import LocalStorage from '../model/LocalStorage';
+import { observer } from 'mobx-react';
 
 interface IAppProps {
 	googleAuth: gapi.auth2.GoogleAuth;
+	store: typeof Store.Type;
 }
 
+@observer
 export default class App extends Component<IAppProps, IAppContext> {
 
 	constructor(props: IAppProps) {
@@ -95,6 +99,7 @@ export default class App extends Component<IAppProps, IAppContext> {
 	}
 
 	render() {
+		console.log("rerenderinf app");
 		if (this.props.googleAuth.isSignedIn.get())
 			return (
 				<AppContextProvider value={this.state}>
@@ -102,8 +107,8 @@ export default class App extends Component<IAppProps, IAppContext> {
 						{/*<Header />*/}
 						{/*<Content />*/}
 						{/*<Footer />*/}
-						<PageLayer />
-						<MenuLayer />
+						<PageLayer store={this.props.store}/>
+						<MenuLayer store={this.props.store}/>
 					</div>
 				</AppContextProvider>
 			);

@@ -1,4 +1,4 @@
-import Language from 'enum/Language';
+import Language from '../enum/Language';
 
 export default class LocalStorage {
 

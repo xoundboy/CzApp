@@ -1,9 +1,16 @@
 import * as React from 'react';
 import Language from '../../enum/Language';
 import { Component } from 'react';
-import { AppContextConsumer, IAppContext } from 'AppContext';
+import Store from '../../stores/Store';
+import { AppContextConsumer, IAppContext } from '../../AppContext';
+import { observer } from 'mobx-react';
 
-export default class Settings extends Component {
+interface ISettingsProps {
+	store: typeof Store.Type;
+}
+
+@observer
+export default class Settings extends Component<ISettingsProps, {}> {
 
 	context: IAppContext;
 
@@ -81,8 +88,8 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.ENGLISH}
-							onChange={(event) => this.context.onInputLanguageChanged(event.target.value as Language)}
-							checked={this.context.inputLanguage === Language.ENGLISH}
+							onChange={() => this.props.store.onInputLanguageChanged(Language.ENGLISH)}
+							checked={this.props.store.inputLanguage === Language.ENGLISH}
 						/>
 						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_EN}</label>
 				</div>
@@ -92,8 +99,8 @@ export default class Settings extends Component {
 						<input
 							type="radio"
 							value={Language.CZECH}
-							onChange={(event) => this.context.onInputLanguageChanged(event.target.value as Language)}
-							checked={this.context.inputLanguage === Language.CZECH}
+							onChange={() => this.props.store.onInputLanguageChanged(Language.CZECH)}
+							checked={this.props.store.inputLanguage === Language.CZECH}
 						/>
 						{this.context.dictionary.SETTINGS_LANGUAGE_OPTION_CZ}
 						</label>

@@ -15,13 +15,6 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 
 	context: IAppContext;
 
-	public constructor(props: object) {
-		super(props);
-		this.state = {
-			saveComplete: false
-		};
-	}
-
 	render() {
 			return (
 				<AppContextConsumer>
