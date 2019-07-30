@@ -84,7 +84,7 @@ export default class Edit extends Add<IEditProps> {
 			output.ip = data.map_ip;
 			output.notes = data.map_notes;
 			output.userId = data.map_userId;
-			console.log(output);
+
 			return output;
 
 		} catch (error) {
