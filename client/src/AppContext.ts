@@ -3,6 +3,7 @@ import IDictionary from './api/IDictionary';
 import EnglishLexeme from './valueobject/EnglishLexeme';
 import CzechLexeme from './valueobject/CzechLexeme';
 import { createContext } from 'react';
+import ILexemePair from './api/ILexemePair';
 
 export interface IAppContext {
 	googleAuth: gapi.auth2.GoogleAuth;
@@ -16,9 +17,8 @@ export interface IAppContext {
 	onInputLanguageChanged: (language: Language) => void;
 	onUiLanguageChanged: (language: Language) => void;
 	onEnglishLexemeChanged: (value: EnglishLexeme) => void;
-	// onEnglishLexemeEdited: (id: number) => void;
 	onCzechLexemeChanged: (value: CzechLexeme) => void;
-	// onCzechLexemeEdited: (id: number) => void;
+	onLexemePairEdited: (value: ILexemePair) => void;
 	onPairingNotesChanged: (value: string) => void;
 	onSaveCompleted: () => void;
 	onClearDataButtonClicked: () => void;
@@ -36,9 +36,8 @@ const defaultContext = {
 	onInputLanguageChanged: (language: Language) => { return; },
 	onUiLanguageChanged: (language: Language) => { return; },
 	onEnglishLexemeChanged: (value: EnglishLexeme) => { return; },
-	// onEnglishLexemeEdited: (id: number) => {return; },
 	onCzechLexemeChanged: (value: CzechLexeme) => { return; },
-	// onCzechLexemeEdited: (id: number) => {return; },
+	onLexemePairEdited: (value: ILexemePair) => { return; },
 	onPairingNotesChanged: (value: string) => { return; },
 	onSaveCompleted: () => { return; },
 	onClearDataButtonClicked: () => { return; }

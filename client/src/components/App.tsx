@@ -54,13 +54,14 @@ export default class App extends Component<IAppProps, IAppContext> {
 				this.setState({czechLexeme: value});
 			},
 
-			// onEnglishLexemeEdited: (id) => {
-			// 	// todo
-			// },
-			//
-			// onCzechLexemeEdited: (id) => {
-			// 	// todo
-			// },
+			onLexemePairEdited: (value) => {
+				this.setState(
+					{
+						englishLexeme: value.englishLexeme,
+						czechLexeme: value.czechLexeme
+					}
+				);
+			},
 
 			onPairingNotesChanged: 	(value) => {
 				this.setState({pairingNotes: value});

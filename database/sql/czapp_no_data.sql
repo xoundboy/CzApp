@@ -23,15 +23,13 @@ DROP TABLE IF EXISTS `lexeme_map`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lexeme_map` (
-  `en_id` int(11) NOT NULL,
-  `cz_id` int(11) NOT NULL,
-  `notes` tinytext,
-  `dateAdded` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `ip` varchar(19) DEFAULT NULL,
-  `userId` varchar(45) DEFAULT NULL,
-  `testColumn2` varchar(14) NOT NULL DEFAULT 'this is a test',
-  `testColumn` varchar(14) NOT NULL DEFAULT 'this is a test',
-  PRIMARY KEY (`en_id`,`cz_id`)
+  `map_en_id` int(11) NOT NULL,
+  `map_cz_id` int(11) NOT NULL,
+  `map_notes` tinytext,
+  `map_dateAdded` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `map_ip` varchar(19) DEFAULT NULL,
+  `map_userId` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`map_en_id`,`map_cz_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -43,20 +41,19 @@ DROP TABLE IF EXISTS `lexemes_cz`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lexemes_cz` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `word` varchar(50) DEFAULT NULL,
-  `phrase` text,
-  `wordType` enum('NULL','NOUN','VERB','ADJECTIVE','ADVERB','PREPOSITION','GERUND','CONJUNCTION','PRONOUN') DEFAULT NULL,
-  `phraseType` enum('NULL','PROVERB','PHRASALVERB','MODALVERB','IDIOM','COLLOQUIALISM','OTHER') DEFAULT NULL,
-  `type` enum('WORD','PHRASE') DEFAULT NULL,
-  `notes` text,
-  `gender` enum('NULL','MASCULINE','MASCULINEANIMATUM','FEMININE','NEUTER') DEFAULT NULL,
-  `verbAspect` enum('NULL','PERFECTIVE','IMPERFECTIVE') DEFAULT NULL,
-  `ip` varchar(45) DEFAULT NULL,
-  `userId` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `lexemes_cz_id_uindex` (`id`)
+  `cz_id` int(11) NOT NULL AUTO_INCREMENT,
+  `cz_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cz_text` text,
+  `cz_wordType` enum('NULL','NOUN','VERB','ADJECTIVE','ADVERB','PREPOSITION','GERUND','CONJUNCTION','PRONOUN') DEFAULT NULL,
+  `cz_phraseType` enum('NULL','PROVERB','PHRASALVERB','MODALVERB','IDIOM','COLLOQUIALISM','OTHER') DEFAULT NULL,
+  `cz_type` enum('WORD','PHRASE') DEFAULT NULL,
+  `cz_notes` text,
+  `cz_gender` enum('NULL','MASCULINE','MASCULINEANIMATUM','FEMININE','NEUTER') DEFAULT NULL,
+  `cz_verbAspect` enum('NULL','PERFECTIVE','IMPERFECTIVE') DEFAULT NULL,
+  `cz_ip` varchar(45) DEFAULT NULL,
+  `cz_userId` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`cz_id`),
+  UNIQUE KEY `lexemes_cz_id_uindex` (`cz_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -68,18 +65,17 @@ DROP TABLE IF EXISTS `lexemes_en`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `lexemes_en` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `word` varchar(50) DEFAULT NULL,
-  `phrase` text,
-  `type` enum('WORD','PHRASE') DEFAULT NULL,
-  `wordType` enum('NULL','NOUN','VERB','ADJECTIVE','ADVERB','PREPOSITION','GERUND','CONJUNCTION','PRONOUN') DEFAULT NULL,
-  `phraseType` enum('NULL','PROVERB','PHRASALVERB','MODALVERB','IDIOM','COLLOQUIALISM','OTHER') DEFAULT NULL,
-  `notes` text,
-  `ip` varchar(45) DEFAULT NULL,
-  `userId` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `lexemes_en_id_uindex` (`id`)
+  `en_id` int(11) NOT NULL AUTO_INCREMENT,
+  `en_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `en_text` text,
+  `en_type` enum('WORD','PHRASE') DEFAULT NULL,
+  `en_wordType` enum('NULL','NOUN','VERB','ADJECTIVE','ADVERB','PREPOSITION','GERUND','CONJUNCTION','PRONOUN') DEFAULT NULL,
+  `en_phraseType` enum('NULL','PROVERB','PHRASALVERB','MODALVERB','IDIOM','COLLOQUIALISM','OTHER') DEFAULT NULL,
+  `en_notes` text,
+  `en_ip` varchar(45) DEFAULT NULL,
+  `en_userId` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`en_id`),
+  UNIQUE KEY `lexemes_en_id_uindex` (`en_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -136,40 +132,104 @@ CREATE TABLE `words` (
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `insertLexemePair`(
-	IN  czWord     VARCHAR(50),
-	IN  enWord     VARCHAR(50),
-	IN  czPhrase   VARCHAR(50),
-	IN  enPhrase   VARCHAR(50),
-	IN  wordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
-	IN  phraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
-	IN  type       ENUM('NULL', 'WORD', 'PHRASE'),
-	IN  gender     ENUM('NULL', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
-	IN  verbAspect ENUM('NULL', 'PERFECTIVE', 'IMPERFECTIVE'),
-	IN  notes      TEXT,
-    IN  enNotes	   TEXT,
-    IN  czNotes    TEXT,
-    IN  ip         TEXT,
-    IN  userId     TEXT,
+
+	IN  czId		 INT(10),
+	IN  czText       TEXT,
+    IN  czNotes      TEXT,
+    IN  czType       ENUM('NULL', 'WORD', 'PHRASE'),
+    IN  czWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  czPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+    IN  czGender     ENUM('NULL', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
+    IN  czVerbAspect ENUM('NULL', 'PERFECTIVE', 'IMPERFECTIVE'),
+    
+    IN  enId		 INT(10),
+    IN  enText       TEXT,
+    IN  enNotes      TEXT,
+    IN  enType       ENUM('NULL', 'WORD', 'PHRASE'),
+	IN  enWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  enPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+	
+	IN  mapNotes     TEXT,
+    IN  mapIp        VARCHAR(16),
+    IN  mapUserId    VARCHAR(50),
 	OUT pair_insert_id  INT(10)
 )
 BEGIN
 	DECLARE cz_id INT;
 	DECLARE en_id INT;
 	DECLARE pair_insert_id INT;
+    
+    IF czId THEN 
+		SET cz_id = czId;
+        
+    ELSE
+		-- Insert the Czech version
+		INSERT INTO lexemes_cz (
+			cz_text, 
+            cz_wordType, 
+            cz_phraseType, 
+            cz_type, 
+            cz_gender, 
+            cz_verbAspect, 
+            cz_notes, 
+            cz_ip, 
+            cz_userId)
+            
+		VALUES (
+			czText,
+            czWordType, 
+            czPhraseType, 
+            czType, 
+            czGender, 
+            czVerbAspect, 
+            czNotes, 
+            mapIp, 
+            mapUserId);
+		
+        SET cz_id = LAST_INSERT_ID();
+	END IF;
 
-	-- Insert the Czech version
-	INSERT INTO lexemes_cz (word, phrase, wordType, phraseType, type, gender, verbAspect, notes, ip, userId)
-	VALUES (czWord, czPhrase, wordType, phraseType, type, gender, verbAspect, czNotes, ip, userId);
-	SET cz_id = LAST_INSERT_ID();
+    IF enId THEN 
+		SET en_id = enId;
+        
+	ELSE
+		-- Insert the English version
+		INSERT INTO lexemes_en (
+			en_text, 
+            en_wordType, 
+            en_phraseType, 
+            en_type, 
+            en_notes, 
+            en_ip, 
+            en_userId)
 
-	-- Insert the English version
-	INSERT INTO lexemes_en (type, word, phrase, wordType, phraseType, notes, ip, userId)
-	VALUES (type, enWord, enPhrase, wordType, phraseType, enNotes, ip, userId);
-	SET en_id = LAST_INSERT_ID();
+		VALUES (
+			enText,
+            enWordType,
+            enPhraseType,
+			enType, 
+            enNotes, 
+            mapIp, 
+            mapUserId);
+		
+        SET en_id = LAST_INSERT_ID();
+	END IF;
 
 	-- Insert the mapping
-	INSERT INTO lexeme_map (en_id, cz_id, notes, ip, userId)
-	VALUES (en_id, cz_id, notes, ip, userId);
+	INSERT INTO lexeme_map (
+		map_en_id, 
+        map_cz_id, 
+        map_notes, 
+        map_ip, 
+        map_userId)
+        
+	VALUES (
+		en_id, 
+        cz_id, 
+        mapNotes, 
+        mapIp, 
+        mapUserId);
+        
 	SET pair_insert_id = LAST_INSERT_ID();
 END ;;
 DELIMITER ;
@@ -196,6 +256,57 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selectLexemePair` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectLexemePair`(
+	IN 	czId 	INT(10),
+	IN	enId	INT(10)
+)
+BEGIN
+	SELECT *
+    FROM lexemes_cz cz, lexemes_en en
+    WHERE cz.cz_id = czId
+    AND en.en_id = enId;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selectRecentLexemes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectRecentLexemes`(
+    IN  userId     TEXT
+)
+BEGIN
+	SELECT *
+    FROM lexemes_cz cz, lexemes_en en, lexeme_map map
+    WHERE cz.cz_id = map.map_cz_id
+    AND en.en_id = map.map_en_id
+    AND map.map_userId = userId
+    ORDER BY map.map_dateAdded DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -206,4 +317,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-04 20:13:26
+-- Dump completed on 2019-07-30 10:05:05

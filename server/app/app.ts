@@ -8,6 +8,7 @@ import { Translation } from './controllers/Translation';
 
 import InsertLexemePair from './controllers/InsertLexemePair';
 import SelectLexemes from './controllers/SelectLexemes';
+import SelectLexemePair from './controllers/selectLexemePair';
 
 const port = process.env.CZAPP_SERVER_PORT;
 
@@ -31,6 +32,9 @@ app.route('/lexemes')
 
 app.route('/lexemes')
 	.get(new SelectLexemes(true).execute);
+
+app.route('/lexemePair/:czId/:enId')
+	.get(new SelectLexemePair(true).execute);
 
 app.route('/translate')
 	.post(new Translation(false).execute);
