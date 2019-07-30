@@ -105,7 +105,9 @@ export default class Recents extends Component<object, IRecentsState> {
 
 		try {
 
-			const czechLexeme = new CzechLexeme(data.cz_text);
+			const czechLexeme = new CzechLexeme();
+			czechLexeme.id = data.cz_id;
+			czechLexeme.text = data.cz_text;
 			czechLexeme.notes = data.cz_notes;
 			czechLexeme.type = data.cz_type;
 			czechLexeme.wordType = data.cz_wordType;
@@ -116,7 +118,9 @@ export default class Recents extends Component<object, IRecentsState> {
 			czechLexeme.gender = data.cz_gender;
 			czechLexeme.verbAspect = data.cz_verbAspect;
 
-			const englishLexeme = new EnglishLexeme(data.en_text);
+			const englishLexeme = new EnglishLexeme();
+			englishLexeme.id = data.en_id;
+			englishLexeme.text = data.en_text;
 			englishLexeme.notes = data.en_notes;
 			englishLexeme.type = data.en_type;
 			englishLexeme.wordType = data.en_wordType;

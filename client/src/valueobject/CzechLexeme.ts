@@ -6,8 +6,4 @@ export default class CzechLexeme extends LexemeBase {
 
 	public gender: CzGender;
 	public verbAspect: CzVerbAspect;
-
-	public constructor(text: string, notes: string = '') {
-		super(text);
-	}
 }

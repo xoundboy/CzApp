@@ -21,8 +21,8 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 		super(props);
 		this.state = {
 			currentView: AddView.ENGLISH,
-			englishLexeme: new EnglishLexeme(''),
-			czechLexeme: new CzechLexeme(''),
+			englishLexeme: new EnglishLexeme(),
+			czechLexeme: new CzechLexeme(),
 			lexemeType: null,
 			wordType: null,
 			phraseType: null,

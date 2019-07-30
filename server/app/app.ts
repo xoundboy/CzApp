@@ -6,7 +6,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { Translation } from './controllers/Translation';
 
-import InsertLexemePair from './controllers/InsertLexemePair';
+import AddOrInsertLexemePair from './controllers/InsertOrUpdateLexemePair';
 import SelectLexemes from './controllers/SelectLexemes';
 import SelectLexemePair from './controllers/selectLexemePair';
 
@@ -28,7 +28,7 @@ app.use(morgan('combined'));
 app.set('trust proxy', 'loopback');
 
 app.route('/lexemes')
-	.post(new InsertLexemePair(true).execute);
+	.post(new AddOrInsertLexemePair(true).execute);
 
 app.route('/lexemes')
 	.get(new SelectLexemes(true).execute);

@@ -28,8 +28,8 @@ export default class App extends Component<IAppProps, IAppContext> {
 			inputLanguage: LocalStorage.inputLanguage || Language.ENGLISH,
 			uiLanguage: LocalStorage.uiLanguage || Language.ENGLISH,
 			dictionary: this.getDictionary(),
-			englishLexeme: new EnglishLexeme(''),
-			czechLexeme: new CzechLexeme(''),
+			englishLexeme: new EnglishLexeme(),
+			czechLexeme: new CzechLexeme(),
 			pairingNotes: '',
 			authToken: null,
 
@@ -79,8 +79,8 @@ export default class App extends Component<IAppProps, IAppContext> {
 
 	clearForm() {
 		this.setState({
-			englishLexeme: new EnglishLexeme(''),
-			czechLexeme: new CzechLexeme(''),
+			englishLexeme: new EnglishLexeme(),
+			czechLexeme: new CzechLexeme(),
 			pairingNotes: ''
 		});
 	}

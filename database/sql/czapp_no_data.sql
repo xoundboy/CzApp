@@ -307,6 +307,75 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `updateLexemePair` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `updateLexemePair`(
+
+	IN  czId		 INT(10),
+	IN  czText       TEXT,
+    IN  czNotes      TEXT,
+    IN  czType       ENUM('NULL', 'WORD', 'PHRASE'),
+    IN  czWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  czPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+    IN  czGender     ENUM('NULL', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
+    IN  czVerbAspect ENUM('NULL', 'PERFECTIVE', 'IMPERFECTIVE'),
+    
+    IN  enId		 INT(10),
+    IN  enText       TEXT,
+    IN  enNotes      TEXT,
+    IN  enType       ENUM('NULL', 'WORD', 'PHRASE'),
+	IN  enWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  enPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+	
+	IN  mapNotes     TEXT,
+    IN  mapIp        VARCHAR(16),
+    IN  mapUserId    VARCHAR(50)
+)
+BEGIN
+
+	-- TODO: ensure that the czId and enId pair have a valid mapping to avoid data corruption if one or both of them have somehow been modified --
+
+	-- Update the Czech version
+	UPDATE lexemes_cz
+    
+	SET	cz_text = czText, 
+		cz_wordType = czWordType, 
+		cz_phraseType = czPhraseType, 
+		cz_type = czType, 
+		cz_gender = czGender, 
+		cz_verbAspect = czVerbAspect, 
+		cz_notes = czNotes, 
+		cz_ip = mapIp, 
+		cz_userId = mapUserId
+        
+	WHERE cz_id = czId;
+ 
+ 	-- Update the English version
+	UPDATE lexemes_en
+    
+	SET	en_text = enText, 
+		en_wordType = enWordType, 
+		en_phraseType = enPhraseType, 
+		en_type = enType, 
+		en_notes = enNotes, 
+		en_ip = mapIp, 
+		en_userId = mapUserId
+        
+	WHERE en_id = enId;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -317,4 +386,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-30 10:05:05
+-- Dump completed on 2019-07-30 14:44:13

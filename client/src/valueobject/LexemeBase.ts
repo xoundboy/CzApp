@@ -12,8 +12,4 @@ export default abstract class LexemeBase {
 	public id: number;
 	public dateAdded: string;
 	public userId: string;
-
-	protected constructor(text: string) {
-		this.text = text;
-	}
 }
