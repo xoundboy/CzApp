@@ -58,7 +58,8 @@ export default class App extends Component<IAppProps, IAppContext> {
 				this.setState(
 					{
 						englishLexeme: value.englishLexeme,
-						czechLexeme: value.czechLexeme
+						czechLexeme: value.czechLexeme,
+						pairingNotes: value.notes
 					}
 				);
 			},

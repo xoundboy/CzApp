@@ -27,6 +27,8 @@ CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `updateLexemePair`(
 )
 BEGIN
 
+	-- TODO: ensure that the czId and enId pair have a valid mapping to avoid data corruption if one or both of them have somehow been modified --
+
 	-- Update the Czech version
 	UPDATE lexemes_cz
 
@@ -54,7 +56,37 @@ BEGIN
 		en_userId = mapUserId
 
 	WHERE en_id = enId;
+
+    -- Update pairing notes in map table --
+    UPDATE 	lexeme_map
+    SET 	map_notes = mapNotes
+    WHERE	map_en_id = enId
+    AND		map_cz_id = czId;
 END$$
 
 DELIMITER ;
+
+
+USE `czapp`;
+DROP procedure IF EXISTS `selectLexemePair`;
+
+DELIMITER $$
+USE `czapp`$$
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectLexemePair`(
+	IN 	czId 	INT(10),
+	IN	enId	INT(10)
+)
+BEGIN
+	SELECT *
+    FROM 	lexemes_cz cz,
+			lexemes_en en,
+            lexeme_map lm
+    WHERE 	cz.cz_id = czId
+    AND 	en.en_id = enId
+    AND 	lm.map_en_id = enId
+    AND 	lm.map_cz_id = czId;
+END$$
+
+DELIMITER ;
+
 
