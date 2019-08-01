@@ -1,5 +1,8 @@
 import Add, { IAddProps } from '../add/Add';
 
+import LoaderUtil from '../../util/LoaderUtil';
+import LexemePairParser from '../../parsers/LexemePairParser';
+
 interface IEditProps extends IAddProps {
 	czId: number;
 	enId: number;
@@ -7,12 +10,20 @@ interface IEditProps extends IAddProps {
 
 export default class Edit extends Add<IEditProps> {
 
-	constructor(props: IEditProps) {
-		super(props);
+	componentDidMount() {
+		this.loadLexemePair();
 	}
 
-	componentDidMount() {
-		console.log(this.props);
-		// Todo - fetch the lexeme pair and populate the add forms to turn them into edit forms
+	loadLexemePair() {
+		const path = `lexemePair/${this.props.czId}/${this.props.enId}`;
+		const method = 'GET';
+
+		LoaderUtil.getData(this.context, path, method, (json: string) => {
+			if (json[0].length > 0) {
+				const lexemePair = LexemePairParser.parse(json[0][0]);
+				this.context.onLexemePairEdited(lexemePair);
+			} else
+				LoaderUtil.handleError();
+		});
 	}
 }

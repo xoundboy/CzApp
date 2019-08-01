@@ -21,8 +21,8 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 		super(props);
 		this.state = {
 			currentView: AddView.ENGLISH,
-			englishLexeme: new EnglishLexeme(''),
-			czechLexeme: new CzechLexeme(''),
+			englishLexeme: new EnglishLexeme(),
+			czechLexeme: new CzechLexeme(),
 			lexemeType: null,
 			wordType: null,
 			phraseType: null,
@@ -32,12 +32,19 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 
 	render() {
 		return (
-			<div className="addPageContainer">
-				<div className="add">
-					{this.renderLexemePanel()}
-				</div>
-				{this.renderTabButtons()}
-			</div>
+			<AppContextConsumer>
+				{(context) => {
+					this.context = context;
+					return (
+						<div className="addPageContainer">
+							<div className="add">
+								{this.renderLexemePanel()}
+							</div>
+							{this.renderTabButtons()}
+						</div>
+					);
+				}}
+			</AppContextConsumer>
 		);
 	}
 
@@ -60,31 +67,30 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 
 	renderTabButtons() {
 		return (
-			<AppContextConsumer>
-				{(context) => <div className="tabButtons">
 
-					<NavButton
-						additionalClasses={this.getLanguageButtonClassName(!!context.englishLexeme.text)}
-						targetPath="/add/en"
-						label={context.dictionary.TAB_ENGLISH}
-					/>
+			<div className="tabButtons">
 
-					<NavButton
-						additionalClasses={this.getLanguageButtonClassName(!!context.czechLexeme.text)}
-						targetPath="/add/cz"
-						label={context.dictionary.TAB_CZECH}
-					/>
+				<NavButton
+					additionalClasses={this.getLanguageButtonClassName(!!this.context.englishLexeme.text)}
+					targetPath="/add/en"
+					label={this.context.dictionary.TAB_ENGLISH}
+				/>
 
-					<NavButton
-						additionalClasses="confirm"
-						targetPath="/add/confirm"
-						label={context.dictionary.TAB_CONFIRM}
-						disabled={!context.czechLexeme.text || !context.englishLexeme.text}
-					/>
+				<NavButton
+					additionalClasses={this.getLanguageButtonClassName(!!this.context.czechLexeme.text)}
+					targetPath="/add/cz"
+					label={this.context.dictionary.TAB_CZECH}
+				/>
 
-					<button onClick={context.onClearDataButtonClicked}>{context.dictionary.BUTTON_CLEAR}</button>
-				</div>}
-			</AppContextConsumer>
+				<NavButton
+					additionalClasses="confirm"
+					targetPath="/add/confirm"
+					label={this.context.dictionary.TAB_CONFIRM}
+					disabled={!this.context.czechLexeme.text || !this.context.englishLexeme.text}
+				/>
+
+				<button onClick={this.context.onClearDataButtonClicked}>{this.context.dictionary.BUTTON_CLEAR}</button>
+			</div>
 		);
 	}
 }

@@ -6,8 +6,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { Translation } from './controllers/Translation';
 
-import InsertLexemePair from './controllers/InsertLexemePair';
+import AddOrInsertLexemePair from './controllers/InsertOrUpdateLexemePair';
 import SelectLexemes from './controllers/SelectLexemes';
+import SelectLexemePair from './controllers/selectLexemePair';
 
 const port = process.env.CZAPP_SERVER_PORT;
 
@@ -27,10 +28,13 @@ app.use(morgan('combined'));
 app.set('trust proxy', 'loopback');
 
 app.route('/lexemes')
-	.post(new InsertLexemePair(true).execute);
+	.post(new AddOrInsertLexemePair(true).execute);
 
 app.route('/lexemes')
 	.get(new SelectLexemes(true).execute);
+
+app.route('/lexemePair/:czId/:enId')
+	.get(new SelectLexemePair(true).execute);
 
 app.route('/translate')
 	.post(new Translation(false).execute);

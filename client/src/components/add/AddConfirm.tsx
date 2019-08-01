@@ -99,6 +99,7 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 		return {
 			idToken: this.context.googleAuth.currentUser.get().getAuthResponse().id_token,
 
+			czId: this.context.czechLexeme.id,
 			czText: this.context.czechLexeme.text,
 			czNotes: this.context.czechLexeme.notes,
 			czWordType: this.context.czechLexeme.wordType,
@@ -107,6 +108,7 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 			czGender: this.context.czechLexeme.gender,
 			czVerbAspect: this.context.czechLexeme.verbAspect,
 
+			enId: this.context.englishLexeme.id,
 			enText: this.context.englishLexeme.text,
 			enNotes: this.context.englishLexeme.notes,
 			enWordType: this.context.englishLexeme.wordType,

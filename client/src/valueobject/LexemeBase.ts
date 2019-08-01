@@ -3,17 +3,12 @@ import LexemeType from '../enum/LexemeType';
 import PhraseType from '../enum/PhraseType';
 
 export default abstract class LexemeBase {
-
-	public text: string;
-	public notes: string;
-	public type: LexemeType;
-	public wordType: WordType;
-	public phraseType: PhraseType;
-	public id: number;
-	public dateAdded: string;
-	public userId: string;
-
-	protected constructor(text: string) {
-		this.text = text;
-	}
+	public text: string = '';
+	public notes: string = '';
+	public type: LexemeType = null;
+	public wordType: WordType = null;
+	public phraseType: PhraseType = null;
+	public id: number = null;
+	public dateAdded: string = null;
+	public userId: string = null;
 }
