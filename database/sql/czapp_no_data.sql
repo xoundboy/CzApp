@@ -121,6 +121,41 @@ CREATE TABLE `words` (
 --
 -- Dumping routines for database 'czapp'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `deleteLexemePair` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `deleteLexemePair`(
+	IN  czId		 INT(10),
+    IN  enId		 INT(10)
+)
+BEGIN
+
+	-- delete the mapping --
+    DELETE FROM 	lexeme_map 
+    WHERE 			lexeme_map.map_en_id = enId
+    AND				lexeme_map.map_cz_id = czId;
+
+	-- delete the English lexeme --
+	DELETE FROM 	lexemes_en 
+    WHERE 			en_id = enId;
+    
+	-- delete the Czech lexeme --
+	DELETE FROM 	lexemes_cz 
+    WHERE 			cz_id = czId;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `insertLexemePair` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -272,9 +307,13 @@ CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectLexemePair`(
 )
 BEGIN
 	SELECT *
-    FROM lexemes_cz cz, lexemes_en en
-    WHERE cz.cz_id = czId
-    AND en.en_id = enId;
+    FROM 	lexemes_cz cz, 
+			lexemes_en en,
+            lexeme_map lm
+    WHERE 	cz.cz_id = czId
+    AND 	en.en_id = enId
+    AND 	lm.map_en_id = enId
+    AND 	lm.map_cz_id = czId;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -370,6 +409,12 @@ BEGIN
 		en_userId = mapUserId
         
 	WHERE en_id = enId;
+    
+    -- Update pairing notes in map table --
+    UPDATE 	lexeme_map
+    SET 	map_notes = mapNotes
+    WHERE	map_en_id = enId
+    AND		map_cz_id = czId;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -386,4 +431,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-30 14:44:13
+-- Dump completed on 2019-08-04 20:03:12
