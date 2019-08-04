@@ -26,6 +26,7 @@ export default interface IDictionary {
 	INPUT_LABEL_ENGLISH_LEXEME: string;
 	LEXEME_TYPE_OPTION_WORD: string;
 	LEXEME_TYPE_OPTION_PHRASE: string;
+	LEXEME_TYPE_OPTION_UNKNOWN: string;
 	LINK_SIGN_OUT: string;
 	LINK_REVOKE_USER_PERMISSIONS: string;
 	MENULABEL_ADD:  string;
@@ -39,6 +40,7 @@ export default interface IDictionary {
 	PHRASE_TYPE_OPTION_IDIOM:  string;
 	PHRASE_TYPE_OPTION_OTHER:  string;
 	PHRASE_TYPE_OPTION_PROVERB:  string;
+	PHRASE_TYPE_OPTION_UNKNOWN:  string;
 	PHRASE_TYPE_SELECT_LABEL:  string;
 	PLACEHOLDER_INPUT_IN_CZECH:  string;
 	PLACEHOLDER_INPUT_IN_ENGLISH:  string;

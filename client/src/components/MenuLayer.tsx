@@ -41,8 +41,8 @@ export default class MenuLayer extends Component<object, IMenuLayerState> {
 				{(context) => {
 					return (
 						<nav className="menuItems">
-							{this.renderItem('/recent', context.dictionary.MENULABEL_RECENT)}
 							{this.renderItem(`/add/${context.inputLanguage}`, context.dictionary.MENULABEL_ADD)}
+							{this.renderItem('/recent', context.dictionary.MENULABEL_RECENT)}
 							{this.renderItem('/search', context.dictionary.MENULABEL_SEARCH)}
 							{this.renderItem('/tests', context.dictionary.MENULABEL_TESTS)}
 							{this.renderItem('/settings', context.dictionary.MENULABEL_SETTINGS)}

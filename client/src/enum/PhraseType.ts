@@ -2,7 +2,8 @@ enum PhraseType {
 	COLLOQUIALISM = 'COLLOQUIALISM',
 	IDIOM = 'IDIOM',
 	OTHER = 'OTHER',
-	PROVERB = 'PROVERB'
+	PROVERB = 'PROVERB',
+	UNKNOWN = 'UNKNOWN'
 }
 
 export default PhraseType;

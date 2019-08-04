@@ -4,6 +4,6 @@ import CzGender from '../enum/CzGender';
 
 export default class CzechLexeme extends LexemeBase {
 
-	public gender: CzGender;
-	public verbAspect: CzVerbAspect;
+	public gender: CzGender = CzGender.UNKNOWN;
+	public verbAspect: CzVerbAspect = CzVerbAspect.UNKNOWN;
 }

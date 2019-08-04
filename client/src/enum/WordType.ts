@@ -6,6 +6,7 @@ enum WordType {
 	NOUN = 'NOUN',
 	PREPOSITION = 'PREPOSITION',
 	PRONOUN = 'PRONOUN',
-	VERB = 'VERB'
+	VERB = 'VERB',
+	UNKNOWN = 'UNKNOWN'
 }
 export default WordType;

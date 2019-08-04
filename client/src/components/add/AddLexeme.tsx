@@ -10,7 +10,6 @@ import WordType from '../../enum/WordType';
 import LexemeType from '../../enum/LexemeType';
 
 interface IAddLexemeState {
-	textFieldPopulated: boolean;
 	showMetadata: boolean;
 }
 
@@ -34,7 +33,6 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 		super(props);
 
 		this.state = {
-			textFieldPopulated: false,
 			showMetadata: false
 		};
 
@@ -47,10 +45,6 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 		this.onWordTypeChanged = this.onWordTypeChanged.bind(this);
 	}
 
-	componentDidMount() {
-		this.setState({textFieldPopulated: !!this.text});
-	}
-
 	abstract render(): ReactElement<object>;
 
 	renderForm() {
@@ -59,9 +53,13 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 				{this.renderLanguageInputIdentifier()}
 				{this.renderLexemeTextInput()}
 				{this.shouldRenderSuggestButton() && this.renderSuggestButton()}
-				{this.state.textFieldPopulated && this.renderAddNoteButton()}
+				{this.shouldRenderMetaDataButton() && this.renderShowOrHideMetaDataButton()}
 				{this.state.showMetadata && this.renderMetaData()}
 			</div>);
+	}
+
+	shouldRenderMetaDataButton() {
+		return !!this.text;
 	}
 
 	abstract renderLanguageInputIdentifier(): ReactElement<object>;
@@ -93,8 +91,8 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	}
 
 	onLexemeInputChanged(event: ChangeEvent<HTMLTextAreaElement>) {
-		const value = event.target.value as string;
-		this.setState({textFieldPopulated: !!value});
+		// const value = event.target.value as string;
+		// this.setState({textFieldPopulated: !!value});
 	}
 
 	abstract shouldRenderSuggestButton(): boolean;
@@ -111,7 +109,7 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 		) : null;
 	}
 
-	renderAddNoteButton() {
+	renderShowOrHideMetaDataButton() {
 		return (
 			<button
 				onClick={() => {
@@ -132,7 +130,7 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 					value={this.lexemeType}
 					onChange={this.onLexemeTypeChanged}
 				>
-					<option value={null} />
+					<option value={LexemeType.UNKNOWN}>{this.context.dictionary.LEXEME_TYPE_OPTION_UNKNOWN}</option>
 					<option value={LexemeType.WORD}>{this.context.dictionary.LEXEME_TYPE_OPTION_WORD}</option>
 					<option value={LexemeType.PHRASE}>{this.context.dictionary.LEXEME_TYPE_OPTION_PHRASE}</option>
 				</select>
@@ -151,7 +149,7 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 					value={this.phraseType}
 					onChange={this.onPhraseTypeChanged}
 				>
-					<option value={null} />
+					<option value={PhraseType.UNKNOWN}>{this.context.dictionary.PHRASE_TYPE_OPTION_UNKNOWN}</option>
 					<option value={PhraseType.COLLOQUIALISM}>{this.context.dictionary.PHRASE_TYPE_OPTION_COLLOQUIALISM}</option>
 					<option value={PhraseType.IDIOM}>{this.context.dictionary.PHRASE_TYPE_OPTION_IDIOM}</option>
 					<option value={PhraseType.OTHER}>{this.context.dictionary.PHRASE_TYPE_OPTION_OTHER}</option>

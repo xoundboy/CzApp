@@ -69,7 +69,7 @@ export default class AddCzech extends AddLexeme {
 			<div className="formRow">
 				<label>{this.context.dictionary.CZ_VERB_ASPECT_SELECT_LABEL}</label>
 				<select value={this.context.czechLexeme.verbAspect} onChange={this.onCzVerbAspectChanged}>
-					<option value={null} />
+					<option value={CzVerbAspect.UNKNOWN}>-</option>
 					<option value={CzVerbAspect.PERFECTIVE}>{this.context.dictionary.CZ_VERB_ASPECT_OPTION_PERFECTIVE}</option>
 					<option value={CzVerbAspect.IMPERFECTIVE}>{this.context.dictionary.CZ_VERB_ASPECT_OPTION_IMPERFECTIVE}</option>
 				</select>
@@ -87,7 +87,7 @@ export default class AddCzech extends AddLexeme {
 			<div className="formRow">
 				<label>{this.context.dictionary.CZ_GENDER_SELECT_LABEL}</label>
 				<select value={this.context.czechLexeme.gender} onChange={this.onCzGenderChanged}>
-					<option value={null} />
+					<option value={CzGender.UNKNOWN}>-</option>
 					<option value={CzGender.NEUTER}>{this.context.dictionary.CZ_GENDER_OPTION_NEUTER}</option>
 					<option value={CzGender.FEMININE}>{this.context.dictionary.CZ_GENDER_OPTION_FEMININE}</option>
 					<option value={CzGender.MASCULINE}>{this.context.dictionary.CZ_GENDER_OPTION_MASCULINE}</option>
