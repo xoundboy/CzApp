@@ -175,7 +175,8 @@ table {
   background-color: #ececec;
   padding: 5px;
   color: grey;
-  margin-bottom: 40px; }
+  margin-bottom: 40px;
+  font-size: 24px; }
 
 .add .text,
 .add .notes {
@@ -204,8 +205,8 @@ table {
   text-align: center; }
   .tabButtons button.empty, .tabButtons button.confirm {
     background: orange; }
-    .tabButtons button.empty:disabled, .tabButtons button.confirm:disabled {
-      background: lightgray;
-      color: white; }
   .tabButtons button.filled {
     background: green; }
+  .tabButtons button:disabled {
+    background: lightgray;
+    color: white; }

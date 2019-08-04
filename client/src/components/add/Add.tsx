@@ -89,8 +89,24 @@ export default class Add<TProps extends IAddProps> extends Component<TProps> {
 					disabled={!this.context.czechLexeme.text || !this.context.englishLexeme.text}
 				/>
 
-				<button onClick={this.context.onClearDataButtonClicked}>{this.context.dictionary.BUTTON_CLEAR}</button>
+				<button
+					onClick={this.context.onClearDataButtonClicked}
+					disabled={this.isClearButtonDisabled()}
+				>
+					{this.context.dictionary.BUTTON_CLEAR}
+				</button>
+
+				<NavButton
+					additionalClasses="delete"
+					targetPath="/delete"
+					label={this.context.dictionary.BUTTON_DELETE}
+					disabled={!(!!this.context.czechLexeme.id && !!this.context.englishLexeme.id)}
+				/>
 			</div>
 		);
+	}
+
+	isClearButtonDisabled(): boolean {
+		return !(!!this.context.englishLexeme.text || !!this.context.czechLexeme.text);
 	}
 }

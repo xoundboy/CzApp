@@ -90,3 +90,31 @@ END$$
 DELIMITER ;
 
 
+USE `czapp`;
+DROP procedure IF EXISTS `deleteLexemePair`;
+
+DELIMITER $$
+USE `czapp`$$
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `deleteLexemePair`(
+	IN  czId		 INT(10),
+    IN  enId		 INT(10)
+)
+BEGIN
+
+	-- delete the mapping --
+    DELETE FROM 	lexeme_map
+    WHERE 			lexeme_map.map_en_id = enId
+    AND				lexeme_map.map_cz_id = czId;
+
+	-- delete the English lexeme --
+	DELETE FROM 	lexemes_en
+    WHERE 			en_id = enId;
+
+	-- delete the Czech lexeme --
+	DELETE FROM 	lexemes_cz
+    WHERE 			cz_id = czId;
+
+END$$
+
+DELIMITER ;
+
