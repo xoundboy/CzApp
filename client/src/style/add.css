@@ -1,3 +1,10 @@
+.add .translationText {
+  border: solid 2px grey;
+  background-color: #ececec;
+  padding: 5px;
+  color: grey;
+  margin-bottom: 40px; }
+
 .add .text,
 .add .notes {
   min-height: 40px;

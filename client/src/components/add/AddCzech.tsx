@@ -43,6 +43,10 @@ export default class AddCzech extends AddLexeme {
 		return <div className="languageIdentifier cz" />;
 	}
 
+	renderTranslationLanguageInputIdentifier() {
+		return <div className="languageIdentifier en" />;
+	}
+
 	renderWordMetaData() {
 		if (this.context.czechLexeme.wordType === WordType.NOUN)
 			return (
@@ -62,6 +66,10 @@ export default class AddCzech extends AddLexeme {
 
 	renderPhraseMetaData() {
 		return this.renderPhraseType();
+	}
+
+	renderTranslationText() {
+		return <div className="translationText">{this.context.englishLexeme.text}</div>;
 	}
 
 	renderCzVerbAspect() {
@@ -102,7 +110,7 @@ export default class AddCzech extends AddLexeme {
 		this.context.onCzechLexemeChanged(lexeme);
 	}
 
-	shouldRenderSuggestButton(): boolean {
+	isTranslationPopulated(): boolean {
 		return !!(this.context.englishLexeme.text);
 	}
 

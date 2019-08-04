@@ -38,7 +38,7 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 
 		this.onLexemeInputChanged = this.onLexemeInputChanged.bind(this);
 		this.onNotesInputChanged = this.onNotesInputChanged.bind(this);
-		this.shouldRenderSuggestButton = this.shouldRenderSuggestButton.bind(this);
+		this.isTranslationPopulated = this.isTranslationPopulated.bind(this);
 		this.onTranslationFetched = this.onTranslationFetched.bind(this);
 		this.onLexemeTypeChanged = this.onLexemeTypeChanged.bind(this);
 		this.onPhraseTypeChanged = this.onPhraseTypeChanged.bind(this);
@@ -50,9 +50,10 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	renderForm() {
 		return(
 			<div className={`view ${this.className}`} >
+				{this.isTranslationPopulated() && this.renderTranslation()}
 				{this.renderLanguageInputIdentifier()}
 				{this.renderLexemeTextInput()}
-				{this.shouldRenderSuggestButton() && this.renderSuggestButton()}
+				{this.isTranslationPopulated() && this.renderSuggestButton()}
 				{this.shouldRenderMetaDataButton() && this.renderShowOrHideMetaDataButton()}
 				{this.state.showMetadata && this.renderMetaData()}
 			</div>);
@@ -63,6 +64,19 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	}
 
 	abstract renderLanguageInputIdentifier(): ReactElement<object>;
+
+	abstract renderTranslationText(): ReactElement<object>;
+
+	abstract renderTranslationLanguageInputIdentifier(): ReactElement<object>;
+
+	renderTranslation() {
+		return (
+			<div className="translation">
+				{this.renderTranslationLanguageInputIdentifier()}
+				{this.renderTranslationText()}
+			</div>
+		);
+	}
 
 	renderMetaData() {
 		return (
@@ -95,10 +109,10 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 		// this.setState({textFieldPopulated: !!value});
 	}
 
-	abstract shouldRenderSuggestButton(): boolean;
+	abstract isTranslationPopulated(): boolean;
 
 	renderSuggestButton() {
-		return this.shouldRenderSuggestButton() ? (
+		return this.isTranslationPopulated() ? (
 			<SuggestButton
 				buttonLabel={this.context.dictionary.BUTTON_SUGGEST_TRANSLATION}
 				inputText={this.altText}

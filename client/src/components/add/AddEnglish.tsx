@@ -38,6 +38,10 @@ export default class AddEnglish extends AddLexeme {
 		return <div className="languageIdentifier en" />;
 	}
 
+	renderTranslationLanguageInputIdentifier() {
+		return <div className="languageIdentifier cz" />;
+	}
+
 	renderWordMetaData() {
 		return this.renderWordType();
 	}
@@ -46,7 +50,11 @@ export default class AddEnglish extends AddLexeme {
 		return this.renderPhraseType();
 	}
 
-	shouldRenderSuggestButton(): boolean {
+	renderTranslationText() {
+		return <div className="translationText">{this.context.czechLexeme.text}</div>;
+	}
+
+	isTranslationPopulated(): boolean {
 		return !!(this.context.czechLexeme.text);
 	}
 
