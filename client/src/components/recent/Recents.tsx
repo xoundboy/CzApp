@@ -59,7 +59,7 @@ export default class Recents extends Component<object, IRecentsState> {
 		const path = `lexemes`;
 		const method = 'GET';
 
-		LoaderUtil.getData(this.context, path, method, (json: string) => {
+		LoaderUtil.getData(path, method, (json: string) => {
 			if (json[0].length > 0)
 				this.setState({data: LexemePairCollectionParser.parse(json[0])});
 			else

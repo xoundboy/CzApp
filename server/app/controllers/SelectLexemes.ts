@@ -1,5 +1,7 @@
 import { DbQueryController } from './DbQueryController';
 
+const RESULTSET_LENGTH = 50;
+
 export default class SelectLexemes extends DbQueryController {
 
 	public constructor(requireAuth: boolean) {
@@ -7,6 +9,6 @@ export default class SelectLexemes extends DbQueryController {
 	}
 
 	getQuery(): string {
-		return `CALL selectRecentLexemes('${this.userId}');`;
+		return `CALL selectRecentLexemes('${this.userId}',${RESULTSET_LENGTH},0);`;
 	}
 }

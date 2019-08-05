@@ -18,7 +18,7 @@ export default class Edit extends Add<IEditProps> {
 		const path = `lexemePair/${this.props.czId}/${this.props.enId}`;
 		const method = 'GET';
 
-		LoaderUtil.getData(this.context, path, method, (json: string) => {
+		LoaderUtil.getData(path, method, (json: string) => {
 			if (json[0].length > 0) {
 				const lexemePair = LexemePairParser.parse(json[0][0]);
 				this.context.onLexemePairEdited(lexemePair);

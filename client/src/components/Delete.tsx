@@ -47,7 +47,7 @@ export default class Delete extends Component<object, IDeleteState> {
 		const path = `lexemePair/${this.context.czechLexeme.id}/${this.context.englishLexeme.id}`;
 		const method = 'DELETE';
 
-		LoaderUtil.getData(this.context, path, method, (json: string) => {
+		LoaderUtil.getData(path, method, (json: string) => {
 			this.setState({done: true});
 			// todo - handle unhappy path
 		});

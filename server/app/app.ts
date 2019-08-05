@@ -10,6 +10,7 @@ import AddOrInsertLexemePair from './controllers/InsertOrUpdateLexemePair';
 import SelectLexemes from './controllers/SelectLexemes';
 import SelectLexemePair from './controllers/selectLexemePair';
 import DeleteLexemePair from './controllers/DeleteLexemePair';
+import SelectTestLexemes from './controllers/SelectTestLexemes';
 
 const port = process.env.CZAPP_SERVER_PORT;
 
@@ -33,6 +34,9 @@ app.route('/lexemes')
 
 app.route('/lexemes')
 	.get(new SelectLexemes(true).execute);
+
+app.route('/lexemes/:testType/:testLength')
+	.get(new SelectTestLexemes(true).execute);
 
 app.route('/lexemePair/:czId/:enId')
 	.get(new SelectLexemePair(true).execute);

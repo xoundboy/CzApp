@@ -9,6 +9,7 @@ import Search from './search/Search';
 import Recent from './recent/Recents';
 import Edit from './edit/Edit';
 import Delete from './Delete';
+import Test from './tests/Test';
 
 export default class PageLayer extends Component {
 
@@ -20,6 +21,7 @@ export default class PageLayer extends Component {
 				<Route path="/add/cz" render={() => <Add view={AddView.CZECH} />} />
 				<Route path="/add/confirm" render={() => <Add view={AddView.CONFIRM} />} />
 				<Route path="/tests" render={() => <Tests/>} />
+				<Route path="/test/:type/:length" render={(props) => <Test type={props.match.params.type} length={props.match.params.length} />} />
 				<Route path="/search" render={() => <Search/>} />
 				<Route path="/recent" render={() => <Recent/>} />
 				<Route path="/edit/:czId/:enId" render={(props) => <Edit enId={props.match.params.enId} czId={props.match.params.czId} view={AddView.ENGLISH} />} />

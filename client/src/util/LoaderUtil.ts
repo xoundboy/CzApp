@@ -1,10 +1,11 @@
-import { IAppContext } from '../AppContext';
+import StorageUtil from './StorageUtil';
+import { LS_AUTH_TOKEN_KEY } from '../index';
 
 const backendBaseUrl = process.env.REACT_APP_CZAPP_BACKEND_BASE_URL;
 
 export default class LoaderUtil {
 
-	public static getData(context: IAppContext, path: string, method: string, onSuccess: (json: string) => void): void {
+	public static getData(path: string, method: string, onSuccess: (json: string) => void): void {
 		fetch(
 			`${backendBaseUrl}/${path}`,
 			{
@@ -14,7 +15,7 @@ export default class LoaderUtil {
 				credentials: 'same-origin',
 				headers: {
 					'Content-Type': 'application/json',
-					'Authorization': context.googleAuth.currentUser.get().getAuthResponse().id_token
+					'Authorization': StorageUtil.getItem(LS_AUTH_TOKEN_KEY)
 				},
 				redirect: 'follow',
 				referrer: 'no-referrer'
