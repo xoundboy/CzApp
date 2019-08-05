@@ -29,6 +29,8 @@ CREATE TABLE `lexeme_map` (
   `map_dateAdded` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `map_ip` varchar(19) DEFAULT NULL,
   `map_userId` varchar(45) DEFAULT NULL,
+  `map_lastTested` timestamp NULL DEFAULT NULL,
+  `map_familiarity` enum('known','familiar','unknown') DEFAULT 'unknown',
   PRIMARY KEY (`map_en_id`,`map_cz_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -331,15 +333,23 @@ DELIMITER ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
 CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectRecentLexemes`(
-    IN  userId     TEXT
+    IN  userId			TEXT,
+    IN	length			INT,
+    IN 	startPosition	INT
 )
 BEGIN
-	SELECT *
-    FROM lexemes_cz cz, lexemes_en en, lexeme_map map
-    WHERE cz.cz_id = map.map_cz_id
-    AND en.en_id = map.map_en_id
-    AND map.map_userId = userId
-    ORDER BY map.map_dateAdded DESC;
+	SELECT 		*
+    
+    FROM 		lexemes_cz cz, 
+				lexemes_en en, 
+				lexeme_map map
+            
+    WHERE 		cz.cz_id = map.map_cz_id
+    AND 		en.en_id = map.map_en_id
+    AND 		map.map_userId = userId
+    
+    ORDER BY 	map.map_dateAdded DESC
+    LIMIT 		startPosition, length;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -431,4 +441,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-04 20:03:12
+-- Dump completed on 2019-08-05 11:00:56
