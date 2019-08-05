@@ -41,13 +41,10 @@ export default class Test extends Component<ITestProps, ITestState> {
 		const method = 'GET';
 
 		LoaderUtil.getData(path, method, (json: string) => {
-			if (json[0].length > 0)
-				this.setState({
-					lexemes: LexemePairCollectionParser.parse(json[0]),
-					status: TestStatus.inProgress
-				});
-			else
-				LoaderUtil.handleError();
+			this.setState({
+				lexemes: LexemePairCollectionParser.parse(json[0]),
+				status: TestStatus.inProgress
+			});
 		});
 	}
 

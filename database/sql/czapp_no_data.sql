@@ -293,6 +293,76 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selectFamiliarLexemes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectFamiliarLexemes`(
+    IN  userId			TEXT,
+    IN	length			INT,
+    IN 	startPosition	INT
+)
+BEGIN
+	SELECT 		*
+    
+    FROM 		lexemes_cz cz, 
+				lexemes_en en, 
+				lexeme_map map
+            
+    WHERE 		cz.cz_id = map.map_cz_id
+    AND 		en.en_id = map.map_en_id
+    AND 		map.map_userId = userId
+    AND 		map.map_familiarity = 'familiar'
+    
+    ORDER BY 	map.map_dateAdded DESC
+    LIMIT 		startPosition, length;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selectKnownLexemes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectKnownLexemes`(
+    IN  userId			TEXT,
+    IN	length			INT,
+    IN 	startPosition	INT
+)
+BEGIN
+	SELECT 		*
+    
+    FROM 		lexemes_cz cz, 
+				lexemes_en en, 
+				lexeme_map map
+            
+    WHERE 		cz.cz_id = map.map_cz_id
+    AND 		en.en_id = map.map_en_id
+    AND 		map.map_userId = userId
+    AND 		map.map_familiarity = 'known'
+    
+    ORDER BY 	map.map_dateAdded DESC
+    LIMIT 		startPosition, length;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `selectLexemePair` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -316,6 +386,39 @@ BEGIN
     AND 	en.en_id = enId
     AND 	lm.map_en_id = enId
     AND 	lm.map_cz_id = czId;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selectRandomLexemes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectRandomLexemes`(
+    IN  userId			TEXT,
+    IN	length			INT
+)
+BEGIN
+	SELECT 		*
+    
+    FROM 		lexemes_cz cz, 
+				lexemes_en en, 
+				lexeme_map map
+            
+    WHERE 		cz.cz_id = map.map_cz_id
+    AND 		en.en_id = map.map_en_id
+    AND 		map.map_userId = userId
+    
+    ORDER BY 	RAND()
+    LIMIT 		length;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -347,6 +450,41 @@ BEGIN
     WHERE 		cz.cz_id = map.map_cz_id
     AND 		en.en_id = map.map_en_id
     AND 		map.map_userId = userId
+    
+    ORDER BY 	map.map_dateAdded DESC
+    LIMIT 		startPosition, length;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selectUnknownLexemes` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `selectUnknownLexemes`(
+    IN  userId			TEXT,
+    IN	length			INT,
+    IN 	startPosition	INT
+)
+BEGIN
+	SELECT 		*
+    
+    FROM 		lexemes_cz cz, 
+				lexemes_en en, 
+				lexeme_map map
+            
+    WHERE 		cz.cz_id = map.map_cz_id
+    AND 		en.en_id = map.map_en_id
+    AND 		map.map_userId = userId
+    AND 		map.map_familiarity = 'unknown'
     
     ORDER BY 	map.map_dateAdded DESC
     LIMIT 		startPosition, length;
@@ -441,4 +579,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-05 11:00:56
+-- Dump completed on 2019-08-05 22:38:46
