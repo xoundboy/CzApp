@@ -16,16 +16,68 @@ export default class PageLayer extends Component {
 	render() {
 		return (
 			<div className="pageLayer">
-				<Route path="/settings" render={() => <Settings/>} />
-				<Route path="/add/en" render={() => <Add view={AddView.ENGLISH} />} />
-				<Route path="/add/cz" render={() => <Add view={AddView.CZECH} />} />
-				<Route path="/add/confirm" render={() => <Add view={AddView.CONFIRM} />} />
-				<Route path="/tests" render={() => <Tests/>} />
-				<Route path="/test/:type/:length" render={(props) => <Test type={props.match.params.type} length={props.match.params.length} />} />
-				<Route path="/search" render={() => <Search/>} />
-				<Route path="/recent" render={() => <Recent/>} />
-				<Route path="/edit/:czId/:enId" render={(props) => <Edit enId={props.match.params.enId} czId={props.match.params.czId} view={AddView.ENGLISH} />} />
-				<Route path="/delete" render={() => <Delete/>} />
+
+				<Route
+					path="/settings"
+					render={() => <Settings/>}
+				/>
+
+				<Route
+					path="/add/en"
+					render={() => <Add view={AddView.ENGLISH} />}
+				/>
+
+				<Route
+					path="/add/cz"
+					render={() => <Add view={AddView.CZECH} />}
+				/>
+
+				<Route
+					path="/add/confirm"
+					render={() => <Add view={AddView.CONFIRM} />}
+				/>
+
+				<Route
+					path="/tests"
+					render={() => <Tests/>}
+				/>
+
+				<Route
+					path="/test/:type/:length/:languageToTest"
+					render={(props) =>
+						<Test
+							type={props.match.params.type}
+							length={props.match.params.length}
+							languageToTest={props.match.params.languageToTest}
+						/>}
+				/>
+
+				<Route
+					path="/search"
+					render={() => <Search/>}
+				/>
+
+				<Route
+					path="/recent"
+					render={() => <Recent/>}
+				/>
+
+				<Route
+					path="/edit/:czId/:enId"
+					render={(props) =>
+						<Edit
+							enId={props.match.params.enId}
+							czId={props.match.params.czId}
+							view={AddView.ENGLISH}
+						/>}
+				/>
+
+				<Route
+					path="/delete"
+					render={() =>
+						<Delete/>}
+				/>
+
 			</div>
 		);
 	}

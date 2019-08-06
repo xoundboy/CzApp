@@ -11,6 +11,7 @@ import SelectLexemes from './controllers/SelectLexemes';
 import SelectLexemePair from './controllers/selectLexemePair';
 import DeleteLexemePair from './controllers/DeleteLexemePair';
 import SelectTestLexemes from './controllers/SelectTestLexemes';
+import UpdateLexemePairFamiliarity from './controllers/UpdateLexemePairFamiliarity';
 
 const port = process.env.CZAPP_SERVER_PORT;
 
@@ -43,6 +44,9 @@ app.route('/lexemePair/:czId/:enId')
 
 app.route('/lexemePair/:czId/:enId')
 	.delete(new DeleteLexemePair(true).execute);
+
+app.route('/lexemePair/:czId/:enId/:familiarity')
+	.put(new UpdateLexemePairFamiliarity(true).execute);
 
 app.route('/translate')
 	.post(new Translation(false).execute);

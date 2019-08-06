@@ -1,13 +1,14 @@
 import * as React from 'react';
-import { Component } from 'react';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, Component } from 'react';
 import { Redirect } from 'react-router';
 import { TestType } from '../../enum/TestType';
+import Language from '../../enum/Language';
 
 interface ITestsState {
 	type: TestType;
 	length: number;
 	startClicked: boolean;
+	languageToTest: Language;
 }
 
 const DEFAULT_TEST_LENGTH = 10;
@@ -19,10 +20,10 @@ export default class Tests extends Component<object, ITestsState> {
 		this.state = {
 			type: TestType.recent,
 			length: DEFAULT_TEST_LENGTH,
-			startClicked: false
+			startClicked: false,
+			// todo - set to the opposite of the add input language once the context is available
+			languageToTest: Language.CZECH
 		};
-
-		this.onTestTypeChanged = this.onTestTypeChanged.bind(this);
 	}
 
 	render() {
@@ -32,7 +33,7 @@ export default class Tests extends Component<object, ITestsState> {
 			default:
 				return (
 					<Redirect
-						to={`/test/${this.state.type}/${this.state.length}`}
+						to={`/test/${this.state.type}/${this.state.length}/${this.state.languageToTest}`}
 						push={true}
 					/>);
 		}
@@ -43,7 +44,25 @@ export default class Tests extends Component<object, ITestsState> {
 			<div>
 				{this.renderTestType()}
 				{this.renderTestLength()}
+				{this.renderLanguageToTest()}
 				{this.renderStartButton()}
+			</div>
+		);
+	}
+
+	renderLanguageToTest() {
+		return (
+			<div>
+				<div>Language to test</div>
+				<select
+					value={this.state.languageToTest}
+					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+						this.setState({languageToTest: event.target.value as Language});
+					}}
+				>
+					<option value={Language.ENGLISH}>English</option>
+					<option value={Language.CZECH}>Czech</option>
+				</select>
 			</div>
 		);
 	}
@@ -53,7 +72,10 @@ export default class Tests extends Component<object, ITestsState> {
 			<div>
 				<div>Test type</div>
 				<select
-					onChange={this.onTestTypeChanged}
+					value={this.state.type}
+					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
+						this.setState({type: event.target.value as TestType});
+					}}
 				>
 					<option	value={TestType.recent}>Recent</option>
 					<option	value={TestType.unknown}>Unknown</option>
@@ -68,7 +90,7 @@ export default class Tests extends Component<object, ITestsState> {
 	renderTestLength() {
 		return(
 			<div>
-				<div>Length</div>
+				<div>Maximum length of test</div>
 				<select
 					value={this.state.length}
 					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
@@ -85,12 +107,7 @@ export default class Tests extends Component<object, ITestsState> {
 
 	renderStartButton() {
 		return (
-			<button onClick={() => this.setState({startClicked: true})}>Start</button>
+			<button onClick={() => this.setState({startClicked: true})}>Start Test</button>
 		);
-	}
-
-	onTestTypeChanged(event: ChangeEvent<HTMLSelectElement>) {
-		const type = event.target.value as TestType;
-		this.setState({type: type});
 	}
 }
