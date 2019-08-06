@@ -1,5 +1,12 @@
 import { DbQueryController } from './DbQueryController';
-import { TestType } from '../../../client/src/enum/TestType';
+
+export enum TestType {
+	recent = 'recent',
+	unknown = 'unknown',
+	familiar = 'familiar',
+	known = 'known',
+	random = 'random'
+}
 
 export default class SelectTestLexemes extends DbQueryController {
 

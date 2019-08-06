@@ -70,6 +70,18 @@ gulp.task('compileTs', function() {
 		.js.pipe(gulp.dest("server/build"));
 });
 
+gulp.task('stashNodeModules', function(){
+	return gulpSSH
+		.shell([`mv ${process.env.CZAPP_PROD_PATH_TO_API_ROOT}/node_modules /tmp`])
+		.pipe(gulp.dest('logs'));
+});
+
+gulp.task('popNodeModules', function(){
+	return gulpSSH
+		.shell([`mv  /tmp/node_modules ${process.env.CZAPP_PROD_PATH_TO_API_ROOT}/`])
+		.pipe(gulp.dest('logs'));
+});
+
 gulp.task('cleanRemoteApi', function() {
 	return gulpSSH
 		.shell([`rm -rf ${process.env.CZAPP_PROD_PATH_TO_API_ROOT}/*`], {filePath: 'cleanRemoteApi.log'})
@@ -116,7 +128,15 @@ gulp.task('buildAndDeployProd', gulp.series([
 	'restartNodeServer'
 ]));
 
-
+gulp.task('buildAndDeployProdWithoutDeps', gulp.series([
+	'cleanBuildDir',
+	'compileTs',
+	'stashNodeModules',
+	'cleanRemoteApi',
+	'popNodeModules',
+	'deployApi',
+	'restartNodeServer'
+]));
 
 /*
 Database related tasks

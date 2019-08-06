@@ -10,9 +10,10 @@ export default abstract class Controller  {
 	protected res!: Response;
 	protected userId: string = 'anonymous user';
 	private readonly requireAuth: boolean;
-	private client = new OAuth2Client(GAPI_PROJECT_ID);
+	private client: typeof OAuth2Client;
 
 	protected constructor(requireAuth: boolean = true) {
+		this.client = new OAuth2Client(GAPI_PROJECT_ID);
 		this.requireAuth = requireAuth;
 		this.execute = this.execute.bind(this);
 		this.perform = this.perform.bind(this);
@@ -31,6 +32,9 @@ export default abstract class Controller  {
 					audience: GAPI_PROJECT_ID,
 				},
 				(err: Error | null, login: LoginTicket) => {
+					if (err)
+						return;
+
 					const payload = login.getPayload();
 					if (!payload || !payload.sub)
 						return this.fail(403, 'Invalid token');
