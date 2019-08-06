@@ -16,8 +16,8 @@ export default class InsertOrUpdateLexemePair extends DbQueryController {
 				+ `'${body.enText}','${body.enNotes}','${body.enType}','${body.enWordType}','${body.enPhraseType}', `
 				+ `'${body.pairingNotes}', '${body.ip}', '${this.userId}');` :
 
-			`CALL insertLexemePair('', '${body.czText}','${body.czNotes}','${body.czType}','${body.czWordType}',`
-				+ `'${body.czPhraseType}','${body.czGender}','${body.czVerbAspect}','','${body.enText}',`
+			`CALL insertLexemePair('${body.czText}','${body.czNotes}','${body.czType}','${body.czWordType}',`
+				+ `'${body.czPhraseType}','${body.czGender}','${body.czVerbAspect}','${body.enText}',`
 				+ `'${body.enNotes}','${body.enType}','${body.enWordType}','${body.enPhraseType}', `
 				+ `'${body.pairingNotes}', '${body.ip}', '${this.userId}', @insert_id);`;
 	}

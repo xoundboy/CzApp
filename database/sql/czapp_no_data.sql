@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `lexemes_cz`;
 CREATE TABLE `lexemes_cz` (
   `cz_id` int(11) NOT NULL AUTO_INCREMENT,
   `cz_ts` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `cz_text` text,
+  `cz_text` text CHARACTER SET utf8 COLLATE utf8_czech_ci,
   `cz_wordType` enum('NULL','NOUN','VERB','ADJECTIVE','ADVERB','PREPOSITION','GERUND','CONJUNCTION','PRONOUN') DEFAULT NULL,
   `cz_phraseType` enum('NULL','PROVERB','PHRASALVERB','MODALVERB','IDIOM','COLLOQUIALISM','OTHER') DEFAULT NULL,
   `cz_type` enum('WORD','PHRASE') DEFAULT NULL,
@@ -170,21 +170,19 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `insertLexemePair`(
 
-	IN  czId		 INT(10),
 	IN  czText       TEXT,
     IN  czNotes      TEXT,
-    IN  czType       ENUM('NULL', 'WORD', 'PHRASE'),
-    IN  czWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
-	IN  czPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
-    IN  czGender     ENUM('NULL', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
-    IN  czVerbAspect ENUM('NULL', 'PERFECTIVE', 'IMPERFECTIVE'),
+    IN  czType       ENUM('UNKNOWN', 'WORD', 'PHRASE'),
+    IN  czWordType   ENUM('UNKNOWN', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  czPhraseType ENUM('UNKNOWN', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+    IN  czGender     ENUM('UNKNOWN', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
+    IN  czVerbAspect ENUM('UNKNOWN', 'PERFECTIVE', 'IMPERFECTIVE'),
     
-    IN  enId		 INT(10),
     IN  enText       TEXT,
     IN  enNotes      TEXT,
-    IN  enType       ENUM('NULL', 'WORD', 'PHRASE'),
-	IN  enWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
-	IN  enPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+    IN  enType       ENUM('UNKNOWN', 'WORD', 'PHRASE'),
+	IN  enWordType   ENUM('UNKNOWN', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  enPhraseType ENUM('UNKNOWN', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
 	
 	IN  mapNotes     TEXT,
     IN  mapIp        VARCHAR(16),
@@ -195,62 +193,52 @@ BEGIN
 	DECLARE cz_id INT;
 	DECLARE en_id INT;
 	DECLARE pair_insert_id INT;
+
+	-- Insert the Czech version
+	INSERT INTO lexemes_cz (
+		cz_text, 
+		cz_wordType, 
+		cz_phraseType, 
+		cz_type, 
+		cz_gender, 
+		cz_verbAspect, 
+		cz_notes, 
+		cz_ip, 
+		cz_userId)
+		
+	VALUES (
+		czText,
+		czWordType, 
+		czPhraseType, 
+		czType, 
+		czGender, 
+		czVerbAspect, 
+		czNotes, 
+		mapIp, 
+		mapUserId);
+	
+	SET cz_id = LAST_INSERT_ID();
     
-    IF czId THEN 
-		SET cz_id = czId;
-        
-    ELSE
-		-- Insert the Czech version
-		INSERT INTO lexemes_cz (
-			cz_text, 
-            cz_wordType, 
-            cz_phraseType, 
-            cz_type, 
-            cz_gender, 
-            cz_verbAspect, 
-            cz_notes, 
-            cz_ip, 
-            cz_userId)
-            
-		VALUES (
-			czText,
-            czWordType, 
-            czPhraseType, 
-            czType, 
-            czGender, 
-            czVerbAspect, 
-            czNotes, 
-            mapIp, 
-            mapUserId);
-		
-        SET cz_id = LAST_INSERT_ID();
-	END IF;
+	-- Insert the English version
+	INSERT INTO lexemes_en (
+		en_text, 
+		en_wordType, 
+		en_phraseType, 
+		en_type, 
+		en_notes, 
+		en_ip, 
+		en_userId)
 
-    IF enId THEN 
-		SET en_id = enId;
-        
-	ELSE
-		-- Insert the English version
-		INSERT INTO lexemes_en (
-			en_text, 
-            en_wordType, 
-            en_phraseType, 
-            en_type, 
-            en_notes, 
-            en_ip, 
-            en_userId)
-
-		VALUES (
-			enText,
-            enWordType,
-            enPhraseType,
-			enType, 
-            enNotes, 
-            mapIp, 
-            mapUserId);
-		
-        SET en_id = LAST_INSERT_ID();
-	END IF;
+	VALUES (
+		enText,
+		enWordType,
+		enPhraseType,
+		enType, 
+		enNotes, 
+		mapIp, 
+		mapUserId);
+	
+	SET en_id = LAST_INSERT_ID();
 
 	-- Insert the mapping
 	INSERT INTO lexeme_map (
@@ -509,18 +497,18 @@ CREATE DEFINER=`czappDbUser`@`localhost` PROCEDURE `updateLexemePair`(
 	IN  czId		 INT(10),
 	IN  czText       TEXT,
     IN  czNotes      TEXT,
-    IN  czType       ENUM('NULL', 'WORD', 'PHRASE'),
-    IN  czWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
-	IN  czPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
-    IN  czGender     ENUM('NULL', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
-    IN  czVerbAspect ENUM('NULL', 'PERFECTIVE', 'IMPERFECTIVE'),
+    IN  czType       ENUM('UNKNOWN', 'WORD', 'PHRASE'),
+    IN  czWordType   ENUM('UNKNOWN', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  czPhraseType ENUM('UNKNOWN', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+    IN  czGender     ENUM('UNKNOWN', 'MASCULINE', 'MASCULINE_ANIMATUM', 'FEMININE', 'NEUTER'),
+    IN  czVerbAspect ENUM('UNKNOWN', 'PERFECTIVE', 'IMPERFECTIVE'),
     
     IN  enId		 INT(10),
     IN  enText       TEXT,
     IN  enNotes      TEXT,
-    IN  enType       ENUM('NULL', 'WORD', 'PHRASE'),
-	IN  enWordType   ENUM('NULL', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
-	IN  enPhraseType ENUM('NULL', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
+    IN  enType       ENUM('UNKNOWN', 'WORD', 'PHRASE'),
+	IN  enWordType   ENUM('UNKNOWN', 'NOUN', 'VERB', 'ADJECTIVE', 'ADVERB', 'PREPOSITION', 'GERUND', 'CONJUNCTION', 'PRONOUN'),
+	IN  enPhraseType ENUM('UNKNOWN', 'PROVERB', 'IDIOM', 'COLLOQUIALISM', 'OTHER'),
 	
 	IN  mapNotes     TEXT,
     IN  mapIp        VARCHAR(16),
@@ -606,4 +594,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-06 22:02:14
+-- Dump completed on 2019-08-06 23:49:13

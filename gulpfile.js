@@ -100,7 +100,8 @@ gulp.task('deployApi', function() {
 	return gulp
 		.src([
 			'server/build/**/*',
-			'server/package.json'
+			'server/package.json',
+			'database/sql/czapp_no_data.sql'
 		])
 		.pipe(gulpSSH.dest(process.env.CZAPP_PROD_PATH_TO_API_ROOT), {filePath: 'deployApi.log'});
 });
@@ -232,4 +233,10 @@ gulp.task('upgradeProd', gulp.series([
 	'deployProdClient',
 	'buildAndDeployProd',
 	'migrateProdDb'
+]));
+
+gulp.task('devToProdNoData', gulp.series([
+	'dumpNoData',
+	'buildAndDeployProdWithoutDeps',
+	'replaceDatabase'
 ]));

@@ -80,6 +80,8 @@ $ mysql -uroot -p
 mysql> create database <czapp_db_name>;
 mysql> grant all privileges on <czapp_db_name>.* to <czapp_db_user>@localhost identified by '<czapp_db_password>';
 ```
+Ensure that the character encoding of the database is UTF8 and use utf8_general_ci collation
+
 
 Install the database schema:
 ```
