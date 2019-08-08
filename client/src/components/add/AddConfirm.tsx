@@ -1,11 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
-import * as QueryString from 'querystring';
 import { Redirect } from 'react-router';
-import LexemePairPayload from '../../valueobject/LexemePairPayload';
-
-const backendBaseUrl = process.env.REACT_APP_CZAPP_BACKEND_BASE_URL;
+import SaveButton from '../generic/SaveButton';
 
 interface IAddConfirmState {
 	saveComplete: boolean;
@@ -68,55 +65,9 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 	renderSaveButton() {
 		return (
 			<div className="saveButtonContainer">
-				<button
-					onClick={() => {
-						const idToken = this.context.googleAuth.currentUser.get().getAuthResponse().id_token;
-						if (this.context.czechLexeme.text === '' && this.context.englishLexeme.text === '')
-							return;
-						const request = new XMLHttpRequest();
-						request.open('POST', `${backendBaseUrl}/lexemes`);
-						request.setRequestHeader('Authorization', idToken);
-						request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-						request.addEventListener('load', () => {
-
-							// todo - implement toast for confirmation of save
-							//alert('Save complete!');
-
-							this.context.onSaveCompleted();
-							this.setState({saveComplete: true});
-						});
-						request.send(QueryString.stringify(this.payload));
-					}}
-				>
-					{this.context.dictionary.BUTTON_SAVE}
-				</button>
+				<SaveButton/>
 			</div>
 		);
-	}
-
-	private get payload(): LexemePairPayload {
-
-		return {
-			idToken: this.context.googleAuth.currentUser.get().getAuthResponse().id_token,
-
-			czId: this.context.czechLexeme.id,
-			czText: this.context.czechLexeme.text,
-			czNotes: this.context.czechLexeme.notes,
-			czWordType: this.context.czechLexeme.wordType,
-			czPhraseType: this.context.czechLexeme.phraseType,
-			czType: this.context.czechLexeme.type,
-			czGender: this.context.czechLexeme.gender,
-			czVerbAspect: this.context.czechLexeme.verbAspect,
-
-			enId: this.context.englishLexeme.id,
-			enText: this.context.englishLexeme.text,
-			enNotes: this.context.englishLexeme.notes,
-			enWordType: this.context.englishLexeme.wordType,
-			enPhraseType: this.context.englishLexeme.phraseType,
-			enType: this.context.englishLexeme.type,
-
-			pairingNotes: this.context.pairingNotes
-		} as LexemePairPayload;
 	}
 
 	renderPairingNotes() {

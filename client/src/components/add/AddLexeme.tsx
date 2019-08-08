@@ -8,6 +8,7 @@ import { ChangeEvent } from 'react';
 import PhraseType from '../../enum/PhraseType';
 import WordType from '../../enum/WordType';
 import LexemeType from '../../enum/LexemeType';
+import SaveButton from '../generic/SaveButton';
 
 interface IAddLexemeState {
 	showMetadata: boolean;
@@ -58,8 +59,13 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 				{this.isSourceTextPopulated() && this.renderSwitchButton()}
 				{this.isTranslationPopulated() && this.renderSuggestButton()}
 				{this.isSourceTextPopulated() && this.renderShowOrHideMetaDataButton()}
+				{this.areBothPopulated() && this.renderSaveButton()}
 				{this.state.showMetadata && this.renderMetaData()}
 			</div>);
+	}
+
+	areBothPopulated() {
+		return !!this.context.englishLexeme.text && !!this.context.czechLexeme.text;
 	}
 
 	isSourceTextPopulated() {
@@ -71,6 +77,10 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	abstract renderTranslationText(): ReactElement<object>;
 
 	abstract renderTranslationLanguageInputIdentifier(): ReactElement<object>;
+
+	renderSaveButton() {
+		return (<SaveButton />);
+	}
 
 	renderTranslation() {
 		return (
