@@ -1,0 +1,15 @@
+#splashScreen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	#middleContainer {
+		text-align: center;
+		#appName {
+			margin-bottom: 20px;
+		}
+		#tagLine {
+			font-size: 14px;
+		}
+	}
+}
