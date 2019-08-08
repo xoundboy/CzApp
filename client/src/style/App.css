@@ -181,6 +181,8 @@ table {
       margin-bottom: 20px; }
     #splashScreen #middleContainer #tagLine {
       font-size: 14px; }
+    #splashScreen #middleContainer .buttons {
+      margin-top: 20px; }
 
 .add .translationText {
   border: solid 2px grey;
