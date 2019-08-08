@@ -1,0 +1,28 @@
+.section {
+	margin: 20px 0;
+}
+
+.startButton {
+	margin-top: 20px;
+}
+
+.languageIdentifier {
+	&.cz,
+	&.en {
+		height: 20px;
+		width: 38px;
+		background-size: contain;
+	}
+}
+
+.questionText, .answerText {
+	text-align: center;
+	margin: 30px 0;
+	padding: 20px;
+	border: 2px solid grey;
+	border-radius: 10px;
+}
+
+.familiarityButtons {
+	margin-top: 40px;
+}

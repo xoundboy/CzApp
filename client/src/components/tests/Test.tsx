@@ -57,11 +57,13 @@ export default class Test extends Component<ITestProps, ITestState> {
 
 	render() {
 		switch (this.state.status) {
+
 			case TestStatus.inProgress:
-				console.log(this.state.lexemes);
 				return this.renderCurrentLexeme();
+
 			case TestStatus.ended:
 				return this.renderResults();
+
 			default:
 				return null;
 		}
@@ -82,8 +84,12 @@ export default class Test extends Component<ITestProps, ITestState> {
 		const answerText = this.props.languageToTest === Language.ENGLISH ?
 			this.state.lexemes[this.state.currentIndex].englishLexeme.text :
 			this.state.lexemes[this.state.currentIndex].czechLexeme.text;
+
+		const language = this.props.languageToTest === Language.ENGLISH ? Language.ENGLISH : Language.CZECH;
+
 		return (
 			<div className="answerText">
+				{this.renderLanguageIdentifier(language)}
 				{answerText}
 				{this.renderFamiliarityButtons()}
 			</div>
@@ -139,8 +145,12 @@ export default class Test extends Component<ITestProps, ITestState> {
 		const questionText = this.props.languageToTest === Language.CZECH ?
 			this.state.lexemes[this.state.currentIndex].englishLexeme.text :
 			this.state.lexemes[this.state.currentIndex].czechLexeme.text;
+
+		const language = this.props.languageToTest === Language.ENGLISH ? Language.CZECH : Language.ENGLISH;
+
 		return (
 			<div className="questionText">
+				{this.renderLanguageIdentifier(language)}
 				{questionText}
 			</div>
 		);
@@ -152,5 +162,9 @@ export default class Test extends Component<ITestProps, ITestState> {
 
 	renderResults() {
 		return(<div>results</div>);
+	}
+
+	renderLanguageIdentifier(language: Language) {
+		return <div className={`languageIdentifier ${language}`} />;
 	}
 }

@@ -41,7 +41,7 @@ export default class Tests extends Component<object, ITestsState> {
 
 	renderIntroForm() {
 		return (
-			<div>
+			<div className="section">
 				{this.renderTestType()}
 				{this.renderTestLength()}
 				{this.renderLanguageToTest()}
@@ -52,7 +52,7 @@ export default class Tests extends Component<object, ITestsState> {
 
 	renderLanguageToTest() {
 		return (
-			<div>
+			<div className="section">
 				<div>Language to test</div>
 				<select
 					value={this.state.languageToTest}
@@ -69,7 +69,7 @@ export default class Tests extends Component<object, ITestsState> {
 
 	renderTestType() {
 		return (
-			<div>
+			<div className="section">
 				<div>Test type</div>
 				<select
 					value={this.state.type}
@@ -89,7 +89,7 @@ export default class Tests extends Component<object, ITestsState> {
 
 	renderTestLength() {
 		return(
-			<div>
+			<div className="section">
 				<div>Maximum length of test</div>
 				<select
 					value={this.state.length}
@@ -107,7 +107,7 @@ export default class Tests extends Component<object, ITestsState> {
 
 	renderStartButton() {
 		return (
-			<button onClick={() => this.setState({startClicked: true})}>Start Test</button>
+			<button className="startButton" onClick={() => this.setState({startClicked: true})}>Start Test</button>
 		);
 	}
 }
