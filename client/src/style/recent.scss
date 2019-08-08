@@ -1,0 +1,11 @@
+tr {
+	&.unknown {
+		background-color: #ffccd2;
+	}
+	&.familiar {
+		background-color: #fff4c9;
+	}
+	&.known {
+		background-color: #eaffe4;
+	}
+}

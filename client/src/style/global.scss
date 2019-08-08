@@ -88,9 +88,6 @@ table {
 			display: table;
 			width: 100%;
 			table-layout: fixed;
-			&:nth-child(even) {
-				background: lavender;
-			}
 
 			td {
 				padding: 6px;

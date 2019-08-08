@@ -1,0 +1,8 @@
+tr.unknown {
+  background-color: #ffccd2; }
+
+tr.familiar {
+  background-color: #fff4c9; }
+
+tr.known {
+  background-color: #eaffe4; }

@@ -53,7 +53,7 @@ export default class Tests extends Component<object, ITestsState> {
 	renderLanguageToTest() {
 		return (
 			<div className="section">
-				<div>Language to test</div>
+				<div className="sectionLabel">Language to test</div>
 				<select
 					value={this.state.languageToTest}
 					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
@@ -70,7 +70,7 @@ export default class Tests extends Component<object, ITestsState> {
 	renderTestType() {
 		return (
 			<div className="section">
-				<div>Test type</div>
+				<div className="sectionLabel">Test type</div>
 				<select
 					value={this.state.type}
 					onChange={(event: ChangeEvent<HTMLSelectElement>) => {
@@ -90,7 +90,7 @@ export default class Tests extends Component<object, ITestsState> {
 	renderTestLength() {
 		return(
 			<div className="section">
-				<div>Maximum length of test</div>
+				<div className="sectionLabel">Maximum length of test</div>
 				<select
 					value={this.state.length}
 					onChange={(event: ChangeEvent<HTMLSelectElement>) => {

@@ -40,6 +40,7 @@ export default class LexemePairRow extends Component<ILexemePairProps, ILexemePa
 								onClick={this.onLexemePairClicked}
 								data-en_id={this.props.data.englishLexeme.id}
 								data-cz_id={this.props.data.czechLexeme.id}
+								className={this.props.data.familiarity}
 							>
 								<td>
 									{this.props.data.englishLexeme.text}

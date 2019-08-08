@@ -37,6 +37,7 @@ export default class LexemePairParser {
 			output.ip = data.map_ip;
 			output.notes = data.map_notes;
 			output.userId = data.map_userId;
+			output.familiarity = data.map_familiarity;
 
 			return output;
 

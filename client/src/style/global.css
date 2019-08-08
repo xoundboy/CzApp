@@ -76,8 +76,6 @@ table {
       display: table;
       width: 100%;
       table-layout: fixed; }
-      table tbody tr:nth-child(even) {
-        background: lavender; }
       table tbody tr td {
         padding: 6px; }
 

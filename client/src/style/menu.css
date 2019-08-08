@@ -19,7 +19,7 @@
         display: block;
         text-align: left;
         text-decoration: none;
-        margin: 10px 0; }
+        margin: 30px 0; }
   .menuLayer.closed .menuButton {
     position: fixed;
     height: 30px;
