@@ -236,6 +236,7 @@ gulp.task('upgradeProd', gulp.series([
 ]));
 
 gulp.task('devToProdNoData', gulp.series([
+	'deployProdClient',
 	'dumpNoData',
 	'buildAndDeployProdWithoutDeps',
 	'replaceDatabase'
