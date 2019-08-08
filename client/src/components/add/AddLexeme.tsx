@@ -11,6 +11,7 @@ import LexemeType from '../../enum/LexemeType';
 
 interface IAddLexemeState {
 	showMetadata: boolean;
+	addTranslationButtonClicked: boolean;
 }
 
 export default abstract class AddLexeme extends Component<object, IAddLexemeState> {
@@ -33,7 +34,8 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 		super(props);
 
 		this.state = {
-			showMetadata: false
+			showMetadata: false,
+			addTranslationButtonClicked: false
 		};
 
 		this.onLexemeInputChanged = this.onLexemeInputChanged.bind(this);
@@ -53,13 +55,14 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 				{this.isTranslationPopulated() && this.renderTranslation()}
 				{this.renderLanguageInputIdentifier()}
 				{this.renderLexemeTextInput()}
+				{this.isSourceTextPopulated() && this.renderSwitchButton()}
 				{this.isTranslationPopulated() && this.renderSuggestButton()}
-				{this.shouldRenderMetaDataButton() && this.renderShowOrHideMetaDataButton()}
+				{this.isSourceTextPopulated() && this.renderShowOrHideMetaDataButton()}
 				{this.state.showMetadata && this.renderMetaData()}
 			</div>);
 	}
 
-	shouldRenderMetaDataButton() {
+	isSourceTextPopulated() {
 		return !!this.text;
 	}
 
@@ -123,12 +126,18 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 		) : null;
 	}
 
+	renderSwitchButton() {
+		return (
+			<button onClick={() => this.setState({addTranslationButtonClicked: true})}>
+				{/*// todo dictionary string*/}
+				&lt;-&gt;
+			</button>
+		);
+	}
+
 	renderShowOrHideMetaDataButton() {
 		return (
-			<button
-				onClick={() => {
-					return this.setState({showMetadata: !(this.state.showMetadata)}); }}
-			>
+			<button onClick={() => this.setState({showMetadata: !(this.state.showMetadata)})}>
 				{/*todo - dictionary string*/}
 				{(this.state.showMetadata) ? 'hide metadata' : 'show metadata'}
 			</button>

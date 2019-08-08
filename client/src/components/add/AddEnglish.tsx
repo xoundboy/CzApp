@@ -6,6 +6,7 @@ import LexemeType from '../../enum/LexemeType';
 import Language from '../../enum/Language';
 import WordType from '../../enum/WordType';
 import PhraseType from '../../enum/PhraseType';
+import { Redirect } from 'react-router';
 
 export default class AddEnglish extends AddLexeme {
 
@@ -15,6 +16,11 @@ export default class AddEnglish extends AddLexeme {
 	}
 
 	render() {
+		if (this.state.addTranslationButtonClicked)
+			return (
+				<Redirect push={true} to="/add/cz"/>
+			);
+
 		return (
 			<AppContextConsumer>
 				{(context) => {

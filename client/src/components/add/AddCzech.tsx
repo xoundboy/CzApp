@@ -8,6 +8,7 @@ import LexemeType from '../../enum/LexemeType';
 import CzVerbAspect from '../../enum/CzVerbAspect';
 import CzGender from '../../enum/CzGender';
 import PhraseType from '../../enum/PhraseType';
+import { Redirect } from 'react-router';
 
 export default class AddCzech extends AddLexeme {
 
@@ -19,6 +20,11 @@ export default class AddCzech extends AddLexeme {
 	}
 
 	render() {
+		if (this.state.addTranslationButtonClicked)
+			return (
+				<Redirect push={true} to="/add/en"/>
+			);
+
 		return (
 			<AppContextConsumer>
 				{(context) => {
