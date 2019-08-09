@@ -20,7 +20,6 @@ export interface IAppContext {
 	onCzechLexemeChanged: (value: CzechLexeme) => void;
 	onLexemePairEdited: (value: ILexemePair) => void;
 	onPairingNotesChanged: (value: string) => void;
-	onSaveCompleted: () => void;
 	onClearDataButtonClicked: () => void;
 }
 
@@ -39,7 +38,6 @@ const defaultContext = {
 	onCzechLexemeChanged: (value: CzechLexeme) => { return; },
 	onLexemePairEdited: (value: ILexemePair) => { return; },
 	onPairingNotesChanged: (value: string) => { return; },
-	onSaveCompleted: () => { return; },
 	onClearDataButtonClicked: () => { return; }
 };
 

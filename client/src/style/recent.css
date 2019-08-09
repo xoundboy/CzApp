@@ -6,3 +6,13 @@ tr.familiar {
 
 tr.known {
   background-color: #eaffe4; }
+
+.emptyDictionaryAlert {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .emptyDictionaryAlert .message,
+  .emptyDictionaryAlert .buttons {
+    text-align: center;
+    margin-bottom: 30px; }

@@ -65,7 +65,12 @@ export default class AddConfirm extends Component<object, IAddConfirmState> {
 	renderSaveButton() {
 		return (
 			<div className="saveButtonContainer">
-				<SaveButton/>
+				<SaveButton
+					onSaveCompleted={() => {
+						this.setState({saveComplete: true});
+					}}
+					onSaveError={() => null}
+				/>
 			</div>
 		);
 	}

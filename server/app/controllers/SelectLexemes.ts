@@ -9,6 +9,6 @@ export default class SelectLexemes extends DbQueryController {
 	}
 
 	getQuery(): string {
-		return `CALL selectRecentLexemes('${this.userId}',${RESULTSET_LENGTH},0);`;
+		return `CALL selectRecentLexemes('${this.sanitise(this.userId)}',${RESULTSET_LENGTH},0);`;
 	}
 }

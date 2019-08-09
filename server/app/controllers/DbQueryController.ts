@@ -10,7 +10,8 @@ export abstract class DbQueryController extends Controller {
 	protected abstract getQuery(): string;
 
 	protected perform() {
-		Mysql.createConnection().query(this.getQuery(), (error: Error, rows: any) => { // TODO can't use type any, must declare type for rows returned from query
+		// TODO can't use type any, must declare type for rows returned from query
+		Mysql.createConnection().query(this.getQuery(), (error: Error, rows: any) => {
 			if (error) {
 				this.res.header('Access-Control-Allow-Origin', '*');
 				this.res.status(500).send({ error: error });
@@ -19,5 +20,11 @@ export abstract class DbQueryController extends Controller {
 			this.res.header('Access-Control-Allow-Origin', '*');
 			this.res.json(rows);
 		});
+	}
+
+	protected sanitise (a: string) {
+		if (a === undefined)
+			return '';
+		return a.replace(/'/g, '\\\'');
 	}
 }

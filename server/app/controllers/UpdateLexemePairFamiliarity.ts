@@ -10,6 +10,6 @@ export default class UpdateLexemePairFamiliarity extends DbQueryController {
 		const czId = this.req.params.czId;
 		const enId = this.req.params.enId;
 		const familiarity = this.req.params.familiarity;
-		return `CALL updateLexemePairFamiliarity(${czId},${enId},'${familiarity}');`;
+		return `CALL updateLexemePairFamiliarity(${czId},${enId},'${this.sanitise(familiarity)}');`;
 	}
 }

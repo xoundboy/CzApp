@@ -68,10 +68,6 @@ export default class App extends Component<IAppProps, IAppContext> {
 				this.setState({pairingNotes: value});
 			},
 
-			onSaveCompleted: () => {
-				this.clearForm();
-			},
-
 			onClearDataButtonClicked: () => {
 				this.clearForm();
 			}

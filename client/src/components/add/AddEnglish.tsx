@@ -21,6 +21,9 @@ export default class AddEnglish extends AddLexeme {
 				<Redirect push={true} to="/add/cz"/>
 			);
 
+		if (this.state.saveButtonClicked)
+			return <Redirect push={true} to="/recent"/>;
+
 		return (
 			<AppContextConsumer>
 				{(context) => {

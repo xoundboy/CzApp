@@ -6,7 +6,12 @@ import LexemePairPayload from '../../valueobject/LexemePairPayload';
 
 const backendBaseUrl = process.env.REACT_APP_CZAPP_BACKEND_BASE_URL;
 
-export default class SaveButton extends Component<object, object> {
+interface ISaveButtonProps {
+	onSaveCompleted: () => void;
+	onSaveError: () => void;
+}
+
+export default class SaveButton extends Component<ISaveButtonProps> {
 
 	render() {
 		return (
@@ -44,15 +49,10 @@ export default class SaveButton extends Component<object, object> {
 							request.open('POST', `${backendBaseUrl}/lexemes`);
 							request.setRequestHeader('Authorization', idToken);
 							request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-							request.addEventListener('load', () => {
-
-								// todo - implement toast for confirmation of save
-								//alert('Save complete!');
-
-								context.onSaveCompleted();
-								this.setState({saveComplete: true});
-							});
+							request.addEventListener('load', () => this.props.onSaveCompleted());
+							request.addEventListener('error', () => this.props.onSaveError());
 							request.send(QueryString.stringify(payload));
+
 						}}
 					>
 						{context.dictionary.BUTTON_SAVE}

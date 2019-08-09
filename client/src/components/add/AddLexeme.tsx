@@ -13,6 +13,7 @@ import SaveButton from '../generic/SaveButton';
 interface IAddLexemeState {
 	showMetadata: boolean;
 	addTranslationButtonClicked: boolean;
+	saveButtonClicked: boolean;
 }
 
 export default abstract class AddLexeme extends Component<object, IAddLexemeState> {
@@ -36,7 +37,8 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 
 		this.state = {
 			showMetadata: false,
-			addTranslationButtonClicked: false
+			addTranslationButtonClicked: false,
+			saveButtonClicked: false
 		};
 
 		this.onLexemeInputChanged = this.onLexemeInputChanged.bind(this);
@@ -79,7 +81,12 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	abstract renderTranslationLanguageInputIdentifier(): ReactElement<object>;
 
 	renderSaveButton() {
-		return (<SaveButton />);
+		return (
+			<SaveButton
+				onSaveCompleted={() => this.setState({saveButtonClicked: true})}
+				onSaveError={() => null}
+			/>
+		);
 	}
 
 	renderTranslation() {

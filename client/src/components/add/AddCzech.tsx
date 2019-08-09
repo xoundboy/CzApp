@@ -21,9 +21,10 @@ export default class AddCzech extends AddLexeme {
 
 	render() {
 		if (this.state.addTranslationButtonClicked)
-			return (
-				<Redirect push={true} to="/add/en"/>
-			);
+			return <Redirect push={true} to="/add/en"/>;
+
+		if (this.state.saveButtonClicked)
+			return <Redirect push={true} to="/recent"/>;
 
 		return (
 			<AppContextConsumer>

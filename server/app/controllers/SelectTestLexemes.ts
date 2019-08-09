@@ -20,15 +20,15 @@ export default class SelectTestLexemes extends DbQueryController {
 
 		switch (testType) {
 			case TestType.recent:
-				return `CALL selectRecentLexemes('${this.userId}',${length},0);`;
+				return `CALL selectRecentLexemes('${this.sanitise(this.userId)}',${length},0);`;
 			case TestType.known:
-				return `CALL selectKnownLexemes('${this.userId}',${length},0);`;
+				return `CALL selectKnownLexemes('${this.sanitise(this.userId)}',${length},0);`;
 			case TestType.familiar:
-				return `CALL selectFamiliarLexemes('${this.userId}',${length},0);`;
+				return `CALL selectFamiliarLexemes('${this.sanitise(this.userId)}',${length},0);`;
 			case TestType.unknown:
-				return `CALL selectUnknownLexemes('${this.userId}',${length},0);`;
+				return `CALL selectUnknownLexemes('${this.sanitise(this.userId)}',${length},0);`;
 			case TestType.random:
-				return `CALL selectRandomLexemes('${this.userId}',${length});`;
+				return `CALL selectRandomLexemes('${this.sanitise(this.userId)}',${length});`;
 			default:
 				return '';
 		}
