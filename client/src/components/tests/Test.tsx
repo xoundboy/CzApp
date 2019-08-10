@@ -8,6 +8,7 @@ import Language from '../../enum/Language';
 import { Familiarity } from '../../enum/Familiarity';
 import { AppContextConsumer, IAppContext } from '../../AppContext';
 import EmptyDictionary from '../generic/EmptyDictionary';
+import Results from './Results';
 
 interface ITestProps {
 	type: TestType;
@@ -22,6 +23,12 @@ interface ITestState {
 	showButtonClicked: boolean;
 }
 
+export enum Progress {
+	worse,
+	none,
+	improved
+}
+
 enum TestStatus {
 	notStarted,
 	inProgress,
@@ -29,9 +36,19 @@ enum TestStatus {
 	emptyDictionary
 }
 
+export class Result {
+	lexemePair: LexemePair;
+	progress: Progress;
+	constructor(lexemePair: LexemePair, progress: Progress) {
+		this.lexemePair = lexemePair;
+		this.progress = progress;
+	}
+}
+
 export default class Test extends Component<ITestProps, ITestState> {
 
 	context: IAppContext;
+	results: Array<Result> = [];
 
 	constructor(props: ITestProps) {
 		super(props);
@@ -86,7 +103,6 @@ export default class Test extends Component<ITestProps, ITestState> {
 	}
 
 	renderCurrentLexeme() {
-
 		return(
 			<div>
 				{this.renderQuestionText()}
@@ -143,6 +159,7 @@ export default class Test extends Component<ITestProps, ITestState> {
 		const path = `lexemePair/${czId}/${enId}/${familiarity}`;
 		const method = 'PUT';
 
+		this.results.push(new Result(lexemePair, this.hasImproved(lexemePair.familiarity, familiarity)));
 		LoaderUtil.getData(path, method, (json: string) => {
 
 			const index = this.state.currentIndex;
@@ -155,6 +172,27 @@ export default class Test extends Component<ITestProps, ITestState> {
 					'showButtonClicked': false
 				});
 		});
+	}
+
+	hasImproved(before: Familiarity, after: Familiarity): Progress {
+
+		switch (before) {
+			case Familiarity.UNKNOWN:
+				return (after !== Familiarity.UNKNOWN) ? Progress.improved : Progress.none;
+
+			case Familiarity.FAMILIAR:
+				switch (after) {
+					case Familiarity.UNKNOWN:
+						return Progress.worse;
+					case Familiarity.FAMILIAR:
+						return Progress.none;
+					default:
+						return Progress.improved;
+				}
+
+			default:
+				return (after !== Familiarity.KNOWN) ? Progress.worse : Progress.none;
+		}
 	}
 
 	renderQuestionText() {
@@ -180,7 +218,7 @@ export default class Test extends Component<ITestProps, ITestState> {
 	}
 
 	renderResults() {
-		return(<div>results</div>);
+		return(<Results data={this.results} />);
 	}
 
 	renderLanguageIdentifier(language: Language) {
