@@ -46,7 +46,7 @@ export default class MenuLayer extends Component<object, IMenuLayerState> {
 						<nav className="menuItems">
 							{this.renderItem(`/add/${context.inputLanguage}`, context.dictionary.MENULABEL_ADD, true)}
 							{this.renderItem('/recent', context.dictionary.MENULABEL_RECENT)}
-							{this.renderItem('/search', context.dictionary.MENULABEL_SEARCH)}
+							{/*{this.renderItem('/search', context.dictionary.MENULABEL_SEARCH)}*/}
 							{this.renderItem('/tests', context.dictionary.MENULABEL_TESTS)}
 							{this.renderItem('/settings', context.dictionary.MENULABEL_SETTINGS)}
 						</nav>

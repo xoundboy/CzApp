@@ -146,8 +146,7 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	renderSwitchButton() {
 		return (
 			<button onClick={() => this.setState({addTranslationButtonClicked: true})}>
-				{/*// todo dictionary string*/}
-				&lt;-&gt;
+				{this.context.dictionary.BUTTON_SWITCH_LANGUAGES}
 			</button>
 		);
 	}
@@ -155,8 +154,9 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	renderShowOrHideMetaDataButton() {
 		return (
 			<button onClick={() => this.setState({showMetadata: !(this.state.showMetadata)})}>
-				{/*todo - dictionary string*/}
-				{(this.state.showMetadata) ? 'hide metadata' : 'show metadata'}
+				{(this.state.showMetadata)
+					? this.context.dictionary.BUTTON_HIDE_METADATA
+					: this.context.dictionary.BUTTON_SHOW_METADATA}
 			</button>
 		);
 	}

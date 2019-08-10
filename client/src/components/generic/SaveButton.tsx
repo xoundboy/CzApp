@@ -58,7 +58,6 @@ export default class SaveButton extends Component<ISaveButtonProps> {
 						{context.dictionary.BUTTON_SAVE}
 					</button>);
 				}}
-			</AppContextConsumer>
-		);
+			</AppContextConsumer>);
 	}
 }

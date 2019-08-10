@@ -6,6 +6,8 @@ import LoaderUtil from '../../util/LoaderUtil';
 import LexemePairCollectionParser from '../../parsers/LexemePairCollectionParser';
 import Language from '../../enum/Language';
 import { Familiarity } from '../../enum/Familiarity';
+import { AppContextConsumer, IAppContext } from '../../AppContext';
+import EmptyDictionary from '../generic/EmptyDictionary';
 
 interface ITestProps {
 	type: TestType;
@@ -23,10 +25,13 @@ interface ITestState {
 enum TestStatus {
 	notStarted,
 	inProgress,
-	ended
+	ended,
+	emptyDictionary
 }
 
 export default class Test extends Component<ITestProps, ITestState> {
+
+	context: IAppContext;
 
 	constructor(props: ITestProps) {
 		super(props);
@@ -46,27 +51,38 @@ export default class Test extends Component<ITestProps, ITestState> {
 	loadLexemes() {
 		const path = `lexemes/${this.props.type}/${this.props.length}`;
 		const method = 'GET';
-
 		LoaderUtil.getData(path, method, (json: string) => {
-			this.setState({
-				lexemes: LexemePairCollectionParser.parse(json[0]),
-				status: TestStatus.inProgress
-			});
+			const lexemes = LexemePairCollectionParser.parse(json[0]);
+			const status = (lexemes.length > 0) ? TestStatus.inProgress : TestStatus.emptyDictionary;
+			this.setState({lexemes: lexemes, status: status});
 		});
 	}
 
 	render() {
-		switch (this.state.status) {
+		return (
+			<AppContextConsumer>
+				{(context) => {
+					this.context = context;
+					switch (this.state.status) {
 
-			case TestStatus.inProgress:
-				return this.renderCurrentLexeme();
+						case TestStatus.inProgress:
+							return this.renderCurrentLexeme();
 
-			case TestStatus.ended:
-				return this.renderResults();
+						case TestStatus.ended:
+							return this.renderResults();
 
-			default:
-				return null;
-		}
+						case TestStatus.emptyDictionary:
+							return this.renderEmptyDictionary();
+
+						default:
+							return null;
+					}
+				}}
+			</AppContextConsumer>);
+	}
+
+	renderEmptyDictionary() {
+		return (<EmptyDictionary/>);
 	}
 
 	renderCurrentLexeme() {
@@ -99,9 +115,9 @@ export default class Test extends Component<ITestProps, ITestState> {
 	renderFamiliarityButtons() {
 		return(
 			<div className="familiarityButtons">
-				{this.renderFamiliarityButton(Familiarity.UNKNOWN, 'not even slightly')}
-				{this.renderFamiliarityButton(Familiarity.FAMILIAR, 'almost')}
-				{this.renderFamiliarityButton(Familiarity.KNOWN, 'got it!')}
+				{this.renderFamiliarityButton(Familiarity.UNKNOWN, this.context.dictionary.BUTTON_RATE_AS_UNKNOWN)}
+				{this.renderFamiliarityButton(Familiarity.FAMILIAR, this.context.dictionary.BUTTON_RATE_AS_FAMILIAR)}
+				{this.renderFamiliarityButton(Familiarity.KNOWN, this.context.dictionary.BUTTON_RATE_AS_KNOWN)}
 			</div>
 		);
 	}
@@ -157,7 +173,10 @@ export default class Test extends Component<ITestProps, ITestState> {
 	}
 
 	renderRevealButton() {
-		return(<button onClick={() => this.setState({'showButtonClicked': true})}>Reveal</button>);
+		return(
+			<button onClick={() => this.setState({'showButtonClicked': true})}>
+				{this.context.dictionary.BUTTON_REVEAL_ANSWER}
+			</button>);
 	}
 
 	renderResults() {

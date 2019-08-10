@@ -5,12 +5,10 @@ import ILexemePair from '../../api/ILexemePair';
 import LexemePairRow from './LexemePairRow';
 import LoaderUtil from '../../util/LoaderUtil';
 import LexemePairCollectionParser from '../../parsers/LexemePairCollectionParser';
-import { Redirect } from 'react-router';
+import EmptyDictionary from '../generic/EmptyDictionary';
 
 interface IRecentsState {
 	data: Array<ILexemePair>;
-	addEnglishButtonClicked: boolean;
-	addCzechButtonClicked: boolean;
 }
 
 export default class Recents extends Component<object, IRecentsState> {
@@ -20,8 +18,6 @@ export default class Recents extends Component<object, IRecentsState> {
 	constructor(props: object) {
 		super(props);
 		this.state = {
-			addEnglishButtonClicked: false,
-			addCzechButtonClicked: false,
 			data: null
 		};
 	}
@@ -31,12 +27,6 @@ export default class Recents extends Component<object, IRecentsState> {
 	}
 
 	render() {
-
-		if (this.state.addEnglishButtonClicked)
-			return (<Redirect to="/add/en" push={true}/>);
-
-		if (this.state.addCzechButtonClicked)
-			return (<Redirect to="/add/cz" push={true}/>);
 
 		return (
 			<AppContextConsumer>
@@ -61,16 +51,7 @@ export default class Recents extends Component<object, IRecentsState> {
 	}
 
 	renderNoRecords() {
-		return (
-			<div className="emptyDictionaryAlert">
-				<div className="middleContainer">
-				<div className="message">Dictionary empty</div>
-					<div className="buttons">
-						<button onClick={() => this.setState({addEnglishButtonClicked: true})}>Add English</button>
-						<button onClick={() => this.setState({addCzechButtonClicked: true})}>Add Czech</button>
-					</div>
-				</div>
-			</div>);
+		return (<EmptyDictionary/>);
 	}
 
 	renderRecords() {
