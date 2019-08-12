@@ -57,8 +57,8 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 			<div className={`view ${this.className}`} >
 				{this.isTranslationPopulated() && this.renderTranslation()}
 				{this.renderLanguageInputIdentifier()}
+				{this.renderSwitchButton()}
 				{this.renderLexemeTextInput()}
-				{this.isSourceTextPopulated() && this.renderSwitchButton()}
 				{this.isTranslationPopulated() && this.renderSuggestButton()}
 				{this.isSourceTextPopulated() && this.renderShowOrHideMetaDataButton()}
 				{this.areBothPopulated() && this.renderSaveButton()}
@@ -146,7 +146,7 @@ export default abstract class AddLexeme extends Component<object, IAddLexemeStat
 	renderSwitchButton() {
 		return (
 			<button onClick={() => this.setState({addTranslationButtonClicked: true})}>
-				{this.context.dictionary.BUTTON_SWITCH_LANGUAGES}
+				&lt;=&gt;&nbsp;{this.context.dictionary.BUTTON_SWITCH_LANGUAGES}
 			</button>
 		);
 	}

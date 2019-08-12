@@ -6,9 +6,11 @@ import LexemePairRow from './LexemePairRow';
 import LoaderUtil from '../../util/LoaderUtil';
 import LexemePairCollectionParser from '../../parsers/LexemePairCollectionParser';
 import EmptyDictionary from '../generic/EmptyDictionary';
+import { Redirect } from 'react-router';
 
 interface IRecentsState {
 	data: Array<ILexemePair>;
+	addButtonClicked: boolean;
 }
 
 export default class Recents extends Component<object, IRecentsState> {
@@ -18,7 +20,8 @@ export default class Recents extends Component<object, IRecentsState> {
 	constructor(props: object) {
 		super(props);
 		this.state = {
-			data: null
+			data: null,
+			addButtonClicked: false
 		};
 	}
 
@@ -27,11 +30,13 @@ export default class Recents extends Component<object, IRecentsState> {
 	}
 
 	render() {
-
 		return (
 			<AppContextConsumer>
 				{(context) => {
 					this.context = context;
+
+					if (this.state.addButtonClicked)
+						return (<Redirect to={`/add/${context.inputLanguage}`}/>);
 
 					if (!this.state.data)
 						return null;
@@ -47,7 +52,8 @@ export default class Recents extends Component<object, IRecentsState> {
 	}
 
 	renderTitle() {
-		return(<h1>{this.context.dictionary.PAGETITLE_RECENT}</h1>);
+		return(
+			<h1>{this.context.dictionary.PAGETITLE_RECENT}</h1>);
 	}
 
 	renderNoRecords() {
@@ -58,6 +64,7 @@ export default class Recents extends Component<object, IRecentsState> {
 		return (
 			<div>
 				{this.renderTitle()}
+				{this.renderAddButton()}
 				<table>
 					<thead>
 					<tr>
@@ -66,10 +73,16 @@ export default class Recents extends Component<object, IRecentsState> {
 					</tr>
 					</thead>
 					<tbody>
-					{this.state.data.map((recent, index) => <LexemePairRow data={recent} key={index} />)}
+						{this.state.data.map((recent, index) => <LexemePairRow data={recent} key={index} />)}
 					</tbody>
 				</table>
 			</div>
+		);
+	}
+
+	renderAddButton() {
+		return (
+			<button onClick={() => this.setState({addButtonClicked: true})}>+ add</button>
 		);
 	}
 
