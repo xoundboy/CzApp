@@ -82,7 +82,13 @@ export default class Recents extends Component<object, IRecentsState> {
 
 	renderAddButton() {
 		return (
-			<button onClick={() => this.setState({addButtonClicked: true})}>+ add</button>
+			<button
+				onClick={() => {
+					this.setState({addButtonClicked: true});
+					this.context.onClearDataButtonClicked();
+				}}
+			>+ add
+			</button>
 		);
 	}
 
