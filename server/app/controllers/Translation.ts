@@ -26,6 +26,7 @@ export class Translation extends Controller {
 		translate
 			.translate(this.req.body.q, options)
 			.then((results: any) => {
+				console.log(JSON.stringify(results));
 				this.res.header('Access-Control-Allow-Origin', '*')
 					.status(200).json({
 					data: {
@@ -37,6 +38,7 @@ export class Translation extends Controller {
 			})
 			.catch((err: Error) => {
 				console.error('ERROR:', err);
+				this.fail(500, JSON.stringify(err.stack));
 			});
 	}
 }

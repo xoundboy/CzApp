@@ -36,7 +36,11 @@ export default class SuggestButton extends Component<ISuggestButtonProps> {
 							})
 						})
 						.then((response) => response.json())
-						.then((myJson) => (this.props.onTranslationFetched(myJson.data.translations[0].translatedText)));
+						.then((myJson) => (this.props.onTranslationFetched(myJson.data.translations[0].translatedText)))
+						.catch((err: Error) => {
+							// tslint:disable-next-line:no-console
+							console.error('[SuggestButton]]:', err);
+						});
 				}}
 			>
 				{this.props.buttonLabel}
